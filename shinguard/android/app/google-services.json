@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "181687618966",
+    "project_id": "shinguard-5bc6c",
+    "storage_bucket": "shinguard-5bc6c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181687618966:android:d9682f954103f187e8a1b7",
+        "android_client_info": {
+          "package_name": "com.example.shinguard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7FcqeqraYf_E5SfLNPoU-EPCO4P_gj54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181687618966:android:a8af9853beee1a78e8a1b7",
+        "android_client_info": {
+          "package_name": "com.harry.shinguard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7FcqeqraYf_E5SfLNPoU-EPCO4P_gj54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
