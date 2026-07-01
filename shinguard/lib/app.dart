@@ -1,0 +1,111 @@
+import 'package:flutter/material.dart';
+
+import 'screens/care_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/stats_screen.dart';
+import 'screens/timeline_screen.dart';
+import 'theme/app_colors.dart';
+
+class ShinPulseApp extends StatelessWidget {
+  const ShinPulseApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'ShinPulse',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: AppColors.ink,
+        fontFamily: 'Avenir',
+        colorScheme: const ColorScheme.dark(
+          primary: AppColors.pulse,
+          secondary: AppColors.cyan,
+          surface: AppColors.panel,
+        ),
+      ),
+      home: const ShinPulseShell(),
+    );
+  }
+}
+
+class ShinPulseShell extends StatefulWidget {
+  const ShinPulseShell({super.key});
+
+  @override
+  State<ShinPulseShell> createState() => _ShinPulseShellState();
+}
+
+class _ShinPulseShellState extends State<ShinPulseShell> {
+  int _tabIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final pages = [
+      const HomeDashboard(),
+      const SessionTimelineScreen(),
+      const PerformanceScreen(),
+      const CareScreen(),
+      const ProfileScreen(),
+    ];
+
+    return Scaffold(
+      body: SafeArea(
+        bottom: false,
+        child: IndexedStack(index: _tabIndex, children: pages),
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: AppColors.deepInk,
+          border: Border(top: BorderSide(color: AppColors.line)),
+        ),
+        child: NavigationBar(
+          height: 74,
+          selectedIndex: _tabIndex,
+          backgroundColor: Colors.transparent,
+          indicatorColor: AppColors.pulse.withValues(alpha: .16),
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+          onDestinationSelected: (index) => setState(() => _tabIndex = index),
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_rounded),
+              selectedIcon: Icon(Icons.home_rounded, color: AppColors.pulse),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.timeline_rounded),
+              selectedIcon: Icon(
+                Icons.timeline_rounded,
+                color: AppColors.pulse,
+              ),
+              label: 'Timeline',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.insert_chart_outlined_rounded),
+              selectedIcon: Icon(
+                Icons.insert_chart_rounded,
+                color: AppColors.pulse,
+              ),
+              label: 'Stats',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.health_and_safety_rounded),
+              selectedIcon: Icon(
+                Icons.health_and_safety_rounded,
+                color: AppColors.pulse,
+              ),
+              label: 'Care',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person_rounded),
+              selectedIcon: Icon(Icons.person_rounded, color: AppColors.pulse),
+              label: 'Profile',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
