@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../data/firebase_data_repository.dart';
+import '../models/app_data.dart';
 import '../models/muscle_report.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
@@ -15,240 +17,131 @@ class CareScreen extends StatefulWidget {
 
 class _CareScreenState extends State<CareScreen> {
   int viewIndex = 0;
-
-  static const frontReports = [
-    MuscleReport(
-      label: 'Shin',
-      score: 8,
-      detail: 'Elevated impact load during sprint deceleration',
-      careTitle: 'Ice and unload for 24 hours',
-      careDetail:
-          'Apply ice for 15 minutes after training, avoid repeated hard cuts tomorrow, and complete a light ankle mobility warmup before returning to sprint work.',
-      polygons: [
-        [
-          Offset(.405, .705),
-          Offset(.452, .710),
-          Offset(.445, .880),
-          Offset(.420, .880),
-        ],
-        [
-          Offset(.548, .710),
-          Offset(.595, .705),
-          Offset(.580, .880),
-          Offset(.555, .880),
-        ],
-      ],
-    ),
-    MuscleReport(
-      label: 'Ankle',
-      score: 5,
-      detail: 'Moderate landing stiffness after direction changes',
-      careTitle: 'Add stability and landing work',
-      careDetail:
-          'Use a 6-minute balance routine, slow calf raises, and soft landing reps before the next session. Keep jumps and pivots moderate today.',
-      polygons: [
-        [
-          Offset(.392, .882),
-          Offset(.455, .882),
-          Offset(.450, .935),
-          Offset(.382, .932),
-        ],
-        [
-          Offset(.545, .882),
-          Offset(.608, .882),
-          Offset(.618, .932),
-          Offset(.550, .935),
-        ],
-      ],
-    ),
-    MuscleReport(
-      label: 'Quadricep',
-      score: 4,
-      detail: 'Balanced load, below weekly risk threshold',
-      careTitle: 'Maintain normal training load',
-      careDetail:
-          'Keep regular training, then add a short quad stretch and foam-roll pass after practice to preserve symmetry between legs.',
-      polygons: [
-        [
-          Offset(.370, .5),
-          Offset(.468, .5),
-          Offset(.448, .695),
-          Offset(.397, .700),
-          Offset(.382, .620),
-        ],
-        [
-          Offset(.532, .5),
-          Offset(.630, .5),
-          Offset(.618, .620),
-          Offset(.603, .700),
-          Offset(.552, .695),
-        ],
-      ],
-    ),
-  ];
-
-  static const backReports = [
-    MuscleReport(
-      label: 'Hamstring',
-      score: 6,
-      detail: 'Posterior chain fatigue is trending upward',
-      careTitle: 'Reduce max-speed sprint volume',
-      careDetail:
-          'Limit full-speed sprints for the next session, add eccentric hamstring bridges, and finish with gentle posterior-chain stretching.',
-      polygons: [
-        [
-          Offset(.360, .535),
-          Offset(.468, .535),
-          Offset(.446, .705),
-          Offset(.392, .705),
-        ],
-        [
-          Offset(.532, .535),
-          Offset(.640, .535),
-          Offset(.608, .705),
-          Offset(.554, .705),
-        ],
-      ],
-    ),
-    MuscleReport(
-      label: 'Calf',
-      score: 7,
-      detail: 'Repeated high-load pushes detected late session',
-      careTitle: 'Prioritize calf recovery',
-      careDetail:
-          'Use light compression, two sets of slow calf raises, and keep tomorrow to technical ball work instead of repeated acceleration drills.',
-      polygons: [
-        [
-          Offset(.380, .715),
-          Offset(.445, .715),
-          Offset(.450, .842),
-          Offset(.405, .842),
-        ],
-        [
-          Offset(.555, .715),
-          Offset(.620, .715),
-          Offset(.595, .842),
-          Offset(.550, .842),
-        ],
-      ],
-    ),
-    MuscleReport(
-      label: 'Achilles',
-      score: 3,
-      detail: 'Normal tendon load and recovery response',
-      careTitle: 'Continue tendon maintenance',
-      careDetail:
-          'No restriction needed. Keep the normal warmup and add gentle ankle circles after training to maintain tendon mobility.',
-      polygons: [
-        [
-          Offset(.420, .842),
-          Offset(.452, .842),
-          Offset(.450, .928),
-          Offset(.425, .928),
-        ],
-        [
-          Offset(.548, .842),
-          Offset(.580, .842),
-          Offset(.575, .928),
-          Offset(.550, .928),
-        ],
-      ],
-    ),
-  ];
+  final FirebaseDataRepository _repository = FirebaseDataRepository();
 
   @override
   Widget build(BuildContext context) {
     final isFront = viewIndex == 0;
-    final reports = isFront ? frontReports : backReports;
+    final view = isFront ? 'front' : 'back';
 
-    return AppScrollView(
-      children: [
-        const TopBar(
-          eyebrow: 'AI-powered prevention insights',
-          title: 'Injury Care',
-        ),
-        const SizedBox(height: 18),
-        const RiskScoreCard(),
-        const SectionHeader(title: 'Body Load Map'),
-        SegmentedButton<int>(
-          segments: const [
-            ButtonSegment(
-              value: 0,
-              label: Text('Front'),
-              icon: Icon(Icons.accessibility_new_rounded),
-            ),
-            ButtonSegment(
-              value: 1,
-              label: Text('Back'),
-              icon: Icon(Icons.accessibility_rounded),
-            ),
-          ],
-          selected: {viewIndex},
-          showSelectedIcon: false,
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.resolveWith(
-              (states) => states.contains(WidgetState.selected)
-                  ? AppColors.pulse
-                  : AppColors.panel,
-            ),
-            foregroundColor: WidgetStateProperty.resolveWith(
-              (states) => states.contains(WidgetState.selected)
-                  ? AppColors.ink
-                  : AppColors.muted,
-            ),
-            side: const WidgetStatePropertyAll(BorderSide.none),
-            textStyle: const WidgetStatePropertyAll(
-              TextStyle(fontWeight: FontWeight.w900),
-            ),
-          ),
-          onSelectionChanged: (value) {
-            setState(() => viewIndex = value.first);
-          },
-        ),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: panelDecoration(),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 5,
-                child: DiagramRiskMap(
-                  assetPath: isFront
-                      ? 'assets/DiagramFront.png'
-                      : 'assets/DiagramBack.png',
-                  reports: reports,
+    return StreamBuilder<UserAppData>(
+      stream: _repository.watchUserData(),
+      builder: (context, userSnapshot) {
+        if (userSnapshot.connectionState == ConnectionState.waiting) {
+          return const AppLoading();
+        }
+        if (userSnapshot.hasError || !userSnapshot.hasData) {
+          return const AppMessage(
+            title: 'Care data unavailable',
+            detail: 'Check your Firebase profile careRisk data.',
+            icon: Icons.cloud_off_rounded,
+          );
+        }
+
+        return StreamBuilder<List<MuscleReport>>(
+          stream: _repository.watchMuscleReports(view),
+          builder: (context, reportSnapshot) {
+            final reports = reportSnapshot.data ?? const <MuscleReport>[];
+            return AppScrollView(
+              children: [
+                const TopBar(
+                  eyebrow: 'AI-powered prevention insights',
+                  title: 'Injury Care',
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                flex: 4,
-                child: Column(
-                  children: reports
-                      .map(
-                        (report) => Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: RiskRow(
-                            report: report,
-                            onTap: () => _showReportSheet(context, report),
+                const SizedBox(height: 18),
+                RiskScoreCard(summary: userSnapshot.data!.care),
+                const SectionHeader(title: 'Body Load Map'),
+                SegmentedButton<int>(
+                  segments: const [
+                    ButtonSegment(
+                      value: 0,
+                      label: Text('Front'),
+                      icon: Icon(Icons.accessibility_new_rounded),
+                    ),
+                    ButtonSegment(
+                      value: 1,
+                      label: Text('Back'),
+                      icon: Icon(Icons.accessibility_rounded),
+                    ),
+                  ],
+                  selected: {viewIndex},
+                  showSelectedIcon: false,
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.resolveWith(
+                      (states) => states.contains(WidgetState.selected)
+                          ? AppColors.pulse
+                          : AppColors.panel,
+                    ),
+                    foregroundColor: WidgetStateProperty.resolveWith(
+                      (states) => states.contains(WidgetState.selected)
+                          ? AppColors.ink
+                          : AppColors.muted,
+                    ),
+                    side: const WidgetStatePropertyAll(BorderSide.none),
+                    textStyle: const WidgetStatePropertyAll(
+                      TextStyle(fontWeight: FontWeight.w900),
+                    ),
+                  ),
+                  onSelectionChanged: (value) {
+                    setState(() => viewIndex = value.first);
+                  },
+                ),
+                const SizedBox(height: 12),
+                if (reportSnapshot.connectionState == ConnectionState.waiting)
+                  const AppLoading()
+                else if (reports.isEmpty)
+                  const AppMessage(title: 'No muscle reports synced yet')
+                else
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: panelDecoration(),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 5, 4, 5),
+                            child: DiagramRiskMap(
+                              assetPath: isFront
+                                  ? 'assets/DiagramFront.png'
+                                  : 'assets/DiagramBack.png',
+                              reports: reports,
+                            ),
                           ),
                         ),
-                      )
-                      .toList(),
+                        Expanded(
+                          flex: 6,
+                          child: Column(
+                            children: reports
+                                .map(
+                                  (report) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: RiskRow(
+                                      report: report,
+                                      onTap: () =>
+                                          _showReportSheet(context, report),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                const SizedBox(height: 8),
+                Text(
+                  'Risk scale: safe green · caution yellow-orange · danger red',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.muted,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          'Risk scale: safe green · caution yellow-orange · danger red',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: AppColors.muted,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ],
+              ],
+            );
+          },
+        );
+      },
     );
   }
 
@@ -266,7 +159,9 @@ class _CareScreenState extends State<CareScreen> {
 }
 
 class RiskScoreCard extends StatelessWidget {
-  const RiskScoreCard({super.key});
+  const RiskScoreCard({required this.summary, super.key});
+
+  final CareSummary summary;
 
   @override
   Widget build(BuildContext context) {
@@ -286,17 +181,17 @@ class RiskScoreCard extends StatelessWidget {
             width: 76,
             height: 76,
             child: CustomPaint(
-              painter: RingPainter(.56, AppColors.gold),
-              child: const Center(
+              painter: RingPainter(summary.progress, AppColors.gold),
+              child: Center(
                 child: Text(
-                  '6',
+                  '${summary.score}',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
                 ),
               ),
             ),
           ),
           const SizedBox(width: 14),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -310,11 +205,11 @@ class RiskScoreCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Moderate',
+                  summary.level,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
                 ),
                 Text(
-                  'Right shin loading is above baseline. Active recovery recommended for 24h.',
+                  summary.detail,
                   style: TextStyle(
                     color: AppColors.softText,
                     height: 1.25,
@@ -384,7 +279,10 @@ class RiskRow extends StatelessWidget {
               Expanded(
                 child: Text(
                   report.label,
-                  style: const TextStyle(fontWeight: FontWeight.w900),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: MediaQuery.textScalerOf(context).scale(10),
+                  ),
                 ),
               ),
               Text(
@@ -392,6 +290,7 @@ class RiskRow extends StatelessWidget {
                 style: TextStyle(
                   color: report.color,
                   fontWeight: FontWeight.w900,
+                  fontSize: MediaQuery.textScalerOf(context).scale(10),
                 ),
               ),
               const SizedBox(width: 4),

@@ -1,84 +1,122 @@
 import 'package:flutter/material.dart';
 
+import '../data/firebase_data_repository.dart';
+import '../models/app_data.dart';
+import '../models/match_summary.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
 
 class HomeDashboard extends StatelessWidget {
-  const HomeDashboard({super.key});
+  HomeDashboard({super.key});
+
+  final FirebaseDataRepository _repository = FirebaseDataRepository();
 
   @override
   Widget build(BuildContext context) {
-    return AppScrollView(
+    return StreamBuilder<UserAppData>(
+      stream: _repository.watchUserData(),
+      builder: (context, userSnapshot) {
+        if (userSnapshot.connectionState == ConnectionState.waiting) {
+          return const AppLoading();
+        }
+        if (userSnapshot.hasError) {
+          return const AppMessage(
+            title: 'Dashboard unavailable',
+            detail: 'Check your Firebase permissions and user document.',
+            icon: Icons.cloud_off_rounded,
+          );
+        }
+        final data = userSnapshot.data;
+        if (data == null) {
+          return const AppMessage(title: 'No dashboard data yet');
+        }
+
+        return StreamBuilder<List<MatchSummary>>(
+          stream: _repository.watchMatches(),
+          builder: (context, matchSnapshot) {
+            final matches = matchSnapshot.data ?? const <MatchSummary>[];
+            final latestMatch = matches.isEmpty ? null : matches.first;
+            return AppScrollView(
+              children: [
+                TopBar(
+                  eyebrow: 'Welcome back',
+                  title: data.displayName,
+                  action: const PulseAvatar(),
+                ),
+                const SizedBox(height: 18),
+                ReadinessCard(readiness: data.readiness),
+                const SizedBox(height: 18),
+                _MetricRow(metrics: data.metrics.take(3).toList()),
+                const SectionHeader(title: 'Last Match', action: 'View all'),
+                if (matchSnapshot.connectionState == ConnectionState.waiting)
+                  const SizedBox(height: 148, child: AppLoading())
+                else if (latestMatch == null)
+                  const SizedBox(
+                    height: 148,
+                    child: AppMessage(title: 'No matches synced yet'),
+                  )
+                else
+                  MatchPreviewCard(match: latestMatch),
+                const SectionHeader(title: "Today's Tips", action: 'See all'),
+                SizedBox(
+                  height: 170,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data.tips.length,
+                    separatorBuilder: (_, _) => const SizedBox(width: 12),
+                    itemBuilder: (context, index) {
+                      final tip = data.tips[index];
+                      return TipCard(
+                        tag: tip.tag,
+                        title: tip.title,
+                        icon: tip.icon,
+                        color: tip.color,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+class _MetricRow extends StatelessWidget {
+  const _MetricRow({required this.metrics});
+
+  final List<DashboardMetric> metrics;
+
+  @override
+  Widget build(BuildContext context) {
+    if (metrics.isEmpty) {
+      return const AppMessage(title: 'No dashboard metrics synced yet');
+    }
+
+    return Row(
       children: [
-        const TopBar(
-          eyebrow: 'Welcome back',
-          title: 'Leo Martinez',
-          action: PulseAvatar(),
-        ),
-        const SizedBox(height: 18),
-        const ReadinessCard(),
-        const SizedBox(height: 18),
-        const Row(
-          children: [
-            Expanded(
-              child: MetricCard(
-                icon: Icons.directions_run_rounded,
-                label: 'km / week',
-                value: '7.2',
-                color: AppColors.pulse,
-              ),
+        for (var i = 0; i < metrics.length; i++) ...[
+          if (i > 0) const SizedBox(width: 10),
+          Expanded(
+            child: MetricCard(
+              icon: metrics[i].icon,
+              label: metrics[i].label,
+              value: metrics[i].value,
+              color: metrics[i].color,
             ),
-            SizedBox(width: 10),
-            Expanded(
-              child: MetricCard(
-                icon: Icons.speed_rounded,
-                label: 'top km/h',
-                value: '27.4',
-                color: AppColors.cyan,
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: MetricCard(
-                icon: Icons.sports_soccer_rounded,
-                label: 'touches',
-                value: '142',
-                color: AppColors.gold,
-              ),
-            ),
-          ],
-        ),
-        const SectionHeader(title: 'Last Match', action: 'View all'),
-        const MatchPreviewCard(),
-        const SectionHeader(title: "Today's Tips", action: 'See all'),
-        SizedBox(
-          height: 170,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: const [
-              TipCard(
-                tag: 'RECOVERY',
-                title: '3 stretches to protect your shins after games',
-                icon: Icons.self_improvement_rounded,
-                color: AppColors.gold,
-              ),
-              SizedBox(width: 12),
-              TipCard(
-                tag: 'TECHNIQUE',
-                title: 'Land softly: reduce impact force by 30%',
-                icon: Icons.sports_soccer_rounded,
-                color: AppColors.cyan,
-              ),
-            ],
           ),
-        ),
+        ],
       ],
     );
   }
 }
 
 class ReadinessCard extends StatelessWidget {
-  const ReadinessCard({super.key});
+  const ReadinessCard({required this.readiness, super.key});
+
+  final ReadinessData readiness;
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +135,8 @@ class ReadinessCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text(
-                'READINESS TODAY',
+              Text(
+                readiness.label,
                 style: TextStyle(
                   color: AppColors.softText,
                   fontSize: 12,
@@ -116,8 +154,8 @@ class ReadinessCard extends StatelessWidget {
                   color: Colors.white.withValues(alpha: .12),
                   borderRadius: BorderRadius.circular(999),
                 ),
-                child: const Text(
-                  'READY',
+                child: Text(
+                  readiness.status,
                   style: TextStyle(
                     color: AppColors.pulse,
                     fontWeight: FontWeight.w900,
@@ -128,11 +166,11 @@ class ReadinessCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          const Row(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                '87',
+                '${readiness.score}',
                 style: TextStyle(fontSize: 54, fontWeight: FontWeight.w900),
               ),
               Padding(
@@ -151,18 +189,18 @@ class ReadinessCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(999),
             child: LinearProgressIndicator(
-              value: .82,
+              value: readiness.progress,
               minHeight: 7,
               backgroundColor: Colors.white.withValues(alpha: .14),
               valueColor: const AlwaysStoppedAnimation(AppColors.cyan),
             ),
           ),
           const SizedBox(height: 8),
-          const Row(
+          Row(
             children: [
               Icon(Icons.flash_on_rounded, color: AppColors.softText, size: 14),
               Text(
-                'Recovered well',
+                readiness.detail,
                 style: TextStyle(
                   color: AppColors.softText,
                   fontWeight: FontWeight.w800,
@@ -170,7 +208,7 @@ class ReadinessCard extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                '82% recovery',
+                readiness.recoveryLabel,
                 style: TextStyle(
                   color: AppColors.softText,
                   fontWeight: FontWeight.w800,
@@ -227,7 +265,9 @@ class MetricCard extends StatelessWidget {
 }
 
 class MatchPreviewCard extends StatelessWidget {
-  const MatchPreviewCard({super.key});
+  const MatchPreviewCard({required this.match, super.key});
+
+  final MatchSummary match;
 
   @override
   Widget build(BuildContext context) {
@@ -244,10 +284,16 @@ class MatchPreviewCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          const Positioned(
+          Positioned(
             top: 0,
             left: 0,
-            child: StatusPill(label: 'WIN 3-1', icon: Icons.circle),
+            child: StatusPill(
+              label: [
+                match.result,
+                match.score,
+              ].where((item) => item.isNotEmpty).join(' '),
+              icon: Icons.circle,
+            ),
           ),
           const Positioned(
             right: 0,
@@ -258,7 +304,7 @@ class MatchPreviewCard extends StatelessWidget {
               child: Icon(Icons.play_arrow_rounded, color: AppColors.ink),
             ),
           ),
-          const Positioned(
+          Positioned(
             left: 0,
             bottom: 0,
             right: 0,
@@ -266,7 +312,7 @@ class MatchPreviewCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Eagles FC vs. Tigers U14',
+                  match.title,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
                 ),
                 SizedBox(height: 4),
@@ -278,7 +324,7 @@ class MatchPreviewCard extends StatelessWidget {
                       color: AppColors.softText,
                     ),
                     Text(
-                      ' 72 min  ',
+                      ' ${match.minutes} min  ',
                       style: TextStyle(color: AppColors.softText),
                     ),
                     Icon(
@@ -287,7 +333,7 @@ class MatchPreviewCard extends StatelessWidget {
                       color: AppColors.softText,
                     ),
                     Text(
-                      ' 9.4 km  ',
+                      ' ${match.distance}  ',
                       style: TextStyle(color: AppColors.softText),
                     ),
                     Icon(
@@ -296,7 +342,7 @@ class MatchPreviewCard extends StatelessWidget {
                       color: AppColors.softText,
                     ),
                     Text(
-                      ' 18 sprints',
+                      ' ${match.sprints} sprints',
                       style: TextStyle(color: AppColors.softText),
                     ),
                   ],

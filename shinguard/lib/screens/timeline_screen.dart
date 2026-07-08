@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/demo_data.dart';
+import '../data/firebase_data_repository.dart';
 import '../models/training_session.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
@@ -94,60 +94,89 @@ class SessionTimeline extends StatelessWidget {
 
 class _SessionTimelineScreenState extends State<SessionTimelineScreen> {
   int selectedSession = 0;
+  final FirebaseDataRepository _repository = FirebaseDataRepository();
 
   @override
   Widget build(BuildContext context) {
-    final session = sessions[selectedSession];
-    return AppScrollView(
-      children: [
-        const TopBar(
-          eyebrow: 'Selected session',
-          title: 'Timeline',
-          action: StatusPill(label: 'SYNCED', icon: Icons.sensors_rounded),
-        ),
-        const SizedBox(height: 16),
-        SizedBox(
-          height: 46,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              final item = sessions[index];
-              final selected = selectedSession == index;
-              return ChoiceChip(
-                selected: selected,
-                showCheckmark: false,
-                label: Text(item.shortName),
-                avatar: Icon(
-                  item.typeIcon,
-                  size: 16,
-                  color: selected ? AppColors.ink : AppColors.muted,
-                ),
-                selectedColor: AppColors.pulse,
-                backgroundColor: AppColors.panel,
-                labelStyle: TextStyle(
-                  color: selected ? AppColors.ink : AppColors.text,
-                  fontWeight: FontWeight.w800,
-                ),
-                side: BorderSide.none,
-                onSelected: (_) => setState(() => selectedSession = index),
-              );
-            },
-            separatorBuilder: (_, _) => const SizedBox(width: 8),
-            itemCount: sessions.length,
-          ),
-        ),
-        const SizedBox(height: 12),
-        TimelineHero(session: session),
-        const SizedBox(height: 18),
-        Text(
-          'Recorded Events',
-          style: Theme.of(
-            context,
-          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w900),
-        ),
-        const SizedBox(height: 12),
-        SessionTimeline(session: session),
-      ],
+    return StreamBuilder<List<TrainingSession>>(
+      stream: _repository.watchSessions(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const AppLoading();
+        }
+        if (snapshot.hasError) {
+          return const AppMessage(
+            title: 'Timeline unavailable',
+            detail: 'Check the sessions collection for this user.',
+            icon: Icons.cloud_off_rounded,
+          );
+        }
+
+        final sessions = snapshot.data ?? const <TrainingSession>[];
+        if (sessions.isEmpty) {
+          return const AppMessage(title: 'No sessions synced yet');
+        }
+
+        final boundedIndex = selectedSession
+            .clamp(0, sessions.length - 1)
+            .toInt();
+        final session = sessions[boundedIndex];
+        if (boundedIndex != selectedSession) {
+          selectedSession = boundedIndex;
+        }
+
+        return AppScrollView(
+          children: [
+            const TopBar(
+              eyebrow: 'Selected session',
+              title: 'Timeline',
+              action: StatusPill(label: 'SYNCED', icon: Icons.sensors_rounded),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              height: 46,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  final item = sessions[index];
+                  final selected = selectedSession == index;
+                  return ChoiceChip(
+                    selected: selected,
+                    showCheckmark: false,
+                    label: Text(item.shortName),
+                    avatar: Icon(
+                      item.typeIcon,
+                      size: 16,
+                      color: selected ? AppColors.ink : AppColors.muted,
+                    ),
+                    selectedColor: AppColors.pulse,
+                    backgroundColor: AppColors.panel,
+                    labelStyle: TextStyle(
+                      color: selected ? AppColors.ink : AppColors.text,
+                      fontWeight: FontWeight.w800,
+                    ),
+                    side: BorderSide.none,
+                    onSelected: (_) => setState(() => selectedSession = index),
+                  );
+                },
+                separatorBuilder: (_, _) => const SizedBox(width: 8),
+                itemCount: sessions.length,
+              ),
+            ),
+            const SizedBox(height: 12),
+            TimelineHero(session: session),
+            const SizedBox(height: 18),
+            Text(
+              'Recorded Events',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w900),
+            ),
+            const SizedBox(height: 12),
+            SessionTimeline(session: session),
+          ],
+        );
+      },
     );
   }
 }

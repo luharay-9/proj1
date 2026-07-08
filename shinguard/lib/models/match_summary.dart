@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../data/firestore_mapping.dart';
+
 class MatchSummary {
   const MatchSummary({
     required this.title,
@@ -26,4 +28,20 @@ class MatchSummary {
   final int sprints;
   final int scoreValue;
   final Color color;
+
+  factory MatchSummary.fromMap(Map<String, dynamic> map) {
+    return MatchSummary(
+      title: stringFromMap(map, 'title', 'Match'),
+      date: stringFromMap(map, 'date', ''),
+      minutes: intFromMap(map, 'minutes', 0),
+      position: stringFromMap(map, 'position', ''),
+      result: stringFromMap(map, 'result', ''),
+      score: stringFromMap(map, 'score', ''),
+      distance: stringFromMap(map, 'distance', ''),
+      speed: stringFromMap(map, 'speed', ''),
+      sprints: intFromMap(map, 'sprints', 0),
+      scoreValue: intFromMap(map, 'scoreValue', 0),
+      color: colorFromValue(map['color']),
+    );
+  }
 }

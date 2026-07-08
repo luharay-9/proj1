@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>181687618966-uqolatrueh26mg656apkpdacduprl7je.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.181687618966-uqolatrueh26mg656apkpdacduprl7je</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCmWe-05IKMqh_2XjqdnfyXw0PSpqFylt4</string>
 	<key>GCM_SENDER_ID</key>
@@ -9,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.shinguard</string>
+	<string>com.harry.shinguard</string>
 	<key>PROJECT_ID</key>
 	<string>shinguard-5bc6c</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:181687618966:ios:375192c9680455d8e8a1b7</string>
+	<string>1:181687618966:ios:e08087e8ee6c1ce7e8a1b7</string>
 </dict>
 </plist>

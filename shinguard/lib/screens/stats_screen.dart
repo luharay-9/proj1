@@ -2,7 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../data/demo_data.dart';
+import '../data/firebase_data_repository.dart';
+import '../models/app_data.dart';
 import '../models/match_summary.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
@@ -16,57 +17,89 @@ class PerformanceScreen extends StatefulWidget {
 
 class _PerformanceScreenState extends State<PerformanceScreen> {
   int rangeIndex = 2;
+  final FirebaseDataRepository _repository = FirebaseDataRepository();
 
   @override
   Widget build(BuildContext context) {
-    return AppScrollView(
-      children: [
-        const TopBar(eyebrow: 'Past year · 46 sessions', title: 'Performance'),
-        const SizedBox(height: 18),
-        SegmentedButton<int>(
-          segments: const [
-            ButtonSegment(value: 0, label: Text('Week')),
-            ButtonSegment(value: 1, label: Text('Month')),
-            ButtonSegment(value: 2, label: Text('Year')),
-          ],
-          selected: {rangeIndex},
-          showSelectedIcon: false,
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.resolveWith(
-              (states) => states.contains(WidgetState.selected)
-                  ? AppColors.pulse
-                  : AppColors.panel,
-            ),
-            foregroundColor: WidgetStateProperty.resolveWith(
-              (states) => states.contains(WidgetState.selected)
-                  ? AppColors.ink
-                  : AppColors.muted,
-            ),
-            side: const WidgetStatePropertyAll(BorderSide.none),
-            textStyle: const WidgetStatePropertyAll(
-              TextStyle(fontWeight: FontWeight.w900),
-            ),
-          ),
-          onSelectionChanged: (value) {
-            setState(() => rangeIndex = value.first);
+    return StreamBuilder<UserAppData>(
+      stream: _repository.watchUserData(),
+      builder: (context, userSnapshot) {
+        if (userSnapshot.connectionState == ConnectionState.waiting) {
+          return const AppLoading();
+        }
+        if (userSnapshot.hasError || !userSnapshot.hasData) {
+          return const AppMessage(
+            title: 'Performance unavailable',
+            detail: 'Check your Firebase profile performance data.',
+            icon: Icons.cloud_off_rounded,
+          );
+        }
+
+        final performance = userSnapshot.data!.performance;
+        return StreamBuilder<List<MatchSummary>>(
+          stream: _repository.watchMatches(),
+          builder: (context, matchSnapshot) {
+            final matches = matchSnapshot.data ?? const <MatchSummary>[];
+            return AppScrollView(
+              children: [
+                TopBar(eyebrow: performance.eyebrow, title: 'Performance'),
+                const SizedBox(height: 18),
+                SegmentedButton<int>(
+                  segments: const [
+                    ButtonSegment(value: 0, label: Text('Week')),
+                    ButtonSegment(value: 1, label: Text('Month')),
+                    ButtonSegment(value: 2, label: Text('Year')),
+                  ],
+                  selected: {rangeIndex},
+                  showSelectedIcon: false,
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.resolveWith(
+                      (states) => states.contains(WidgetState.selected)
+                          ? AppColors.pulse
+                          : AppColors.panel,
+                    ),
+                    foregroundColor: WidgetStateProperty.resolveWith(
+                      (states) => states.contains(WidgetState.selected)
+                          ? AppColors.ink
+                          : AppColors.muted,
+                    ),
+                    side: const WidgetStatePropertyAll(BorderSide.none),
+                    textStyle: const WidgetStatePropertyAll(
+                      TextStyle(fontWeight: FontWeight.w900),
+                    ),
+                  ),
+                  onSelectionChanged: (value) {
+                    setState(() => rangeIndex = value.first);
+                  },
+                ),
+                const SizedBox(height: 18),
+                TrendCard(
+                  title: 'DISTANCE RUN',
+                  value: performance.distanceRun,
+                  unit: performance.distanceUnit,
+                  delta: performance.distanceDelta,
+                  points: performance.trendPoints,
+                ),
+                const SizedBox(height: 20),
+                const SectionTitle('Sprint Zones'),
+                SprintZonesCard(
+                  total: performance.sprintTotal,
+                  zones: performance.sprintZones,
+                ),
+                const SizedBox(height: 20),
+                const SectionTitle('Year History'),
+                const SizedBox(height: 10),
+                if (matchSnapshot.connectionState == ConnectionState.waiting)
+                  const AppLoading()
+                else if (matches.isEmpty)
+                  const AppMessage(title: 'No match history synced yet')
+                else
+                  ...matches.map((match) => HistoryCard(match: match)),
+              ],
+            );
           },
-        ),
-        const SizedBox(height: 18),
-        const TrendCard(
-          title: 'DISTANCE RUN',
-          value: '641.8',
-          unit: 'km',
-          delta: '+22%',
-          points: [18, 25, 28, 36, 44, 41, 47, 50, 49, 56, 62, 68],
-        ),
-        const SizedBox(height: 20),
-        const SectionTitle('Sprint Zones'),
-        const SprintZonesCard(),
-        const SizedBox(height: 20),
-        const SectionTitle('Year History'),
-        const SizedBox(height: 10),
-        ...yearSessions.map((match) => HistoryCard(match: match)),
-      ],
+        );
+      },
     );
   }
 }
@@ -90,7 +123,7 @@ class TrendCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 178,
+      height: MediaQuery.of(context).size.height * 0.23,
       padding: const EdgeInsets.all(18),
       decoration: panelDecoration(),
       child: Column(
@@ -162,7 +195,10 @@ class TrendCard extends StatelessWidget {
 }
 
 class SprintZonesCard extends StatelessWidget {
-  const SprintZonesCard({super.key});
+  const SprintZonesCard({required this.total, required this.zones, super.key});
+
+  final int total;
+  final List<SprintZoneData> zones;
 
   @override
   Widget build(BuildContext context) {
@@ -175,13 +211,13 @@ class SprintZonesCard extends StatelessWidget {
             width: 112,
             height: 112,
             child: CustomPaint(
-              painter: DonutPainter(),
-              child: const Center(
+              painter: DonutPainter(zones),
+              child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      '240',
+                      '$total',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w900,
@@ -201,13 +237,17 @@ class SprintZonesCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 20),
-          const Expanded(
+          Expanded(
             child: Column(
-              children: [
-                LegendRow(color: AppColors.pulse, label: 'Low', value: '128'),
-                LegendRow(color: AppColors.gold, label: 'Medium', value: '82'),
-                LegendRow(color: AppColors.red, label: 'High', value: '30'),
-              ],
+              children: zones
+                  .map(
+                    (zone) => LegendRow(
+                      color: zone.color,
+                      label: zone.label,
+                      value: '${zone.value}',
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ],
@@ -348,12 +388,16 @@ class LineChartPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (points.length < 2) {
+      return;
+    }
     final minValue = points.reduce(math.min);
     final maxValue = points.reduce(math.max);
+    final spread = maxValue - minValue;
     final path = Path();
     for (var i = 0; i < points.length; i++) {
       final x = i / (points.length - 1) * size.width;
-      final normalized = (points[i] - minValue) / (maxValue - minValue);
+      final normalized = spread == 0 ? .5 : (points[i] - minValue) / spread;
       final y = size.height - normalized * size.height * .82 - 6;
       if (i == 0) {
         path.moveTo(x, y);
@@ -389,27 +433,33 @@ class LineChartPainter extends CustomPainter {
 }
 
 class DonutPainter extends CustomPainter {
+  DonutPainter(this.zones);
+
+  final List<SprintZoneData> zones;
+
   @override
   void paint(Canvas canvas, Size size) {
+    if (zones.isEmpty) {
+      return;
+    }
     final rect = Offset.zero & size;
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 16
       ..strokeCap = StrokeCap.butt;
-    final segments = [
-      (AppColors.pulse, .53),
-      (AppColors.gold, .34),
-      (AppColors.red, .13),
-    ];
+    final total = zones.fold(0, (sum, zone) => sum + zone.value);
     var start = -math.pi / 2;
-    for (final segment in segments) {
-      paint.color = segment.$1;
-      final sweep = math.pi * 2 * segment.$2;
+    for (final zone in zones) {
+      paint.color = zone.color;
+      final sweep =
+          math.pi * 2 * (total == 0 ? 1 / zones.length : zone.value / total);
       canvas.drawArc(rect.deflate(12), start, sweep, false, paint);
       start += sweep;
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant DonutPainter oldDelegate) {
+    return oldDelegate.zones != zones;
+  }
 }

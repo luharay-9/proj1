@@ -198,3 +198,59 @@ class IconBadge extends StatelessWidget {
     );
   }
 }
+
+class AppLoading extends StatelessWidget {
+  const AppLoading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: CircularProgressIndicator(color: AppColors.pulse),
+    );
+  }
+}
+
+class AppMessage extends StatelessWidget {
+  const AppMessage({
+    required this.title,
+    this.detail,
+    this.icon = Icons.info_rounded,
+    super.key,
+  });
+
+  final String title;
+  final String? detail;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: AppColors.pulse, size: 42),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+            ),
+            if (detail != null) ...[
+              const SizedBox(height: 8),
+              Text(
+                detail!,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: AppColors.muted,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}

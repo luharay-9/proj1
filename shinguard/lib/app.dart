@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/care_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/stats_screen.dart';
 import 'screens/timeline_screen.dart';
+import 'screens/verify_email_screen.dart';
+import 'shared/shared_widgets.dart';
 import 'theme/app_colors.dart';
 
 class ShinPulseApp extends StatelessWidget {
@@ -26,7 +30,51 @@ class ShinPulseApp extends StatelessWidget {
           surface: AppColors.panel,
         ),
       ),
-      home: const ShinPulseShell(),
+      home: const AuthGate(),
+    );
+  }
+}
+
+class AuthGate extends StatefulWidget {
+  const AuthGate({super.key});
+
+  @override
+  State<AuthGate> createState() => _AuthGateState();
+}
+
+class _AuthGateState extends State<AuthGate> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.userChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(body: AppLoading());
+        }
+
+        final user = snapshot.data;
+        if (user != null && user.emailVerified) {
+          return const KeyedSubtree(
+            key: ValueKey('authenticated-shell'),
+            child: ShinPulseShell(),
+          );
+        }
+
+        if (user != null) {
+          return KeyedSubtree(
+            key: const ValueKey('verify-email-screen'),
+            child: VerifyEmailScreen(
+              user: user,
+              onVerified: () => setState(() {}),
+            ),
+          );
+        }
+
+        return const KeyedSubtree(
+          key: ValueKey('login-screen'),
+          child: LoginScreen(),
+        );
+      },
     );
   }
 }
@@ -44,11 +92,11 @@ class _ShinPulseShellState extends State<ShinPulseShell> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      const HomeDashboard(),
+      HomeDashboard(),
       const SessionTimelineScreen(),
       const PerformanceScreen(),
       const CareScreen(),
-      const ProfileScreen(),
+      ProfileScreen(),
     ];
 
     return Scaffold(
