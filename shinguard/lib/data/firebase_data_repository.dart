@@ -67,6 +67,15 @@ class FirebaseDataRepository {
       'email': email,
       'displayName': displayName.isEmpty ? 'Player' : displayName,
       'profileSubtitle': '',
+      'onboardingComplete': false,
+      'athleteProfile': {
+        'dominantFoot': '',
+        'position': '',
+        'height': '',
+        'weight': '',
+        'club': '',
+        'ageGroup': '',
+      },
       'matches': 0,
       'goals': 0,
       'avgScore': 0,
@@ -90,6 +99,9 @@ class FirebaseDataRepository {
         'battery': 0,
         'batteryLabel': '',
         'timeRemaining': '',
+        'remoteId': '',
+        'connected': false,
+        'lastSeen': '',
       },
       'performance': {
         'eyebrow': 'Performance',
@@ -106,6 +118,84 @@ class FirebaseDataRepository {
         'level': 'Syncing',
         'detail': 'Waiting for synced care data.',
       },
+    }, SetOptions(merge: true));
+  }
+
+  Future<void> saveOnboardingAnswers(Map<String, String> answers) async {
+    final profileSubtitle = [
+      answers['ageGroup'],
+      answers['position'],
+      answers['club'],
+    ].where((value) => value != null && value.isNotEmpty).join(' · ');
+
+    await _userDoc.set({
+      'onboardingComplete': true,
+      'profileSubtitle': profileSubtitle,
+      'athleteProfile': answers,
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
+  Future<void> updateAthleteProfile(Map<String, String> answers) async {
+    final profileSubtitle = [
+      answers['ageGroup'],
+      answers['position'],
+      answers['club'],
+    ].where((value) => value != null && value.isNotEmpty).join(' · ');
+
+    await _userDoc.set({
+      'profileSubtitle': profileSubtitle,
+      'athleteProfile': answers,
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
+  Future<void> saveDeviceConnection({
+    required String remoteId,
+    required String name,
+    bool connected = true,
+  }) async {
+    await _userDoc.set({
+      'device': {
+        'name': name,
+        'status': connected ? 'Connected' : 'Saved',
+        'firmware': 'CircuitPython 10',
+        'battery': 0,
+        'batteryLabel': '',
+        'timeRemaining': '',
+        'remoteId': remoteId,
+        'connected': connected,
+        'lastSeen': DateTime.now().toIso8601String(),
+      },
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
+  Future<void> markDeviceDisconnected() async {
+    await _userDoc.set({
+      'device': {
+        'connected': false,
+        'status': 'Disconnected',
+        'lastSeen': DateTime.now().toIso8601String(),
+      },
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
+  Future<void> removeDevice() async {
+    await _userDoc.set({
+      'device': {
+        'name': '',
+        'status': '',
+        'firmware': '',
+        'battery': 0,
+        'batteryLabel': '',
+        'timeRemaining': '',
+        'remoteId': '',
+        'connected': false,
+        'lastSeen': '',
+      },
+      'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
 

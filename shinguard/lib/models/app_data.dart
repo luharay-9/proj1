@@ -7,6 +7,9 @@ class UserAppData {
   const UserAppData({
     required this.displayName,
     required this.profileSubtitle,
+    required this.email,
+    required this.onboardingComplete,
+    required this.athleteProfile,
     required this.matches,
     required this.goals,
     required this.avgScore,
@@ -21,6 +24,9 @@ class UserAppData {
 
   final String displayName;
   final String profileSubtitle;
+  final String email;
+  final bool onboardingComplete;
+  final AthleteProfile athleteProfile;
   final int matches;
   final int goals;
   final int avgScore;
@@ -36,6 +42,9 @@ class UserAppData {
     return UserAppData(
       displayName: stringFromMap(map, 'displayName', 'Player'),
       profileSubtitle: stringFromMap(map, 'profileSubtitle', ''),
+      email: stringFromMap(map, 'email', ''),
+      onboardingComplete: boolFromMap(map, 'onboardingComplete', false),
+      athleteProfile: AthleteProfile.fromMap(_nestedMap(map['athleteProfile'])),
       matches: intFromMap(map, 'matches', 0),
       goals: intFromMap(map, 'goals', 0),
       avgScore: intFromMap(map, 'avgScore', 0),
@@ -51,6 +60,52 @@ class UserAppData {
       performance: PerformanceData.fromMap(_nestedMap(map['performance'])),
       care: CareSummary.fromMap(_nestedMap(map['careRisk'])),
     );
+  }
+}
+
+class AthleteProfile {
+  const AthleteProfile({
+    required this.dominantFoot,
+    required this.position,
+    required this.height,
+    required this.weight,
+    required this.club,
+    required this.ageGroup,
+  });
+
+  final String dominantFoot;
+  final String position;
+  final String height;
+  final String weight;
+  final String club;
+  final String ageGroup;
+
+  factory AthleteProfile.fromMap(Map<String, dynamic> map) {
+    return AthleteProfile(
+      dominantFoot: stringFromMap(map, 'dominantFoot', ''),
+      position: stringFromMap(map, 'position', ''),
+      height: stringFromMap(map, 'height', ''),
+      weight: stringFromMap(map, 'weight', ''),
+      club: stringFromMap(map, 'club', ''),
+      ageGroup: stringFromMap(map, 'ageGroup', ''),
+    );
+  }
+
+  String get subtitle {
+    return [
+      if (ageGroup.isNotEmpty) ageGroup,
+      if (position.isNotEmpty) position,
+      if (club.isNotEmpty) club,
+    ].join(' · ');
+  }
+
+  bool get hasAnyAnswer {
+    return dominantFoot.isNotEmpty ||
+        position.isNotEmpty ||
+        height.isNotEmpty ||
+        weight.isNotEmpty ||
+        club.isNotEmpty ||
+        ageGroup.isNotEmpty;
   }
 }
 
@@ -151,6 +206,9 @@ class DeviceData {
     required this.battery,
     required this.batteryLabel,
     required this.timeRemaining,
+    required this.remoteId,
+    required this.connected,
+    required this.lastSeen,
   });
 
   final String name;
@@ -159,6 +217,9 @@ class DeviceData {
   final double battery;
   final String batteryLabel;
   final String timeRemaining;
+  final String remoteId;
+  final bool connected;
+  final String lastSeen;
 
   factory DeviceData.fromMap(Map<String, dynamic> map) {
     return DeviceData(
@@ -168,6 +229,9 @@ class DeviceData {
       battery: doubleFromMap(map, 'battery', 0).clamp(0, 1).toDouble(),
       batteryLabel: stringFromMap(map, 'batteryLabel', ''),
       timeRemaining: stringFromMap(map, 'timeRemaining', ''),
+      remoteId: stringFromMap(map, 'remoteId', ''),
+      connected: boolFromMap(map, 'connected', false),
+      lastSeen: stringFromMap(map, 'lastSeen', ''),
     );
   }
 }

@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'screens/care_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/onboarding_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/stats_screen.dart';
 import 'screens/timeline_screen.dart';
 import 'screens/verify_email_screen.dart';
+import 'data/firebase_data_repository.dart';
+import 'models/app_data.dart';
 import 'shared/shared_widgets.dart';
 import 'theme/app_colors.dart';
 
@@ -43,6 +46,8 @@ class AuthGate extends StatefulWidget {
 }
 
 class _AuthGateState extends State<AuthGate> {
+  final _repository = FirebaseDataRepository();
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -54,9 +59,26 @@ class _AuthGateState extends State<AuthGate> {
 
         final user = snapshot.data;
         if (user != null && user.emailVerified) {
-          return const KeyedSubtree(
-            key: ValueKey('authenticated-shell'),
-            child: ShinPulseShell(),
+          return StreamBuilder<UserAppData>(
+            stream: _repository.watchUserData(),
+            builder: (context, userSnapshot) {
+              if (userSnapshot.connectionState == ConnectionState.waiting) {
+                return const Scaffold(body: AppLoading());
+              }
+
+              final data = userSnapshot.data;
+              if (data == null || !data.onboardingComplete) {
+                return const KeyedSubtree(
+                  key: ValueKey('onboarding-screen'),
+                  child: OnboardingScreen(),
+                );
+              }
+
+              return const KeyedSubtree(
+                key: ValueKey('authenticated-shell'),
+                child: ShinPulseShell(),
+              );
+            },
           );
         }
 

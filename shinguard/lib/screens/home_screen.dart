@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/firebase_data_repository.dart';
+import '../data/shinguard_ble_service.dart';
 import '../models/app_data.dart';
 import '../models/match_summary.dart';
 import '../shared/shared_widgets.dart';
@@ -46,6 +47,11 @@ class HomeDashboard extends StatelessWidget {
                 const SizedBox(height: 18),
                 ReadinessCard(readiness: data.readiness),
                 const SizedBox(height: 18),
+                DeviceConnectionPrompt(
+                  device: data.device,
+                  repository: _repository,
+                ),
+                const SizedBox(height: 18),
                 _MetricRow(metrics: data.metrics.take(3).toList()),
                 const SectionHeader(title: 'Last Match', action: 'View all'),
                 if (matchSnapshot.connectionState == ConnectionState.waiting)
@@ -81,6 +87,127 @@ class HomeDashboard extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class DeviceConnectionPrompt extends StatefulWidget {
+  const DeviceConnectionPrompt({
+    required this.device,
+    required this.repository,
+    super.key,
+  });
+
+  final DeviceData device;
+  final FirebaseDataRepository repository;
+
+  @override
+  State<DeviceConnectionPrompt> createState() => _DeviceConnectionPromptState();
+}
+
+class _DeviceConnectionPromptState extends State<DeviceConnectionPrompt> {
+  final _ble = ShinGuardBleService.instance;
+  bool _attemptedAutoConnect = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _tryAutoConnect());
+  }
+
+  @override
+  void didUpdateWidget(covariant DeviceConnectionPrompt oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.device.remoteId != widget.device.remoteId) {
+      _attemptedAutoConnect = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) => _tryAutoConnect());
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<ShinGuardBleState>(
+      stream: _ble.states,
+      initialData: _ble.currentState,
+      builder: (context, snapshot) {
+        final bleState = snapshot.data ?? _ble.currentState;
+        final isBusy =
+            bleState.status == ShinGuardBleStatus.scanning ||
+            bleState.status == ShinGuardBleStatus.connecting;
+        final connected =
+            bleState.status == ShinGuardBleStatus.connected ||
+            widget.device.connected;
+
+        return Container(
+          padding: const EdgeInsets.all(18),
+          decoration: panelDecoration(),
+          child: Row(
+            children: [
+              IconBadge(
+                icon: connected
+                    ? Icons.bluetooth_connected_rounded
+                    : Icons.bluetooth_searching_rounded,
+                color: connected ? AppColors.pulse : AppColors.cyan,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      connected ? 'ShinGuard connected' : 'Connect ShinGuard',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      bleState.message,
+                      style: const TextStyle(
+                        color: AppColors.muted,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              FilledButton(
+                onPressed: isBusy ? null : _connect,
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppColors.pulse,
+                  foregroundColor: AppColors.ink,
+                ),
+                child: Text(connected ? 'Reconnect' : 'Connect'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _tryAutoConnect() async {
+    if (_attemptedAutoConnect || widget.device.remoteId.isEmpty) {
+      return;
+    }
+    _attemptedAutoConnect = true;
+    final connection = await _ble.autoConnect(widget.device.remoteId);
+    if (connection != null) {
+      await widget.repository.saveDeviceConnection(
+        remoteId: connection.remoteId,
+        name: connection.name,
+      );
+    }
+  }
+
+  Future<void> _connect() async {
+    final connection = await _ble.connectToFirstAvailable();
+    if (connection != null) {
+      await widget.repository.saveDeviceConnection(
+        remoteId: connection.remoteId,
+        name: connection.name,
+      );
+    }
   }
 }
 

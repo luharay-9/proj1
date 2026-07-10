@@ -76,6 +76,21 @@ int intFromMap(Map<String, dynamic> map, String key, int fallback) {
   return fallback;
 }
 
+bool boolFromMap(Map<String, dynamic> map, String key, bool fallback) {
+  final value = map[key];
+  if (value is bool) {
+    return value;
+  }
+  if (value is String) {
+    return switch (value.toLowerCase()) {
+      'true' || 'yes' || '1' => true,
+      'false' || 'no' || '0' => false,
+      _ => fallback,
+    };
+  }
+  return fallback;
+}
+
 double doubleFromMap(Map<String, dynamic> map, String key, double fallback) {
   final value = map[key];
   if (value is num) {
