@@ -1,0 +1,106 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function incomingRequestExists(recipientUid, senderUid) {
+      return exists(
+        /databases/$(database)/documents/users/$(recipientUid)/friendRequests/$(senderUid)
+      );
+    }
+
+    match /usernames/{username} {
+      allow get: if signedIn();
+      allow list: if false;
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid;
+      allow update: if signedIn()
+        && resource.data.uid == request.auth.uid
+        && request.resource.data.uid == request.auth.uid;
+      allow delete: if signedIn()
+        && resource.data.uid == request.auth.uid;
+    }
+
+    match /users/{uid} {
+      function oldFriends() {
+        return resource.data.get('friendUids', []);
+      }
+
+      function newFriends() {
+        return request.resource.data.get('friendUids', []);
+      }
+
+      function validReciprocalFriendUpdate() {
+        let added = newFriends().toSet().difference(oldFriends().toSet());
+        let removed = oldFriends().toSet().difference(newFriends().toSet());
+        return signedIn()
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['friendUids', 'updatedAt'])
+          && (
+            (
+              added.hasOnly([request.auth.uid])
+              && added.size() == 1
+              && removed.size() == 0
+              && incomingRequestExists(request.auth.uid, uid)
+            )
+            || (
+              removed.hasOnly([request.auth.uid])
+              && removed.size() == 1
+              && added.size() == 0
+            )
+          );
+      }
+
+      allow create: if isOwner(uid);
+      allow get: if isOwner(uid)
+        || (
+          signedIn()
+          && request.auth.uid in resource.data.get('friendUids', [])
+        );
+      allow list: if false;
+      allow update: if isOwner(uid) || validReciprocalFriendUpdate();
+      allow delete: if isOwner(uid);
+
+      match /friendRequests/{senderUid} {
+        allow read: if isOwner(uid)
+          || (signedIn() && request.auth.uid == senderUid);
+        allow create: if signedIn()
+          && request.auth.uid == senderUid
+          && request.resource.data.fromUid == senderUid;
+        allow update: if false;
+        allow delete: if isOwner(uid)
+          || (signedIn() && request.auth.uid == senderUid);
+      }
+
+      match /sentFriendRequests/{recipientUid} {
+        allow read, create: if isOwner(uid);
+        allow update: if false;
+        allow delete: if isOwner(uid)
+          || (signedIn() && request.auth.uid == recipientUid);
+      }
+
+      match /friends/{friendUid} {
+        allow read: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          || (
+            signedIn()
+            && request.auth.uid == friendUid
+            && incomingRequestExists(friendUid, uid)
+          );
+        allow delete: if isOwner(uid)
+          || (signedIn() && request.auth.uid == friendUid);
+      }
+
+      match /{document=**} {
+        allow read, write: if isOwner(uid);
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'create_account_screen.dart';
+import '../shared/legal_links.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
 
@@ -158,6 +159,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: const Text('Create account'),
                     ),
+                    const SizedBox(height: 14),
+                    const SignInLegalLinks(),
                   ],
                 ),
               ),

@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../models/imu_sample.dart';
+
 class ShinGuardBleService {
   ShinGuardBleService._();
 
@@ -12,17 +14,28 @@ class ShinGuardBleService {
   static final Guid telemetryUuid = Guid(
     '4f3d0002-6847-4f1f-b4a8-5f12f735d201',
   );
+  static final Guid controlUuid = Guid('4f3d0003-6847-4f1f-b4a8-5f12f735d201');
 
   final _stateController = StreamController<ShinGuardBleState>.broadcast();
   final _telemetryController =
       StreamController<Map<String, dynamic>>.broadcast();
+  final _imuController = StreamController<ImuSample>.broadcast();
+  final _imuFrames = ImuFrameAccumulator();
 
   BluetoothDevice? _device;
+  BluetoothCharacteristic? _controlCharacteristic;
   StreamSubscription<BluetoothConnectionState>? _connectionSubscription;
   StreamSubscription<List<int>>? _telemetrySubscription;
+  int _connectionAttempt = 0;
+
+  static const _adapterTimeout = Duration(seconds: 10);
+  static const _scanTimeout = Duration(seconds: 12);
+  static const _connectTimeout = Duration(seconds: 12);
+  static const _discoveryTimeout = Duration(seconds: 10);
 
   Stream<ShinGuardBleState> get states => _stateController.stream;
   Stream<Map<String, dynamic>> get telemetry => _telemetryController.stream;
+  Stream<ImuSample> get imuSamples => _imuController.stream;
 
   ShinGuardBleState _state = const ShinGuardBleState(
     status: ShinGuardBleStatus.idle,
@@ -30,8 +43,19 @@ class ShinGuardBleService {
   );
 
   ShinGuardBleState get currentState => _state;
+  bool get isConnected => _state.status == ShinGuardBleStatus.connected;
+
+  Future<void> startSession() async {
+    _imuFrames.reset();
+    await _sendSessionCommand('START');
+  }
+
+  Future<void> stopSession() => _sendSessionCommand('STOP');
 
   Future<ShinGuardBleConnection?> connectToFirstAvailable() async {
+    final attempt = ++_connectionAttempt;
+    await _clearConnection(disconnectDevice: true);
+    if (!_isCurrent(attempt)) return null;
     _emit(
       const ShinGuardBleState(
         status: ShinGuardBleStatus.scanning,
@@ -53,10 +77,11 @@ class ShinGuardBleService {
       await FlutterBluePlus.adapterState
           .where((state) => state == BluetoothAdapterState.on)
           .first
-          .timeout(const Duration(seconds: 10));
+          .timeout(_adapterTimeout);
 
       ScanResult? match;
       final subscription = FlutterBluePlus.onScanResults.listen((results) {
+        if (!_isCurrent(attempt)) return;
         for (final result in results) {
           final name = _displayName(
             result.device,
@@ -71,14 +96,20 @@ class ShinGuardBleService {
           }
         }
       });
-      FlutterBluePlus.cancelWhenScanComplete(subscription);
+      try {
+        await FlutterBluePlus.startScan(
+          withServices: [serviceUuid],
+          timeout: _scanTimeout,
+        );
+        await FlutterBluePlus.isScanning
+            .where((value) => value == false)
+            .first
+            .timeout(_scanTimeout + const Duration(seconds: 2));
+      } finally {
+        await subscription.cancel();
+      }
 
-      await FlutterBluePlus.startScan(
-        withServices: [serviceUuid],
-        withNames: const ['ShinGuard'],
-        timeout: const Duration(seconds: 12),
-      );
-      await FlutterBluePlus.isScanning.where((value) => value == false).first;
+      if (!_isCurrent(attempt)) return null;
 
       final result = match;
       if (result == null) {
@@ -91,17 +122,13 @@ class ShinGuardBleService {
         return null;
       }
 
-      return _connect(
+      return await _connect(
         result.device,
         _displayName(result.device, result.advertisementData.advName),
+        attempt,
       );
     } catch (error) {
-      _emit(
-        ShinGuardBleState(
-          status: ShinGuardBleStatus.error,
-          message: 'Unable to connect: $error',
-        ),
-      );
+      await _connectionFailed(error, attempt);
       return null;
     }
   }
@@ -111,6 +138,9 @@ class ShinGuardBleService {
       return null;
     }
 
+    final attempt = ++_connectionAttempt;
+    await _clearConnection(disconnectDevice: true);
+    if (!_isCurrent(attempt)) return null;
     _emit(
       const ShinGuardBleState(
         status: ShinGuardBleStatus.connecting,
@@ -120,44 +150,54 @@ class ShinGuardBleService {
 
     try {
       final device = BluetoothDevice.fromId(remoteId);
-      await device.connect(
-        license: License.nonprofit,
-        autoConnect: true,
-        mtu: null,
-      );
-      await device.connectionState
-          .where((state) => state == BluetoothConnectionState.connected)
-          .first;
-      return _connect(device, _displayName(device, 'ShinGuard'));
+      return await _connect(device, _displayName(device, 'ShinGuard'), attempt);
     } catch (error) {
-      _emit(
-        ShinGuardBleState(
-          status: ShinGuardBleStatus.error,
-          message: 'Auto-connect failed: $error',
-        ),
-      );
+      await _connectionFailed(error, attempt);
       return null;
     }
   }
 
-  Future<void> disconnect() async {
+  Future<void> cancelConnectionAttempt() async {
+    _connectionAttempt += 1;
+    await _stopScan();
+    await _clearConnection(disconnectDevice: true);
+    _emit(
+      const ShinGuardBleState(
+        status: ShinGuardBleStatus.idle,
+        message: 'Connection attempt cancelled',
+      ),
+    );
+  }
+
+  Future<void> disconnect({String message = 'Device disconnected'}) async {
+    _connectionAttempt += 1;
+    await _stopScan();
+    await _clearConnection(disconnectDevice: true);
+    _emit(ShinGuardBleState(status: ShinGuardBleStatus.idle, message: message));
+  }
+
+  Future<void> _clearConnection({required bool disconnectDevice}) async {
     await _telemetrySubscription?.cancel();
     _telemetrySubscription = null;
     await _connectionSubscription?.cancel();
     _connectionSubscription = null;
-    await _device?.disconnect();
+    final device = _device;
     _device = null;
-    _emit(
-      const ShinGuardBleState(
-        status: ShinGuardBleStatus.idle,
-        message: 'Device disconnected',
-      ),
-    );
+    _controlCharacteristic = null;
+    _imuFrames.reset();
+    if (disconnectDevice && device != null) {
+      try {
+        await device.disconnect();
+      } catch (_) {
+        // The platform may already have removed a powered-off peripheral.
+      }
+    }
   }
 
   Future<ShinGuardBleConnection?> _connect(
     BluetoothDevice device,
     String name,
+    int attempt,
   ) async {
     _device = device;
     _emit(
@@ -167,42 +207,51 @@ class ShinGuardBleService {
       ),
     );
 
-    await device.connect(
-      license: License.nonprofit,
-      timeout: const Duration(seconds: 15),
-    );
+    await device
+        .connect(license: License.nonprofit, timeout: _connectTimeout)
+        .timeout(_connectTimeout);
+    if (!_isCurrent(attempt)) {
+      await device.disconnect();
+      return null;
+    }
 
     await _connectionSubscription?.cancel();
     _connectionSubscription = device.connectionState.listen((state) {
-      if (state == BluetoothConnectionState.disconnected) {
-        _emit(
-          const ShinGuardBleState(
-            status: ShinGuardBleStatus.idle,
-            message: 'Device disconnected',
-          ),
-        );
+      if (state == BluetoothConnectionState.disconnected &&
+          _isCurrent(attempt) &&
+          _state.status != ShinGuardBleStatus.idle) {
+        unawaited(_handleUnexpectedDisconnect());
       }
     });
 
-    final services = await device.discoverServices();
+    final services = await device.discoverServices().timeout(_discoveryTimeout);
+    if (!_isCurrent(attempt)) return null;
     BluetoothCharacteristic? telemetryCharacteristic;
+    BluetoothCharacteristic? controlCharacteristic;
     for (final service in services) {
       if (service.uuid == serviceUuid) {
         for (final characteristic in service.characteristics) {
           if (characteristic.uuid == telemetryUuid) {
             telemetryCharacteristic = characteristic;
+          } else if (characteristic.uuid == controlUuid) {
+            controlCharacteristic = characteristic;
           }
         }
       }
     }
-
-    if (telemetryCharacteristic != null) {
-      await _telemetrySubscription?.cancel();
-      _telemetrySubscription = telemetryCharacteristic.onValueReceived.listen(
-        _handleTelemetry,
-      );
-      await telemetryCharacteristic.setNotifyValue(true);
+    if (telemetryCharacteristic == null) {
+      throw StateError('The ShinGuard telemetry service was not found.');
     }
+    _controlCharacteristic = controlCharacteristic;
+
+    await _telemetrySubscription?.cancel();
+    _telemetrySubscription = telemetryCharacteristic.onValueReceived.listen(
+      _handleTelemetry,
+    );
+    await telemetryCharacteristic
+        .setNotifyValue(true)
+        .timeout(_discoveryTimeout);
+    if (!_isCurrent(attempt)) return null;
 
     final connection = ShinGuardBleConnection(
       remoteId: device.remoteId.str,
@@ -218,12 +267,63 @@ class ShinGuardBleService {
     return connection;
   }
 
+  Future<void> _handleUnexpectedDisconnect() async {
+    _connectionAttempt += 1;
+    await _clearConnection(disconnectDevice: false);
+    _emit(
+      const ShinGuardBleState(
+        status: ShinGuardBleStatus.idle,
+        message: 'ShinGuard connection lost',
+      ),
+    );
+  }
+
+  Future<void> _connectionFailed(Object error, int attempt) async {
+    if (!_isCurrent(attempt)) return;
+    await _stopScan();
+    await _clearConnection(disconnectDevice: true);
+    if (!_isCurrent(attempt)) return;
+    final message = error is TimeoutException
+        ? 'Connection timed out. Turn on ShinGuard and try again.'
+        : error is StateError
+        ? error.message.toString()
+        : 'Unable to connect. Turn on ShinGuard and try again.';
+    _emit(
+      ShinGuardBleState(status: ShinGuardBleStatus.error, message: message),
+    );
+  }
+
+  Future<void> _stopScan() async {
+    try {
+      if (FlutterBluePlus.isScanningNow) await FlutterBluePlus.stopScan();
+    } catch (_) {
+      // Scanning may already have stopped due to its own timeout.
+    }
+  }
+
+  bool _isCurrent(int attempt) => attempt == _connectionAttempt;
+
+  Future<void> _sendSessionCommand(String command) async {
+    if (!isConnected || _device == null) {
+      throw StateError('Connect your ShinGuard before starting a session.');
+    }
+    final characteristic = _controlCharacteristic;
+    if (characteristic == null) {
+      throw StateError(
+        'The connected ShinGuard firmware does not support sessions yet.',
+      );
+    }
+    await characteristic.write(utf8.encode(command), withoutResponse: false);
+  }
+
   void _handleTelemetry(List<int> value) {
     try {
       final decoded = utf8.decode(value);
       final parsed = jsonDecode(decoded);
       if (parsed is Map<String, dynamic>) {
         _telemetryController.add(parsed);
+        final sample = _imuFrames.add(parsed);
+        if (sample != null) _imuController.add(sample);
       }
     } catch (_) {
       // Ignore malformed BLE fragments. The next notification should be complete.

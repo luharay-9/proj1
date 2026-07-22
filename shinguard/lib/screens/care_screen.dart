@@ -90,7 +90,14 @@ class _CareScreenState extends State<CareScreen> {
                 if (reportSnapshot.connectionState == ConnectionState.waiting)
                   const AppLoading()
                 else if (reports.isEmpty)
-                  const AppMessage(title: 'No muscle reports synced yet')
+                  const SizedBox(
+                    height: 140,
+                    child: EmptyDataPanel(
+                      title: 'No muscle reports synced yet',
+                      detail: 'Body load insights will appear here.',
+                      icon: Icons.accessibility_new_rounded,
+                    ),
+                  )
                 else
                   Container(
                     padding: const EdgeInsets.all(12),

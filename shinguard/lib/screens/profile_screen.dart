@@ -1,11 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../data/firebase_data_repository.dart';
 import '../data/shinguard_ble_service.dart';
 import '../models/app_data.dart';
+import '../models/match_summary.dart';
+import '../services/performance_scoring.dart';
+import '../shared/legal_links.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
+import 'avatar_picker_screen.dart';
+import 'contacts_screen.dart';
+import 'onboarding_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -33,48 +40,93 @@ class ProfileScreen extends StatelessWidget {
           children: [
             ProfileHeader(data: data),
             const SizedBox(height: 18),
-            Row(
-              children: [
-                Expanded(
-                  child: ProfileStat(
-                    value: '${data.matches}',
-                    label: 'MATCHES',
-                  ),
-                ),
-                Expanded(
-                  child: ProfileStat(value: '${data.goals}', label: 'GOALS'),
-                ),
-                Expanded(
-                  child: ProfileStat(
-                    value: '${data.avgScore}',
-                    label: 'AVG SCORE',
-                  ),
-                ),
-              ],
+            StreamBuilder<List<MatchSummary>>(
+              stream: _repository.watchMatches(),
+              builder: (context, matchSnapshot) {
+                final matches = matchSnapshot.data ?? const <MatchSummary>[];
+                final average = PerformanceScoring.average(
+                  matches,
+                  data.athleteProfile.position,
+                );
+                final goals = matches.isEmpty
+                    ? data.goals
+                    : matches.fold<int>(
+                        0,
+                        (total, match) => total + match.goals,
+                      );
+                return Row(
+                  children: [
+                    Expanded(
+                      child: ProfileStat(
+                        value:
+                            '${matches.isEmpty ? data.matches : matches.length}',
+                        label: 'MATCHES',
+                      ),
+                    ),
+                    Expanded(
+                      child: ProfileStat(value: '$goals', label: 'GOALS'),
+                    ),
+                    Expanded(
+                      child: ProfileStat(value: '$average', label: 'AVG SCORE'),
+                    ),
+                  ],
+                );
+              },
+            ),
+            const SizedBox(height: 18),
+            SettingsTile(
+              icon: Icons.contacts_rounded,
+              title: 'Contacts',
+              iconColor: AppColors.pulse,
+              trailing: const Icon(
+                Icons.chevron_right_rounded,
+                color: AppColors.muted,
+              ),
+              onTap: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute<void>(builder: (_) => ContactsScreen())),
             ),
             const SectionHeader(title: 'Athlete Details'),
             AthleteProfileCard(
+              username: data.displayName,
               profile: data.athleteProfile,
               repository: _repository,
             ),
             const SectionHeader(title: 'Achievements', action: 'View all'),
             SizedBox(
               height: 104,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: data.achievements.length,
-                separatorBuilder: (_, _) => const SizedBox(width: 10),
-                itemBuilder: (context, index) {
-                  final achievement = data.achievements[index];
-                  return Achievement(
-                    icon: achievement.icon,
-                    title: achievement.title,
-                  );
-                },
-              ),
+              child: data.achievements.isEmpty
+                  ? const EmptyDataPanel(
+                      title: 'No achievements unlocked yet',
+                      detail: 'New achievements will appear here.',
+                      icon: Icons.emoji_events_rounded,
+                    )
+                  : ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: data.achievements.length,
+                      separatorBuilder: (_, _) => const SizedBox(width: 10),
+                      itemBuilder: (context, index) {
+                        final achievement = data.achievements[index];
+                        return Achievement(
+                          icon: achievement.icon,
+                          title: achievement.title,
+                        );
+                      },
+                    ),
             ),
             const SectionHeader(title: 'My ShinPulse'),
-            DeviceCard(device: data.device),
+            StreamBuilder<ShinGuardBleState>(
+              stream: ShinGuardBleService.instance.states,
+              initialData: ShinGuardBleService.instance.currentState,
+              builder: (context, bleSnapshot) => DeviceCard(
+                device: data.device,
+                connected:
+                    (bleSnapshot.data ??
+                            ShinGuardBleService.instance.currentState)
+                        .status ==
+                    ShinGuardBleStatus.connected,
+              ),
+            ),
             const SectionHeader(title: 'Settings'),
             SettingsTile(
               icon: Icons.bluetooth_connected_rounded,
@@ -90,11 +142,29 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            const SettingsTile(
-              icon: Icons.groups_rounded,
-              title: 'Team & Coach',
-            ),
-            const SizedBox(height: 10),
+            if (kDebugMode) ...[
+              SettingsTile(
+                icon: Icons.bug_report_rounded,
+                title: 'Replay Onboarding (Debug)',
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => OnboardingScreen(
+                      debugReplay: true,
+                      initialAnswers: {
+                        'username': data.displayName,
+                        'dominantFoot': data.athleteProfile.dominantFoot,
+                        'position': data.athleteProfile.position,
+                        'height': data.athleteProfile.height,
+                        'weight': data.athleteProfile.weight,
+                        'club': data.athleteProfile.club,
+                        'ageGroup': data.athleteProfile.ageGroup,
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+            ],
             const SettingsTile(
               icon: Icons.notifications_rounded,
               title: 'Notifications',
@@ -111,6 +181,26 @@ class ProfileScreen extends StatelessWidget {
               title: 'Help & Support',
             ),
             const SizedBox(height: 10),
+            SettingsTile(
+              icon: Icons.privacy_tip_rounded,
+              title: 'Privacy Policy',
+              onTap: () => openLegalDocument(
+                context,
+                url: privacyPolicyUrl,
+                title: 'Privacy Policy',
+              ),
+            ),
+            const SizedBox(height: 10),
+            SettingsTile(
+              icon: Icons.gavel_rounded,
+              title: 'Terms and Conditions',
+              onTap: () => openLegalDocument(
+                context,
+                url: termsAndConditionsUrl,
+                title: 'Terms and Conditions',
+              ),
+            ),
+            const SizedBox(height: 10),
             AccountActions(repository: _repository),
             const SizedBox(height: 10),
           ],
@@ -122,17 +212,20 @@ class ProfileScreen extends StatelessWidget {
 
 class AthleteProfileCard extends StatelessWidget {
   const AthleteProfileCard({
+    required this.username,
     required this.profile,
     required this.repository,
     super.key,
   });
 
+  final String username;
   final AthleteProfile profile;
   final FirebaseDataRepository repository;
 
   @override
   Widget build(BuildContext context) {
     final rows = [
+      ('Username', username),
       ('Dominant foot', profile.dominantFoot),
       ('Position', profile.position),
       ('Height', profile.height),
@@ -186,19 +279,24 @@ class AthleteProfileCard extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: AppColors.panel,
       showDragHandle: true,
-      builder: (context) =>
-          EditAthleteProfileSheet(profile: profile, repository: repository),
+      builder: (context) => EditAthleteProfileSheet(
+        username: username,
+        profile: profile,
+        repository: repository,
+      ),
     );
   }
 }
 
 class EditAthleteProfileSheet extends StatefulWidget {
   const EditAthleteProfileSheet({
+    required this.username,
     required this.profile,
     required this.repository,
     super.key,
   });
 
+  final String username;
   final AthleteProfile profile;
   final FirebaseDataRepository repository;
 
@@ -208,6 +306,7 @@ class EditAthleteProfileSheet extends StatefulWidget {
 }
 
 class _EditAthleteProfileSheetState extends State<EditAthleteProfileSheet> {
+  late final TextEditingController _usernameController;
   late final TextEditingController _heightController;
   late final TextEditingController _weightController;
   late final TextEditingController _clubController;
@@ -215,10 +314,12 @@ class _EditAthleteProfileSheetState extends State<EditAthleteProfileSheet> {
   late String _dominantFoot;
   late String _position;
   bool _isSaving = false;
+  String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
+    _usernameController = TextEditingController(text: widget.username);
     _dominantFoot = widget.profile.dominantFoot;
     _position = widget.profile.position;
     _heightController = TextEditingController(text: widget.profile.height);
@@ -229,6 +330,7 @@ class _EditAthleteProfileSheetState extends State<EditAthleteProfileSheet> {
 
   @override
   void dispose() {
+    _usernameController.dispose();
     _heightController.dispose();
     _weightController.dispose();
     _clubController.dispose();
@@ -255,6 +357,7 @@ class _EditAthleteProfileSheetState extends State<EditAthleteProfileSheet> {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
               ),
               const SizedBox(height: 18),
+              _ProfileField(label: 'Username', controller: _usernameController),
               _ChoiceRow(
                 label: 'Dominant foot',
                 value: _dominantFoot,
@@ -274,6 +377,16 @@ class _EditAthleteProfileSheetState extends State<EditAthleteProfileSheet> {
                 label: 'Age group',
                 controller: _ageGroupController,
               ),
+              if (_errorMessage != null) ...[
+                Text(
+                  _errorMessage!,
+                  style: const TextStyle(
+                    color: AppColors.red,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
               const SizedBox(height: 14),
               FilledButton(
                 onPressed: _isSaving ? null : _save,
@@ -291,17 +404,30 @@ class _EditAthleteProfileSheetState extends State<EditAthleteProfileSheet> {
   }
 
   Future<void> _save() async {
-    setState(() => _isSaving = true);
-    await widget.repository.updateAthleteProfile({
-      'dominantFoot': _dominantFoot,
-      'position': _position,
-      'height': _heightController.text.trim(),
-      'weight': _weightController.text.trim(),
-      'club': _clubController.text.trim(),
-      'ageGroup': _ageGroupController.text.trim(),
+    setState(() {
+      _isSaving = true;
+      _errorMessage = null;
     });
-    if (mounted) {
-      Navigator.of(context).pop();
+    try {
+      await widget.repository.updateAthleteProfile({
+        'username': _usernameController.text.trim(),
+        'dominantFoot': _dominantFoot,
+        'position': _position,
+        'height': _heightController.text.trim(),
+        'weight': _weightController.text.trim(),
+        'club': _clubController.text.trim(),
+        'ageGroup': _ageGroupController.text.trim(),
+      });
+      if (mounted) Navigator.of(context).pop();
+    } catch (error) {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+          _errorMessage = error is ContactException
+              ? error.message
+              : 'Unable to save athlete details.';
+        });
+      }
     }
   }
 }
@@ -404,6 +530,10 @@ class _ManageDeviceSheetState extends State<ManageDeviceSheet> {
           initialData: _ble.currentState,
           builder: (context, snapshot) {
             final state = snapshot.data ?? _ble.currentState;
+            final connectionBusy =
+                state.status == ShinGuardBleStatus.scanning ||
+                state.status == ShinGuardBleStatus.connecting;
+            final liveConnected = state.status == ShinGuardBleStatus.connected;
             return Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -415,7 +545,7 @@ class _ManageDeviceSheetState extends State<ManageDeviceSheet> {
                 const SizedBox(height: 10),
                 Text(
                   hasDevice
-                      ? '${widget.device.name} · ${widget.device.status}'
+                      ? '${widget.device.name} · ${liveConnected ? 'Connected' : 'Disconnected'}'
                       : 'No ShinGuard is paired yet.',
                   style: const TextStyle(
                     color: AppColors.softText,
@@ -432,12 +562,20 @@ class _ManageDeviceSheetState extends State<ManageDeviceSheet> {
                 ),
                 const SizedBox(height: 18),
                 FilledButton(
-                  onPressed: _isWorking ? null : _connect,
+                  onPressed: connectionBusy || _isWorking
+                      ? _cancelConnection
+                      : _connect,
                   style: FilledButton.styleFrom(
                     backgroundColor: AppColors.pulse,
                     foregroundColor: AppColors.ink,
                   ),
-                  child: Text(hasDevice ? 'Reconnect device' : 'Pair device'),
+                  child: Text(
+                    connectionBusy || _isWorking
+                        ? 'Cancel connection'
+                        : hasDevice
+                        ? 'Reconnect device'
+                        : 'Pair device',
+                  ),
                 ),
                 const SizedBox(height: 10),
                 OutlinedButton(
@@ -454,6 +592,9 @@ class _ManageDeviceSheetState extends State<ManageDeviceSheet> {
 
   Future<void> _connect() async {
     setState(() => _isWorking = true);
+    if (_ble.isConnected) {
+      await _ble.disconnect(message: 'Reconnecting...');
+    }
     final connection = await _ble.connectToFirstAvailable();
     if (connection != null) {
       await widget.repository.saveDeviceConnection(
@@ -464,6 +605,11 @@ class _ManageDeviceSheetState extends State<ManageDeviceSheet> {
     if (mounted) {
       setState(() => _isWorking = false);
     }
+  }
+
+  Future<void> _cancelConnection() async {
+    await _ble.cancelConnectionAttempt();
+    if (mounted) setState(() => _isWorking = false);
   }
 
   Future<void> _remove() async {
@@ -487,6 +633,7 @@ class AccountActions extends StatefulWidget {
 
 class _AccountActionsState extends State<AccountActions> {
   bool _isDeleting = false;
+  bool _isSigningOut = false;
 
   @override
   Widget build(BuildContext context) {
@@ -494,8 +641,8 @@ class _AccountActionsState extends State<AccountActions> {
       children: [
         SettingsTile(
           icon: Icons.logout_rounded,
-          title: 'Sign out',
-          onTap: _isDeleting ? null : () => FirebaseAuth.instance.signOut(),
+          title: _isSigningOut ? 'Signing out...' : 'Sign out',
+          onTap: _isDeleting || _isSigningOut ? null : _signOut,
         ),
         const SizedBox(height: 10),
         SettingsTile(
@@ -506,6 +653,17 @@ class _AccountActionsState extends State<AccountActions> {
         ),
       ],
     );
+  }
+
+  Future<void> _signOut() async {
+    setState(() => _isSigningOut = true);
+    await ShinGuardBleService.instance.disconnect(message: 'Signed out');
+    try {
+      await widget.repository.markDeviceDisconnected();
+    } catch (_) {
+      // Authentication state still takes priority over status persistence.
+    }
+    await FirebaseAuth.instance.signOut();
   }
 
   Future<void> _showDeleteAccountDialog(BuildContext context) async {
@@ -678,7 +836,15 @@ class ProfileHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const PulseAvatar(size: 68),
+          PulseAvatar(
+            avatar: data.avatar,
+            size: 68,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => AvatarPickerScreen(currentAvatar: data.avatar),
+              ),
+            ),
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -709,9 +875,10 @@ class ProfileHeader extends StatelessWidget {
 }
 
 class DeviceCard extends StatelessWidget {
-  const DeviceCard({required this.device, super.key});
+  const DeviceCard({required this.device, required this.connected, super.key});
 
   final DeviceData device;
+  final bool connected;
 
   @override
   Widget build(BuildContext context) {
@@ -740,7 +907,11 @@ class DeviceCard extends StatelessWidget {
                     ),
                     Text(
                       [
-                        device.status,
+                        connected
+                            ? 'Connected'
+                            : device.remoteId.isEmpty
+                            ? 'Not paired'
+                            : 'Disconnected',
                         device.firmware,
                       ].where((item) => item.isNotEmpty).join(' · '),
                       style: TextStyle(
@@ -754,12 +925,14 @@ class DeviceCard extends StatelessWidget {
               Container(
                 width: 10,
                 height: 10,
-                decoration: const BoxDecoration(
-                  color: AppColors.pulse,
+                decoration: BoxDecoration(
+                  color: connected ? AppColors.pulse : AppColors.muted,
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(color: AppColors.pulse, blurRadius: 12),
-                  ],
+                  boxShadow: connected
+                      ? const [
+                          BoxShadow(color: AppColors.pulse, blurRadius: 12),
+                        ]
+                      : const [],
                 ),
               ),
             ],

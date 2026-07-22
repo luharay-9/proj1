@@ -44,3 +44,12 @@ samples, guidance on mobile development, and a full API reference.
 
 - hardware_code folder has the repo copy of the device code
 - shinguard folder is the actual flutter app
+
+Case Measurements:
+- 10-12 mm max thickness
+- Trapezoidal shape
+- Height: 9.5 cm
+- Width: 5.75 cm at widest point
+- Width: 4 cm at narrowest point
+
+Case materials: TPU on outside, PLA on inside

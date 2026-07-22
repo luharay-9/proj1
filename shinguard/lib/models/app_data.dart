@@ -10,6 +10,7 @@ class UserAppData {
     required this.email,
     required this.onboardingComplete,
     required this.athleteProfile,
+    required this.avatar,
     required this.matches,
     required this.goals,
     required this.avgScore,
@@ -27,6 +28,7 @@ class UserAppData {
   final String email;
   final bool onboardingComplete;
   final AthleteProfile athleteProfile;
+  final AvatarData avatar;
   final int matches;
   final int goals;
   final int avgScore;
@@ -45,6 +47,7 @@ class UserAppData {
       email: stringFromMap(map, 'email', ''),
       onboardingComplete: boolFromMap(map, 'onboardingComplete', false),
       athleteProfile: AthleteProfile.fromMap(_nestedMap(map['athleteProfile'])),
+      avatar: AvatarData.fromMap(_nestedMap(map['avatar'])),
       matches: intFromMap(map, 'matches', 0),
       goals: intFromMap(map, 'goals', 0),
       avgScore: intFromMap(map, 'avgScore', 0),
@@ -61,6 +64,30 @@ class UserAppData {
       care: CareSummary.fromMap(_nestedMap(map['careRisk'])),
     );
   }
+}
+
+class AvatarData {
+  const AvatarData({
+    required this.type,
+    required this.value,
+    required this.revision,
+  });
+
+  final String type;
+  final String value;
+  final int revision;
+
+  factory AvatarData.fromMap(Map<String, dynamic> map) {
+    return AvatarData(
+      type: stringFromMap(map, 'type', 'icon'),
+      value: stringFromMap(map, 'value', 'person'),
+      revision: intFromMap(map, 'revision', 0),
+    );
+  }
+
+  bool get isPhoto => type == 'photo' && value.isNotEmpty;
+
+  IconData get icon => iconFromKey(value, fallback: Icons.person_rounded);
 }
 
 class AthleteProfile {

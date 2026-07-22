@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../data/firebase_data_repository.dart';
+import '../models/app_data.dart';
 import '../models/training_session.dart';
+import '../services/performance_scoring.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
 
@@ -164,7 +166,18 @@ class _SessionTimelineScreenState extends State<SessionTimelineScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            TimelineHero(session: session),
+            StreamBuilder<UserAppData>(
+              stream: _repository.watchUserData(),
+              builder: (context, userSnapshot) {
+                final selectedPosition =
+                    userSnapshot.data?.athleteProfile.position ??
+                    session.position;
+                return TimelineHero(
+                  session: session,
+                  selectedPosition: selectedPosition,
+                );
+              },
+            ),
             const SizedBox(height: 18),
             Text(
               'Recorded Events',
@@ -182,9 +195,14 @@ class _SessionTimelineScreenState extends State<SessionTimelineScreen> {
 }
 
 class TimelineHero extends StatelessWidget {
-  const TimelineHero({required this.session, super.key});
+  const TimelineHero({
+    required this.session,
+    required this.selectedPosition,
+    super.key,
+  });
 
   final TrainingSession session;
+  final String selectedPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -205,12 +223,24 @@ class TimelineHero extends StatelessWidget {
             children: [
               StatusPill(label: session.result, icon: Icons.circle),
               const Spacer(),
-              Text(
-                session.durationLabel,
-                style: const TextStyle(
-                  color: AppColors.pulse,
-                  fontWeight: FontWeight.w900,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '${PerformanceScoring.sessionScore(session, selectedPosition)} SCORE',
+                    style: const TextStyle(
+                      color: AppColors.gold,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  Text(
+                    session.durationLabel,
+                    style: const TextStyle(
+                      color: AppColors.pulse,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

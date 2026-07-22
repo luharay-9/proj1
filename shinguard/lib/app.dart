@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,7 @@ import 'screens/stats_screen.dart';
 import 'screens/timeline_screen.dart';
 import 'screens/verify_email_screen.dart';
 import 'data/firebase_data_repository.dart';
+import 'data/shinguard_ble_service.dart';
 import 'models/app_data.dart';
 import 'shared/shared_widgets.dart';
 import 'theme/app_colors.dart';
@@ -47,6 +50,7 @@ class AuthGate extends StatefulWidget {
 
 class _AuthGateState extends State<AuthGate> {
   final _repository = FirebaseDataRepository();
+  String? _directoryUid;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +75,15 @@ class _AuthGateState extends State<AuthGate> {
                 return const KeyedSubtree(
                   key: ValueKey('onboarding-screen'),
                   child: OnboardingScreen(),
+                );
+              }
+
+              if (_directoryUid != user.uid) {
+                _directoryUid = user.uid;
+                unawaited(
+                  _repository.ensureCurrentUsernameDirectory().catchError(
+                    (_) {},
+                  ),
                 );
               }
 
@@ -108,8 +121,57 @@ class ShinPulseShell extends StatefulWidget {
   State<ShinPulseShell> createState() => _ShinPulseShellState();
 }
 
-class _ShinPulseShellState extends State<ShinPulseShell> {
+class _ShinPulseShellState extends State<ShinPulseShell>
+    with WidgetsBindingObserver {
   int _tabIndex = 0;
+  final _ble = ShinGuardBleService.instance;
+  final _repository = FirebaseDataRepository();
+  Timer? _backgroundDisconnectTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _backgroundDisconnectTimer?.cancel();
+      _backgroundDisconnectTimer = null;
+      return;
+    }
+    if (state == AppLifecycleState.detached) {
+      _backgroundDisconnectTimer?.cancel();
+      unawaited(_disconnectForInactiveApp());
+      return;
+    }
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden) {
+      _backgroundDisconnectTimer?.cancel();
+      _backgroundDisconnectTimer = Timer(
+        const Duration(seconds: 8),
+        () => unawaited(_disconnectForInactiveApp()),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _backgroundDisconnectTimer?.cancel();
+    unawaited(_disconnectForInactiveApp());
+    super.dispose();
+  }
+
+  Future<void> _disconnectForInactiveApp() async {
+    await _ble.disconnect(message: 'App inactive; device disconnected');
+    try {
+      await _repository.markDeviceDisconnected();
+    } catch (_) {
+      // Logout can remove the authenticated user before shell disposal.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

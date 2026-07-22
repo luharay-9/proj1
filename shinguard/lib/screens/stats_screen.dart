@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../data/firebase_data_repository.dart';
 import '../models/app_data.dart';
 import '../models/match_summary.dart';
+import '../services/performance_scoring.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
 
@@ -35,7 +36,9 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
           );
         }
 
-        final performance = userSnapshot.data!.performance;
+        final userData = userSnapshot.data!;
+        final performance = userData.performance;
+        final selectedPosition = userData.athleteProfile.position;
         return StreamBuilder<List<MatchSummary>>(
           stream: _repository.watchMatches(),
           builder: (context, matchSnapshot) {
@@ -92,9 +95,21 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                 if (matchSnapshot.connectionState == ConnectionState.waiting)
                   const AppLoading()
                 else if (matches.isEmpty)
-                  const AppMessage(title: 'No match history synced yet')
+                  const SizedBox(
+                    height: 120,
+                    child: EmptyDataPanel(
+                      title: 'No match history synced yet',
+                      detail: 'Completed matches will appear here.',
+                      icon: Icons.history_rounded,
+                    ),
+                  )
                 else
-                  ...matches.map((match) => HistoryCard(match: match)),
+                  ...matches.map(
+                    (match) => HistoryCard(
+                      match: match,
+                      selectedPosition: selectedPosition,
+                    ),
+                  ),
               ],
             );
           },
@@ -286,9 +301,14 @@ class LegendRow extends StatelessWidget {
 }
 
 class HistoryCard extends StatelessWidget {
-  const HistoryCard({required this.match, super.key});
+  const HistoryCard({
+    required this.match,
+    required this.selectedPosition,
+    super.key,
+  });
 
   final MatchSummary match;
+  final String selectedPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -342,7 +362,10 @@ class HistoryCard extends StatelessWidget {
               HistoryMetric(value: match.distance, label: 'Distance'),
               HistoryMetric(value: match.speed, label: 'Top Speed'),
               HistoryMetric(value: '${match.sprints}', label: 'Sprints'),
-              HistoryMetric(value: '${match.scoreValue}', label: 'Score'),
+              HistoryMetric(
+                value: '${PerformanceScoring.score(match, selectedPosition)}',
+                label: 'Score',
+              ),
             ],
           ),
         ],

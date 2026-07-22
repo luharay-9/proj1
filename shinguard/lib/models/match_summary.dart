@@ -15,6 +15,14 @@ class MatchSummary {
     required this.sprints,
     required this.scoreValue,
     required this.color,
+    this.kicks = 0,
+    this.goals = 0,
+    this.assists = 0,
+    this.tackles = 0,
+    this.passAccuracy = 0,
+    this.clearances = 0,
+    this.saves = 0,
+    this.goalsConceded = 0,
   });
 
   final String title;
@@ -28,6 +36,14 @@ class MatchSummary {
   final int sprints;
   final int scoreValue;
   final Color color;
+  final int kicks;
+  final int goals;
+  final int assists;
+  final int tackles;
+  final double passAccuracy;
+  final int clearances;
+  final int saves;
+  final int goalsConceded;
 
   factory MatchSummary.fromMap(Map<String, dynamic> map) {
     return MatchSummary(
@@ -42,6 +58,14 @@ class MatchSummary {
       sprints: intFromMap(map, 'sprints', 0),
       scoreValue: intFromMap(map, 'scoreValue', 0),
       color: colorFromValue(map['color']),
+      kicks: intFromMap(map, 'kicks', 0),
+      goals: intFromMap(map, 'goals', 0),
+      assists: intFromMap(map, 'assists', 0),
+      tackles: intFromMap(map, 'tackles', 0),
+      passAccuracy: doubleFromMap(map, 'passAccuracy', 0),
+      clearances: intFromMap(map, 'clearances', 0),
+      saves: intFromMap(map, 'saves', 0),
+      goalsConceded: intFromMap(map, 'goalsConceded', 0),
     );
   }
 }

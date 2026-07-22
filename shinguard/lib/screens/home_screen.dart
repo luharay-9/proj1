@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../data/firebase_data_repository.dart';
 import '../data/shinguard_ble_service.dart';
 import '../models/app_data.dart';
 import '../models/match_summary.dart';
+import '../services/session_recording_service.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
+import 'avatar_picker_screen.dart';
 
 class HomeDashboard extends StatelessWidget {
   HomeDashboard({super.key});
@@ -42,7 +46,15 @@ class HomeDashboard extends StatelessWidget {
                 TopBar(
                   eyebrow: 'Welcome back',
                   title: data.displayName,
-                  action: const PulseAvatar(),
+                  action: PulseAvatar(
+                    avatar: data.avatar,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) =>
+                            AvatarPickerScreen(currentAvatar: data.avatar),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 18),
                 ReadinessCard(readiness: data.readiness),
@@ -51,6 +63,8 @@ class HomeDashboard extends StatelessWidget {
                   device: data.device,
                   repository: _repository,
                 ),
+                const SizedBox(height: 12),
+                SessionControlPanel(position: data.athleteProfile.position),
                 const SizedBox(height: 18),
                 _MetricRow(metrics: data.metrics.take(3).toList()),
                 const SectionHeader(title: 'Last Match', action: 'View all'),
@@ -59,33 +73,243 @@ class HomeDashboard extends StatelessWidget {
                 else if (latestMatch == null)
                   const SizedBox(
                     height: 148,
-                    child: AppMessage(title: 'No matches synced yet'),
+                    child: EmptyDataPanel(
+                      title: 'No matches synced yet',
+                      detail: 'Your latest match will appear here.',
+                      icon: Icons.sports_soccer_rounded,
+                    ),
                   )
                 else
                   MatchPreviewCard(match: latestMatch),
                 const SectionHeader(title: "Today's Tips", action: 'See all'),
                 SizedBox(
                   height: 170,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: data.tips.length,
-                    separatorBuilder: (_, _) => const SizedBox(width: 12),
-                    itemBuilder: (context, index) {
-                      final tip = data.tips[index];
-                      return TipCard(
-                        tag: tip.tag,
-                        title: tip.title,
-                        icon: tip.icon,
-                        color: tip.color,
-                      );
-                    },
-                  ),
+                  child: data.tips.isEmpty
+                      ? const EmptyDataPanel(
+                          title: 'No daily tips yet',
+                          detail:
+                              'Tips will appear after match data is synced.',
+                          icon: Icons.lightbulb_rounded,
+                        )
+                      : ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: data.tips.length,
+                          separatorBuilder: (_, _) => const SizedBox(width: 12),
+                          itemBuilder: (context, index) {
+                            final tip = data.tips[index];
+                            return TipCard(
+                              tag: tip.tag,
+                              title: tip.title,
+                              icon: tip.icon,
+                              color: tip.color,
+                            );
+                          },
+                        ),
                 ),
               ],
             );
           },
         );
       },
+    );
+  }
+}
+
+class SessionControlPanel extends StatelessWidget {
+  SessionControlPanel({super.key, required this.position});
+
+  final String position;
+  final SessionRecordingService _recorder = SessionRecordingService.instance;
+  final ShinGuardBleService _ble = ShinGuardBleService.instance;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<ShinGuardBleState>(
+      stream: _ble.states,
+      initialData: _ble.currentState,
+      builder: (context, bleSnapshot) {
+        final connected =
+            (bleSnapshot.data ?? _ble.currentState).status ==
+            ShinGuardBleStatus.connected;
+        return StreamBuilder<SessionRecordingState>(
+          stream: _recorder.states,
+          initialData: _recorder.currentState,
+          builder: (context, sessionSnapshot) {
+            final state = sessionSnapshot.data ?? _recorder.currentState;
+            final recording = state.isRecording;
+            final canRetrySave =
+                state.status == SessionRecordingStatus.error &&
+                _recorder.hasUnsavedSession;
+            final statusColor = state.status == SessionRecordingStatus.error
+                ? AppColors.red
+                : recording
+                ? AppColors.pulse
+                : AppColors.cyan;
+
+            return Container(
+              padding: const EdgeInsets.all(18),
+              decoration: panelDecoration(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      IconBadge(
+                        icon: recording
+                            ? Icons.sensors_rounded
+                            : Icons.play_circle_outline_rounded,
+                        color: statusColor,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              recording ? 'Session in progress' : 'New Session',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              state.message,
+                              style: TextStyle(
+                                color:
+                                    state.status == SessionRecordingStatus.error
+                                    ? AppColors.red
+                                    : AppColors.muted,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (recording ||
+                      state.status == SessionRecordingStatus.saving) ...[
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _LiveSessionStat(
+                            label: 'ELAPSED',
+                            value: _elapsedLabel(state.elapsed),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: _LiveSessionStat(
+                            label: 'SPRINTS',
+                            value: '${state.sprints}',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                  const SizedBox(height: 16),
+                  FilledButton.icon(
+                    onPressed: state.isBusy
+                        ? null
+                        : recording
+                        ? _recorder.stopSession
+                        : canRetrySave
+                        ? _recorder.retrySave
+                        : connected
+                        ? () => _recorder.startSession(position: position)
+                        : null,
+                    icon: state.isBusy
+                        ? const SizedBox.square(
+                            dimension: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Icon(
+                            recording
+                                ? Icons.stop_rounded
+                                : canRetrySave
+                                ? Icons.sync_rounded
+                                : Icons.play_arrow_rounded,
+                          ),
+                    label: Text(
+                      state.status == SessionRecordingStatus.starting
+                          ? 'Starting...'
+                          : state.status == SessionRecordingStatus.saving
+                          ? 'Saving...'
+                          : recording
+                          ? 'Stop Session'
+                          : canRetrySave
+                          ? 'Retry Save'
+                          : 'Start a Session',
+                    ),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: recording
+                          ? AppColors.red
+                          : AppColors.pulse,
+                      foregroundColor: AppColors.ink,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                    ),
+                  ),
+                  if (!connected && !recording) ...[
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Connect the ShinGuard above to enable recording.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppColors.muted,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  String _elapsedLabel(Duration duration) {
+    final minutes = duration.inMinutes.toString().padLeft(2, '0');
+    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+}
+
+class _LiveSessionStat extends StatelessWidget {
+  const _LiveSessionStat({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: AppColors.deepInk,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            value,
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+          ),
+          Text(
+            label,
+            style: const TextStyle(
+              color: AppColors.muted,
+              fontSize: 11,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -104,14 +328,36 @@ class DeviceConnectionPrompt extends StatefulWidget {
   State<DeviceConnectionPrompt> createState() => _DeviceConnectionPromptState();
 }
 
-class _DeviceConnectionPromptState extends State<DeviceConnectionPrompt> {
+class _DeviceConnectionPromptState extends State<DeviceConnectionPrompt>
+    with WidgetsBindingObserver {
   final _ble = ShinGuardBleService.instance;
   bool _attemptedAutoConnect = false;
+  bool _isPersistingDisconnect = false;
+  StreamSubscription<ShinGuardBleState>? _bleStateSubscription;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _bleStateSubscription = _ble.states.listen(_persistLiveConnectionState);
     WidgetsBinding.instance.addPostFrameCallback((_) => _tryAutoConnect());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _bleStateSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed &&
+        !_ble.isConnected &&
+        widget.device.remoteId.isNotEmpty) {
+      _attemptedAutoConnect = false;
+      unawaited(_tryAutoConnect());
+    }
   }
 
   @override
@@ -133,9 +379,7 @@ class _DeviceConnectionPromptState extends State<DeviceConnectionPrompt> {
         final isBusy =
             bleState.status == ShinGuardBleStatus.scanning ||
             bleState.status == ShinGuardBleStatus.connecting;
-        final connected =
-            bleState.status == ShinGuardBleStatus.connected ||
-            widget.device.connected;
+        final connected = bleState.status == ShinGuardBleStatus.connected;
 
         return Container(
           padding: const EdgeInsets.all(18),
@@ -154,7 +398,11 @@ class _DeviceConnectionPromptState extends State<DeviceConnectionPrompt> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      connected ? 'ShinGuard connected' : 'Connect ShinGuard',
+                      connected
+                          ? 'ShinGuard connected'
+                          : isBusy
+                          ? 'Connecting ShinGuard'
+                          : 'Connect ShinGuard',
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w900,
@@ -172,12 +420,18 @@ class _DeviceConnectionPromptState extends State<DeviceConnectionPrompt> {
                 ),
               ),
               FilledButton(
-                onPressed: isBusy ? null : _connect,
+                onPressed: isBusy ? _ble.cancelConnectionAttempt : _connect,
                 style: FilledButton.styleFrom(
                   backgroundColor: AppColors.pulse,
                   foregroundColor: AppColors.ink,
                 ),
-                child: Text(connected ? 'Reconnect' : 'Connect'),
+                child: Text(
+                  isBusy
+                      ? 'Cancel'
+                      : connected
+                      ? 'Reconnect'
+                      : 'Connect',
+                ),
               ),
             ],
           ),
@@ -191,6 +445,10 @@ class _DeviceConnectionPromptState extends State<DeviceConnectionPrompt> {
       return;
     }
     _attemptedAutoConnect = true;
+    if (!_isPersistingDisconnect) {
+      _isPersistingDisconnect = true;
+      unawaited(_markDisconnected());
+    }
     final connection = await _ble.autoConnect(widget.device.remoteId);
     if (connection != null) {
       await widget.repository.saveDeviceConnection(
@@ -201,12 +459,38 @@ class _DeviceConnectionPromptState extends State<DeviceConnectionPrompt> {
   }
 
   Future<void> _connect() async {
+    if (_ble.isConnected) {
+      await _ble.disconnect(message: 'Reconnecting...');
+    }
     final connection = await _ble.connectToFirstAvailable();
     if (connection != null) {
       await widget.repository.saveDeviceConnection(
         remoteId: connection.remoteId,
         name: connection.name,
       );
+    }
+  }
+
+  void _persistLiveConnectionState(ShinGuardBleState state) {
+    final disconnected =
+        state.status == ShinGuardBleStatus.idle ||
+        state.status == ShinGuardBleStatus.error;
+    if (!disconnected ||
+        widget.device.remoteId.isEmpty ||
+        _isPersistingDisconnect) {
+      return;
+    }
+    _isPersistingDisconnect = true;
+    unawaited(_markDisconnected());
+  }
+
+  Future<void> _markDisconnected() async {
+    try {
+      await widget.repository.markDeviceDisconnected();
+    } catch (_) {
+      // Live BLE state remains authoritative if Firebase is temporarily offline.
+    } finally {
+      _isPersistingDisconnect = false;
     }
   }
 }
