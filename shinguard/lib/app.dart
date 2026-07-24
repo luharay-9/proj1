@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/care_screen.dart';
+import 'screens/contacts_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/onboarding_screen.dart';
@@ -14,6 +15,7 @@ import 'screens/verify_email_screen.dart';
 import 'data/firebase_data_repository.dart';
 import 'data/shinguard_ble_service.dart';
 import 'models/app_data.dart';
+import 'services/notification_service.dart';
 import 'shared/shared_widgets.dart';
 import 'theme/app_colors.dart';
 
@@ -51,6 +53,7 @@ class AuthGate extends StatefulWidget {
 class _AuthGateState extends State<AuthGate> {
   final _repository = FirebaseDataRepository();
   String? _directoryUid;
+  String? _notificationUid;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +66,10 @@ class _AuthGateState extends State<AuthGate> {
 
         final user = snapshot.data;
         if (user != null && user.emailVerified) {
+          if (_notificationUid != user.uid) {
+            _notificationUid = user.uid;
+            unawaited(_activateNotifications());
+          }
           return StreamBuilder<UserAppData>(
             stream: _repository.watchUserData(),
             builder: (context, userSnapshot) {
@@ -95,6 +102,8 @@ class _AuthGateState extends State<AuthGate> {
           );
         }
 
+        _notificationUid = null;
+
         if (user != null) {
           return KeyedSubtree(
             key: const ValueKey('verify-email-screen'),
@@ -112,6 +121,14 @@ class _AuthGateState extends State<AuthGate> {
       },
     );
   }
+
+  Future<void> _activateNotifications() async {
+    try {
+      await NotificationService.instance.activateForCurrentUser();
+    } catch (_) {
+      // Token registration is retried at the next authenticated app start.
+    }
+  }
 }
 
 class ShinPulseShell extends StatefulWidget {
@@ -127,11 +144,18 @@ class _ShinPulseShellState extends State<ShinPulseShell>
   final _ble = ShinGuardBleService.instance;
   final _repository = FirebaseDataRepository();
   Timer? _backgroundDisconnectTimer;
+  StreamSubscription<NotificationDestination>? _notificationSubscription;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _notificationSubscription = NotificationService.instance.destinations
+        .listen(_openNotificationDestination);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final destination = NotificationService.instance.takePendingDestination();
+      if (destination != null) _openNotificationDestination(destination);
+    });
   }
 
   @override
@@ -139,6 +163,7 @@ class _ShinPulseShellState extends State<ShinPulseShell>
     if (state == AppLifecycleState.resumed) {
       _backgroundDisconnectTimer?.cancel();
       _backgroundDisconnectTimer = null;
+      unawaited(_refreshNotificationRegistration());
       return;
     }
     if (state == AppLifecycleState.detached) {
@@ -160,8 +185,23 @@ class _ShinPulseShellState extends State<ShinPulseShell>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _backgroundDisconnectTimer?.cancel();
+    unawaited(_notificationSubscription?.cancel());
     unawaited(_disconnectForInactiveApp());
     super.dispose();
+  }
+
+  void _openNotificationDestination(NotificationDestination destination) {
+    if (!mounted) return;
+    NotificationService.instance.clearPendingDestination();
+    if (destination == NotificationDestination.stats) {
+      setState(() => _tabIndex = 2);
+      return;
+    }
+
+    setState(() => _tabIndex = 4);
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (_) => ContactsScreen()));
   }
 
   Future<void> _disconnectForInactiveApp() async {
@@ -170,6 +210,14 @@ class _ShinPulseShellState extends State<ShinPulseShell>
       await _repository.markDeviceDisconnected();
     } catch (_) {
       // Logout can remove the authenticated user before shell disposal.
+    }
+  }
+
+  Future<void> _refreshNotificationRegistration() async {
+    try {
+      await NotificationService.instance.activateForCurrentUser();
+    } catch (_) {
+      // Registration will be attempted again on the next app resume.
     }
   }
 

@@ -98,6 +98,10 @@ service cloud.firestore {
           || (signedIn() && request.auth.uid == friendUid);
       }
 
+      match /fcmTokens/{tokenId} {
+        allow read, write: if isOwner(uid);
+      }
+
       match /{document=**} {
         allow read, write: if isOwner(uid);
       }

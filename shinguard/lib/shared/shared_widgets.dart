@@ -102,22 +102,35 @@ class PulseAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final content = Stack(
       children: [
-        ClipOval(
-          child: Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.panel,
-              border: Border.all(color: AppColors.pulse, width: 2),
-            ),
-            child: avatar?.isPhoto ?? false
-                ? Image.network(
-                    _versionedPhotoUrl(avatar!),
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, _, _) => _fallbackIcon(),
-                  )
-                : _fallbackIcon(),
+        SizedBox(
+          width: size,
+          height: size,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              ClipOval(
+                child: ColoredBox(
+                  color: AppColors.panel,
+                  child: avatar?.isPhoto ?? false
+                      ? Image.network(
+                          _versionedPhotoUrl(avatar!),
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) => _fallbackIcon(),
+                        )
+                      : _fallbackIcon(),
+                ),
+              ),
+              IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: AppColors.pulse, width: 2),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         if (onTap != null)

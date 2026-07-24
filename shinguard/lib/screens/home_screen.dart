@@ -10,6 +10,7 @@ import '../services/session_recording_service.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
 import 'avatar_picker_screen.dart';
+import 'session_setup_screen.dart';
 
 class HomeDashboard extends StatelessWidget {
   HomeDashboard({super.key});
@@ -64,7 +65,7 @@ class HomeDashboard extends StatelessWidget {
                   repository: _repository,
                 ),
                 const SizedBox(height: 12),
-                SessionControlPanel(position: data.athleteProfile.position),
+                SessionControlPanel(),
                 const SizedBox(height: 18),
                 _MetricRow(metrics: data.metrics.take(3).toList()),
                 const SectionHeader(title: 'Last Match', action: 'View all'),
@@ -116,9 +117,8 @@ class HomeDashboard extends StatelessWidget {
 }
 
 class SessionControlPanel extends StatelessWidget {
-  SessionControlPanel({super.key, required this.position});
+  SessionControlPanel({super.key});
 
-  final String position;
   final SessionRecordingService _recorder = SessionRecordingService.instance;
   final ShinGuardBleService _ble = ShinGuardBleService.instance;
 
@@ -218,7 +218,11 @@ class SessionControlPanel extends StatelessWidget {
                         : canRetrySave
                         ? _recorder.retrySave
                         : connected
-                        ? () => _recorder.startSession(position: position)
+                        ? () => Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => const SessionSetupScreen(),
+                            ),
+                          )
                         : null,
                     icon: state.isBusy
                         ? const SizedBox.square(

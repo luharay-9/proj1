@@ -10,6 +10,8 @@ import '../models/match_summary.dart';
 import '../models/muscle_report.dart';
 import '../models/training_session.dart';
 
+const maxProfilePhotoBytes = 5 * 1024 * 1024;
+
 class FirebaseDataRepository {
   FirebaseDataRepository({
     FirebaseFirestore? firestore,
@@ -90,10 +92,13 @@ class FirebaseDataRepository {
     });
   }
 
-  Future<void> saveRecordedSession({
+  Future<String> saveRecordedSession({
     required DateTime startedAt,
     required Duration duration,
     required String position,
+    String startingPosition = '',
+    int teamSize = 0,
+    String formation = '',
     required int sprints,
     required List<Duration> sprintEvents,
   }) async {
@@ -102,6 +107,9 @@ class FirebaseDataRepository {
     final minutes = (duration.inSeconds / 60).ceil().clamp(1, 9999);
     final date = _dateLabel(startedAt);
     final shortName = '${startedAt.month}/${startedAt.day}';
+    final displayPosition = startingPosition.isEmpty
+        ? position
+        : startingPosition;
     final events = <Map<String, dynamic>>[
       {
         'time': '0:00',
@@ -137,7 +145,11 @@ class FirebaseDataRepository {
       'title': 'ShinGuard Session',
       'date': date,
       'minutes': minutes,
-      'position': position,
+      'position': displayPosition,
+      'positionRole': position,
+      'startingPosition': startingPosition,
+      'teamSize': teamSize,
+      'formation': formation,
       'result': 'COMPLETED',
       'score': '',
       'distance': '0.0 km',
@@ -162,7 +174,11 @@ class FirebaseDataRepository {
       'shortName': shortName,
       'title': 'ShinGuard Session',
       'date': date,
-      'position': position,
+      'position': displayPosition,
+      'positionRole': position,
+      'startingPosition': startingPosition,
+      'teamSize': teamSize,
+      'formation': formation,
       'durationLabel': '$minutes min',
       'durationSeconds': duration.inSeconds,
       'result': 'COMPLETED',
@@ -179,6 +195,7 @@ class FirebaseDataRepository {
       'updatedAt': FieldValue.serverTimestamp(),
     });
     await batch.commit();
+    return sessionId;
   }
 
   Future<void> createUserProfile({
@@ -469,6 +486,13 @@ class FirebaseDataRepository {
     Uint8List bytes, {
     required String contentType,
   }) async {
+    if (bytes.isEmpty || bytes.lengthInBytes > maxProfilePhotoBytes) {
+      throw ArgumentError('Profile photos must be between 1 byte and 5 MB.');
+    }
+    if (!contentType.startsWith('image/')) {
+      throw ArgumentError('Profile photos must use an image content type.');
+    }
+
     final reference = _storage.ref('users/$_uid/profile/avatar');
     await reference.putData(bytes, SettableMetadata(contentType: contentType));
     final downloadUrl = await reference.getDownloadURL();
@@ -539,7 +563,7 @@ class FirebaseDataRepository {
       await removeFriend(friend.id);
     }
     await _deleteFriendRequestsForAccount();
-    for (final path in ['sessions', 'matches', 'muscleReports']) {
+    for (final path in ['sessions', 'matches', 'muscleReports', 'fcmTokens']) {
       await _deleteUserCollection(path);
     }
     await _deleteUserCollection('friendRequests');

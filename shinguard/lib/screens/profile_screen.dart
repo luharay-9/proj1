@@ -7,6 +7,7 @@ import '../data/shinguard_ble_service.dart';
 import '../models/app_data.dart';
 import '../models/match_summary.dart';
 import '../services/performance_scoring.dart';
+import '../services/notification_service.dart';
 import '../shared/legal_links.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
@@ -129,83 +130,216 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SectionHeader(title: 'Settings'),
             SettingsTile(
-              icon: Icons.bluetooth_connected_rounded,
-              title: 'Manage Device',
-              onTap: () => showModalBottomSheet<void>(
-                context: context,
-                backgroundColor: AppColors.panel,
-                showDragHandle: true,
-                builder: (context) => ManageDeviceSheet(
-                  device: data.device,
-                  repository: _repository,
+              icon: Icons.settings_rounded,
+              title: 'Settings',
+              iconColor: AppColors.pulse,
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) =>
+                      SettingsScreen(data: data, repository: _repository),
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            if (kDebugMode) ...[
-              SettingsTile(
-                icon: Icons.bug_report_rounded,
-                title: 'Replay Onboarding (Debug)',
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => OnboardingScreen(
-                      debugReplay: true,
-                      initialAnswers: {
-                        'username': data.displayName,
-                        'dominantFoot': data.athleteProfile.dominantFoot,
-                        'position': data.athleteProfile.position,
-                        'height': data.athleteProfile.height,
-                        'weight': data.athleteProfile.weight,
-                        'club': data.athleteProfile.club,
-                        'ageGroup': data.athleteProfile.ageGroup,
-                      },
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-            ],
-            const SettingsTile(
-              icon: Icons.notifications_rounded,
-              title: 'Notifications',
-              trailing: Switch(value: true, onChanged: null),
-            ),
-            const SizedBox(height: 10),
-            const SettingsTile(
-              icon: Icons.family_restroom,
-              title: 'Parent Dashboard',
-            ),
-            const SizedBox(height: 10),
-            const SettingsTile(
-              icon: Icons.help_rounded,
-              title: 'Help & Support',
-            ),
-            const SizedBox(height: 10),
-            SettingsTile(
-              icon: Icons.privacy_tip_rounded,
-              title: 'Privacy Policy',
-              onTap: () => openLegalDocument(
-                context,
-                url: privacyPolicyUrl,
-                title: 'Privacy Policy',
-              ),
-            ),
-            const SizedBox(height: 10),
-            SettingsTile(
-              icon: Icons.gavel_rounded,
-              title: 'Terms and Conditions',
-              onTap: () => openLegalDocument(
-                context,
-                url: termsAndConditionsUrl,
-                title: 'Terms and Conditions',
-              ),
-            ),
-            const SizedBox(height: 10),
-            AccountActions(repository: _repository),
             const SizedBox(height: 10),
           ],
         );
       },
+    );
+  }
+}
+
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({
+    required this.data,
+    required this.repository,
+    super.key,
+  });
+
+  final UserAppData data;
+  final FirebaseDataRepository repository;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Settings')),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(22, 12, 22, 32),
+        children: [
+          const SectionHeader(title: 'Device'),
+          SettingsTile(
+            icon: Icons.bluetooth_connected_rounded,
+            title: 'Manage Device',
+            onTap: () => showModalBottomSheet<void>(
+              context: context,
+              backgroundColor: AppColors.panel,
+              showDragHandle: true,
+              builder: (context) => ManageDeviceSheet(
+                device: data.device,
+                repository: repository,
+              ),
+            ),
+          ),
+          const SectionHeader(title: 'App'),
+          if (kDebugMode) ...[
+            SettingsTile(
+              icon: Icons.bug_report_rounded,
+              title: 'Replay Onboarding (Debug)',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => OnboardingScreen(
+                    debugReplay: true,
+                    initialAnswers: {
+                      'username': data.displayName,
+                      'dominantFoot': data.athleteProfile.dominantFoot,
+                      'position': data.athleteProfile.position,
+                      'height': data.athleteProfile.height,
+                      'weight': data.athleteProfile.weight,
+                      'club': data.athleteProfile.club,
+                      'ageGroup': data.athleteProfile.ageGroup,
+                    },
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+          const NotificationPermissionTile(),
+          const SizedBox(height: 10),
+          const SettingsTile(
+            icon: Icons.family_restroom,
+            title: 'Parent Dashboard',
+          ),
+          const SizedBox(height: 10),
+          SettingsTile(
+            icon: Icons.help_rounded,
+            title: 'Help & Support',
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const HelpSupportScreen(),
+              ),
+            ),
+          ),
+          const SectionHeader(title: 'Account'),
+          AccountActions(repository: repository),
+        ],
+      ),
+    );
+  }
+}
+
+class HelpSupportScreen extends StatelessWidget {
+  const HelpSupportScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Help & Support')),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(22, 12, 22, 32),
+        children: [
+          const SectionHeader(title: 'Legal'),
+          SettingsTile(
+            icon: Icons.privacy_tip_rounded,
+            title: 'Privacy Policy',
+            onTap: () => openLegalDocument(
+              context,
+              url: privacyPolicyUrl,
+              title: 'Privacy Policy',
+            ),
+          ),
+          const SizedBox(height: 10),
+          SettingsTile(
+            icon: Icons.gavel_rounded,
+            title: 'Terms and Conditions',
+            onTap: () => openLegalDocument(
+              context,
+              url: termsAndConditionsUrl,
+              title: 'Terms and Conditions',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class NotificationPermissionTile extends StatefulWidget {
+  const NotificationPermissionTile({super.key});
+
+  @override
+  State<NotificationPermissionTile> createState() =>
+      _NotificationPermissionTileState();
+}
+
+class _NotificationPermissionTileState
+    extends State<NotificationPermissionTile> {
+  bool? _enabled;
+  bool _isChecking = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SettingsTile(
+      icon: Icons.notifications_rounded,
+      title: 'Notifications',
+      onTap: _isChecking ? null : _enable,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            _isChecking
+                ? 'CHECKING'
+                : _enabled == true
+                ? 'ON'
+                : 'OFF',
+            style: TextStyle(
+              color: _enabled == true ? AppColors.pulse : AppColors.muted,
+              fontSize: 11,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          const SizedBox(width: 4),
+          const Icon(Icons.chevron_right_rounded, color: AppColors.muted),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _refresh() async {
+    try {
+      final enabled = await NotificationService.instance.notificationsEnabled();
+      if (mounted) setState(() => _enabled = enabled);
+    } catch (_) {
+      if (mounted) setState(() => _enabled = false);
+    }
+  }
+
+  Future<void> _enable() async {
+    setState(() => _isChecking = true);
+    var enabled = false;
+    try {
+      enabled = await NotificationService.instance.activateForCurrentUser();
+    } catch (_) {
+      enabled = false;
+    }
+    if (!mounted) return;
+    setState(() {
+      _enabled = enabled;
+      _isChecking = false;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          enabled
+              ? 'Notifications are enabled for this device.'
+              : 'Notifications are blocked. Enable them in this device\'s ShinPulse settings.',
+        ),
+      ),
     );
   }
 }
@@ -658,6 +792,7 @@ class _AccountActionsState extends State<AccountActions> {
   Future<void> _signOut() async {
     setState(() => _isSigningOut = true);
     await ShinGuardBleService.instance.disconnect(message: 'Signed out');
+    await NotificationService.instance.unregisterCurrentDevice();
     try {
       await widget.repository.markDeviceDisconnected();
     } catch (_) {
@@ -696,6 +831,7 @@ class _AccountActionsState extends State<AccountActions> {
         password: password,
       );
       await user.reauthenticateWithCredential(credential);
+      await NotificationService.instance.unregisterCurrentDevice();
       await widget.repository.deleteCurrentUserData();
       await user.delete();
       deleteSucceeded = true;

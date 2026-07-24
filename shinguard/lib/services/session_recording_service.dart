@@ -2,6 +2,7 @@ import 'dart:async';
 
 import '../data/firebase_data_repository.dart';
 import '../data/shinguard_ble_service.dart';
+import 'notification_service.dart';
 
 class SessionRecordingService {
   SessionRecordingService({
@@ -24,6 +25,9 @@ class SessionRecordingService {
   Timer? _timer;
   DateTime? _startedAt;
   String _position = '';
+  String _startingPosition = '';
+  int _teamSize = 0;
+  String _formation = '';
   int _sprints = 0;
   final List<Duration> _sprintEvents = [];
   bool _isFinishing = false;
@@ -46,7 +50,12 @@ class SessionRecordingService {
     await _stateController.close();
   }
 
-  Future<void> startSession({required String position}) async {
+  Future<void> startSession({
+    required String position,
+    String startingPosition = '',
+    int teamSize = 0,
+    String formation = '',
+  }) async {
     if (_state.status == SessionRecordingStatus.recording ||
         _state.status == SessionRecordingStatus.starting ||
         _state.status == SessionRecordingStatus.saving) {
@@ -76,6 +85,9 @@ class SessionRecordingService {
       await _ble.startSession();
       _startedAt = DateTime.now();
       _position = position;
+      _startingPosition = startingPosition;
+      _teamSize = teamSize;
+      _formation = formation;
       _sprints = 0;
       _sprintEvents.clear();
       _timer?.cancel();
@@ -149,14 +161,25 @@ class SessionRecordingService {
     try {
       if (sendStopCommand) await _ble.stopSession();
       if (startedAt == null) throw StateError('Session start time is missing.');
-      await _repository.saveRecordedSession(
+      final sessionId = await _repository.saveRecordedSession(
         startedAt: startedAt,
         duration: duration,
         position: _position,
+        startingPosition: _startingPosition,
+        teamSize: _teamSize,
+        formation: _formation,
         sprints: _sprints,
         sprintEvents: List<Duration>.from(_sprintEvents),
       );
       _startedAt = null;
+      try {
+        await NotificationService.instance.showSessionReady(
+          sessionId: sessionId,
+          sprints: _sprints,
+        );
+      } catch (_) {
+        // The saved statistics remain valid if notification delivery fails.
+      }
       _emit(
         SessionRecordingState(
           status: SessionRecordingStatus.idle,
