@@ -14,6 +14,7 @@ void main() {
       'w': [0.4, 0.5, 0.6],
       'sp': 0,
       'sc': 2,
+      'ok': 1,
     });
     expect(first, isNull);
 
@@ -40,7 +41,54 @@ void main() {
     expect(sample.sprintCount, 3);
     expect(sample.sprintEvent, isTrue);
     expect(sample.kickEvent, isFalse);
+    expect(sample.sensorHealthy, isTrue);
   });
+
+  test('does not emit a second sample for an unmatched motion frame', () {
+    final accumulator = ImuFrameAccumulator();
+    accumulator.add({
+      'f': 0,
+      'a': [1, 2, 3],
+      'l': [0, 0, 0],
+      'w': [0, 0, 0],
+    });
+    accumulator.add({
+      'f': 1,
+      'm': [0, 0, 0],
+      'q': [0, 0, 0, 1],
+    });
+
+    expect(
+      accumulator.add({
+        'f': 0,
+        'a': [4, 5, 6],
+        'l': [0, 0, 0],
+        'w': [0, 0, 0],
+      }),
+      isNull,
+    );
+  });
+
+  test(
+    'legacy all-zero acceleration does not pass the sensor health check',
+    () {
+      final accumulator = ImuFrameAccumulator();
+      accumulator.add({
+        'f': 0,
+        'a': [0, 0, 0],
+        'l': [0, 0, 0],
+        'w': [0, 0, 0],
+      });
+      final sample = accumulator.add({
+        'f': 1,
+        'm': [0, 0, 0],
+        'q': [0, 0, 0, 1],
+      });
+
+      expect(sample, isNotNull);
+      expect(sample!.sensorHealthy, isFalse);
+    },
+  );
 
   test('reset requires both frame types again', () {
     final accumulator = ImuFrameAccumulator();

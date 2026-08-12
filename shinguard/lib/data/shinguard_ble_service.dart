@@ -26,12 +26,14 @@ class ShinGuardBleService {
   BluetoothCharacteristic? _controlCharacteristic;
   StreamSubscription<BluetoothConnectionState>? _connectionSubscription;
   StreamSubscription<List<int>>? _telemetrySubscription;
+  Completer<ImuSample>? _sessionStartCompleter;
   int _connectionAttempt = 0;
 
   static const _adapterTimeout = Duration(seconds: 10);
   static const _scanTimeout = Duration(seconds: 12);
   static const _connectTimeout = Duration(seconds: 12);
   static const _discoveryTimeout = Duration(seconds: 10);
+  static const _sensorStartTimeout = Duration(seconds: 5);
 
   Stream<ShinGuardBleState> get states => _stateController.stream;
   Stream<Map<String, dynamic>> get telemetry => _telemetryController.stream;
@@ -47,10 +49,42 @@ class ShinGuardBleService {
 
   Future<void> startSession() async {
     _imuFrames.reset();
-    await _sendSessionCommand('START');
+    final completer = Completer<ImuSample>();
+    _sessionStartCompleter = completer;
+    try {
+      // Current firmware begins sampling in response to START. Older firmware
+      // has no control characteristic and streams continuously, so it can
+      // still record a session if valid BNO data is arriving.
+      if (_controlCharacteristic != null) {
+        await _sendSessionCommand('START');
+      }
+      await completer.future.timeout(_sensorStartTimeout);
+    } on TimeoutException {
+      if (_controlCharacteristic != null) {
+        try {
+          await _sendSessionCommand('STOP');
+        } catch (_) {
+          // Preserve the sensor timeout as the useful error.
+        }
+      }
+      final detail = _controlCharacteristic == null
+          ? 'The connected firmware has no session control and is not '
+                'streaming BNO acceleration. Flash the current ShinGuard firmware.'
+          : 'The session command was accepted, but no valid BNO acceleration '
+                'arrived. Check the BNO085 connection and restart the ShinGuard.';
+      throw StateError(detail);
+    } finally {
+      if (identical(_sessionStartCompleter, completer)) {
+        _sessionStartCompleter = null;
+      }
+    }
   }
 
-  Future<void> stopSession() => _sendSessionCommand('STOP');
+  Future<void> stopSession() async {
+    if (_controlCharacteristic != null) {
+      await _sendSessionCommand('STOP');
+    }
+  }
 
   Future<ShinGuardBleConnection?> connectToFirstAvailable() async {
     final attempt = ++_connectionAttempt;
@@ -185,6 +219,13 @@ class ShinGuardBleService {
     _device = null;
     _controlCharacteristic = null;
     _imuFrames.reset();
+    final startCompleter = _sessionStartCompleter;
+    _sessionStartCompleter = null;
+    if (startCompleter != null && !startCompleter.isCompleted) {
+      startCompleter.completeError(
+        StateError('The ShinGuard disconnected before its sensors started.'),
+      );
+    }
     if (disconnectDevice && device != null) {
       try {
         await device.disconnect();
@@ -323,7 +364,15 @@ class ShinGuardBleService {
       if (parsed is Map<String, dynamic>) {
         _telemetryController.add(parsed);
         final sample = _imuFrames.add(parsed);
-        if (sample != null) _imuController.add(sample);
+        if (sample != null) {
+          _imuController.add(sample);
+          final completer = _sessionStartCompleter;
+          if (sample.sensorHealthy &&
+              completer != null &&
+              !completer.isCompleted) {
+            completer.complete(sample);
+          }
+        }
       }
     } catch (_) {
       // Ignore malformed BLE fragments. The next notification should be complete.

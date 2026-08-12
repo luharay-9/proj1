@@ -2,6 +2,8 @@ import 'dart:async';
 
 import '../data/firebase_data_repository.dart';
 import '../data/shinguard_ble_service.dart';
+import '../models/imu_sample.dart';
+import '../models/player_position.dart';
 import 'notification_service.dart';
 
 class SessionRecordingService {
@@ -11,6 +13,7 @@ class SessionRecordingService {
   }) : _ble = ble ?? ShinGuardBleService.instance,
        _repository = repository ?? FirebaseDataRepository() {
     _telemetrySubscription = _ble.telemetry.listen(_handleTelemetry);
+    _imuSubscription = _ble.imuSamples.listen(_handleImuSample);
     _connectionSubscription = _ble.states.listen(_handleConnectionState);
   }
 
@@ -21,6 +24,7 @@ class SessionRecordingService {
   final _stateController = StreamController<SessionRecordingState>.broadcast();
 
   late final StreamSubscription<Map<String, dynamic>> _telemetrySubscription;
+  late final StreamSubscription<ImuSample> _imuSubscription;
   late final StreamSubscription<ShinGuardBleState> _connectionSubscription;
   Timer? _timer;
   DateTime? _startedAt;
@@ -29,6 +33,8 @@ class SessionRecordingService {
   int _teamSize = 0;
   String _formation = '';
   int _sprints = 0;
+  final BnoSessionAccumulator _bno = BnoSessionAccumulator();
+  PlayerPosition? _initialPosition;
   final List<Duration> _sprintEvents = [];
   bool _isFinishing = false;
 
@@ -46,6 +52,7 @@ class SessionRecordingService {
   Future<void> dispose() async {
     _timer?.cancel();
     await _telemetrySubscription.cancel();
+    await _imuSubscription.cancel();
     await _connectionSubscription.cancel();
     await _stateController.close();
   }
@@ -82,6 +89,8 @@ class SessionRecordingService {
       ),
     );
     try {
+      _bno.reset();
+      _initialPosition = null;
       await _ble.startSession();
       _startedAt = DateTime.now();
       _position = position;
@@ -93,11 +102,12 @@ class SessionRecordingService {
       _timer?.cancel();
       _timer = Timer.periodic(const Duration(seconds: 1), (_) => _tick());
       _emit(
-        const SessionRecordingState(
+        SessionRecordingState(
           status: SessionRecordingStatus.recording,
           elapsed: Duration.zero,
           sprints: 0,
           message: 'BNO motion recording is active.',
+          bnoSamples: _bno.sampleCount,
         ),
       );
     } catch (error) {
@@ -122,6 +132,12 @@ class SessionRecordingService {
   }
 
   void _handleTelemetry(Map<String, dynamic> telemetry) {
+    if (_state.status != SessionRecordingStatus.starting &&
+        _state.status != SessionRecordingStatus.recording) {
+      return;
+    }
+
+    _initialPosition ??= PlayerPosition.fromTelemetry(telemetry);
     if (_state.status != SessionRecordingStatus.recording) return;
 
     final count = sprintCountFromTelemetry(telemetry, _sprints);
@@ -134,6 +150,14 @@ class SessionRecordingService {
       _emitRecording();
       return;
     }
+  }
+
+  void _handleImuSample(ImuSample sample) {
+    if (_state.status != SessionRecordingStatus.starting &&
+        _state.status != SessionRecordingStatus.recording) {
+      return;
+    }
+    _bno.add(sample);
   }
 
   void _handleConnectionState(ShinGuardBleState state) {
@@ -155,6 +179,7 @@ class SessionRecordingService {
         elapsed: duration,
         sprints: _sprints,
         message: 'Saving session statistics...',
+        bnoSamples: _bno.sampleCount,
       ),
     );
 
@@ -170,6 +195,9 @@ class SessionRecordingService {
         formation: _formation,
         sprints: _sprints,
         sprintEvents: List<Duration>.from(_sprintEvents),
+        bnoSampleCount: _bno.sampleCount,
+        peakAccelerationG: _bno.peakAccelerationG,
+        initialPosition: _initialPosition,
       );
       _startedAt = null;
       try {
@@ -186,6 +214,7 @@ class SessionRecordingService {
           elapsed: duration,
           sprints: _sprints,
           message: 'Session saved with $_sprints sprints.',
+          bnoSamples: _bno.sampleCount,
         ),
       );
     } catch (error) {
@@ -211,6 +240,7 @@ class SessionRecordingService {
         elapsed: _elapsed,
         sprints: _sprints,
         message: 'BNO motion recording is active.',
+        bnoSamples: _bno.sampleCount,
       ),
     );
   }
@@ -265,15 +295,35 @@ class SessionRecordingState {
     required this.elapsed,
     required this.sprints,
     required this.message,
+    this.bnoSamples = 0,
   });
 
   final SessionRecordingStatus status;
   final Duration elapsed;
   final int sprints;
   final String message;
+  final int bnoSamples;
 
   bool get isRecording => status == SessionRecordingStatus.recording;
   bool get isBusy =>
       status == SessionRecordingStatus.starting ||
       status == SessionRecordingStatus.saving;
+}
+
+class BnoSessionAccumulator {
+  int sampleCount = 0;
+  double peakAccelerationG = 0;
+
+  void add(ImuSample sample) {
+    if (!sample.sensorHealthy) return;
+    sampleCount++;
+    if (sample.accelerationG > peakAccelerationG) {
+      peakAccelerationG = sample.accelerationG;
+    }
+  }
+
+  void reset() {
+    sampleCount = 0;
+    peakAccelerationG = 0;
+  }
 }

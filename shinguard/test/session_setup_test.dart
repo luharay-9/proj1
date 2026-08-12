@@ -12,6 +12,11 @@ void main() {
         expect(formation.teamSize, teamSize);
         expect(formation.spots, hasLength(teamSize));
         expect(formation.spots.first.role, 'Goalkeeper');
+        expect(
+          formation.spots.every((spot) => spot.y >= .5),
+          isTrue,
+          reason: '${formation.name} must begin entirely in its own half',
+        );
       }
     }
   });

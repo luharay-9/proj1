@@ -206,6 +206,13 @@ class SessionControlPanel extends StatelessWidget {
                             value: '${state.sprints}',
                           ),
                         ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: _LiveSessionStat(
+                            label: 'BNO SAMPLES',
+                            value: '${state.bnoSamples}',
+                          ),
+                        ),
                       ],
                     ),
                   ],

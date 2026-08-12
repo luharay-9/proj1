@@ -4,6 +4,10 @@ import time
 
 import board
 import busio
+try:
+    import adafruit_gps
+except ImportError:
+    adafruit_gps = None
 from adafruit_ble import BLERadio
 from adafruit_ble.advertising import Advertisement
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
@@ -41,6 +45,7 @@ DEVICE_NAME = "ShinGuard"
 SAMPLE_INTERVAL = 0.05
 REPORT_INTERVAL_US = 50000
 MAX_TELEMETRY_BYTES = 180
+GPS_UPDATE_INTERVAL_MS = 1000
 SPIKE_G_THRESHOLD = 3.1
 SPRINT_COOLDOWN = 0.75
 KICK_JERK_THRESHOLD = 42.0
@@ -62,6 +67,22 @@ try:
     print("BNO085 dynamic calibration started")
 except Exception as error:
     print("BNO085 calibration start failed:", repr(error))
+
+# The PA1010D and BNO085 can share the Feather's STEMMA QT I2C bus. Their
+# default addresses are different (0x10 and 0x4A), so no address changes or
+# second cable bus are required.
+try:
+    if adafruit_gps is None:
+        raise RuntimeError("adafruit_gps.mpy is not installed")
+    gps = adafruit_gps.GPS_GtopI2C(i2c, debug=False)
+    gps.send_command(
+        b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"
+    )
+    gps.send_command(b"PMTK220,1000")
+    print("PA1010D GPS enabled over I2C")
+except Exception as error:
+    gps = None
+    print("PA1010D GPS unavailable; IMU recording will continue:", repr(error))
 
 service = ShinGuardService()
 advertisement = ProvideServicesAdvertisement(service)
@@ -85,6 +106,9 @@ sprint_count = 0
 last_command = "IDLE"
 sample_sequence = 0
 frame_index = 0
+pending_imu_sample = None
+initial_gps_position = None
+gps_position_pending = False
 
 
 def magnitude(values):
@@ -96,10 +120,16 @@ def rounded_tuple(values, digits=3):
 
 
 def read_bno():
+    accel_ok = True
     try:
-        accel = bno.acceleration or (0.0, 0.0, 0.0)
-    except Exception:
+        accel = bno.acceleration
+        if accel is None:
+            accel = (0.0, 0.0, 0.0)
+            accel_ok = False
+    except Exception as error:
         accel = (0.0, 0.0, 0.0)
+        accel_ok = False
+        print("BNO085 acceleration read failed:", repr(error))
 
     try:
         linear_accel = bno.linear_acceleration or (0.0, 0.0, 0.0)
@@ -121,7 +151,40 @@ def read_bno():
     except Exception:
         quat = (0.0, 0.0, 0.0, 1.0)
 
-    return accel, linear_accel, gyro, magnetic, quat
+    return accel, linear_accel, gyro, magnetic, quat, accel_ok
+
+
+def update_gps():
+    if gps is None:
+        return
+    try:
+        gps.update()
+    except Exception as error:
+        print("PA1010D update failed:", repr(error))
+
+
+def capture_initial_gps_position():
+    global initial_gps_position, gps_position_pending
+
+    if not session_active or initial_gps_position is not None or gps is None:
+        return
+    try:
+        if not gps.has_fix:
+            return
+        altitude = gps.altitude_m
+        initial_gps_position = {
+            "t": round(time.monotonic(), 2),
+            "p": (
+                round(gps.latitude, 6),
+                round(gps.longitude, 6),
+                round(altitude, 1) if altitude is not None else None,
+            ),
+            "sat": gps.satellites or 0,
+        }
+        gps_position_pending = True
+        print("Initial GPS position captured:", initial_gps_position)
+    except Exception as error:
+        print("PA1010D fix read failed:", repr(error))
 
 
 def build_sample():
@@ -131,7 +194,7 @@ def build_sample():
 
     now = time.monotonic()
     dt = max(now - last_time, 0.001)
-    accel, linear_accel, gyro, magnetic, quat = read_bno()
+    accel, linear_accel, gyro, magnetic, quat, accel_ok = read_bno()
 
     accel_g = magnitude(accel) / 9.80665
     gyro_mag = magnitude(gyro)
@@ -181,6 +244,7 @@ def build_sample():
         "sp": 1 if sprint_event else 0,
         "sc": sprint_count,
         "k": 1 if kick else 0,
+        "ok": 1 if accel_ok else 0,
     }
 
 
@@ -197,6 +261,7 @@ def build_payload(sample):
             "w": sample["w"],
             "sp": sample["sp"],
             "sc": sample["sc"],
+            "ok": sample["ok"],
         }
     else:
         payload = {
@@ -219,10 +284,31 @@ def build_payload(sample):
     return encoded
 
 
+def build_initial_position_payload():
+    global gps_position_pending
+
+    if not gps_position_pending or initial_gps_position is None:
+        return None
+    payload = {
+        "f": 2,
+        "t": initial_gps_position["t"],
+        "p": initial_gps_position["p"],
+        "sat": initial_gps_position["sat"],
+    }
+    encoded = json.dumps(payload, separators=(",", ":")).encode("utf-8")
+    if len(encoded) > MAX_TELEMETRY_BYTES:
+        print("GPS telemetry frame too large:", len(encoded))
+        return None
+    gps_position_pending = False
+    return encoded
+
+
 def handle_session_command():
     global last_command, session_active, sprint_count
     global last_sprint_time, was_above_spike_threshold
-    global sample_sequence, frame_index, last_time
+    global sample_sequence, frame_index, pending_imu_sample
+    global last_time, last_accel
+    global initial_gps_position, gps_position_pending
 
     command = bytes(service.control).decode("utf-8").strip().upper()
     if command == last_command:
@@ -236,7 +322,12 @@ def handle_session_command():
         was_above_spike_threshold = False
         sample_sequence = 0
         frame_index = 0
+        pending_imu_sample = None
         last_time = time.monotonic()
+        last_accel = (0.0, 0.0, 0.0)
+        initial_gps_position = None
+        gps_position_pending = False
+        capture_initial_gps_position()
         print("Session started")
     elif command in ("STOP", "IDLE"):
         if session_active:
@@ -261,11 +352,19 @@ def advertise_if_needed():
 
 while True:
     advertise_if_needed()
+    update_gps()
 
     if ble.connected:
         handle_session_command()
         if session_active:
-            payload = build_payload(build_sample())
+            capture_initial_gps_position()
+            payload = build_initial_position_payload()
+            if payload is None:
+                if frame_index == 0 or pending_imu_sample is None:
+                    pending_imu_sample = build_sample()
+                payload = build_payload(pending_imu_sample)
+                if frame_index == 0:
+                    pending_imu_sample = None
             if payload is not None:
                 service.telemetry = payload
     elif session_active:

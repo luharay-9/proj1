@@ -27,7 +27,10 @@ class SessionFormation {
         y: .9,
       ),
     ];
-    const lineY = [.7, .45, .2];
+    // A legal kickoff shape keeps every player in the team's own half.
+    // Coordinates increase toward our goal at the bottom of the pitch, so
+    // even the forward line stays just below the halfway line.
+    const lineY = [.78, .66, .54];
     const roles = ['Defense', 'Midfield', 'Forward'];
 
     for (var lineIndex = 0; lineIndex < lines.length; lineIndex++) {

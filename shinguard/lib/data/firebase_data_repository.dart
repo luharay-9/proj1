@@ -8,6 +8,7 @@ import '../models/app_data.dart';
 import '../models/contact.dart';
 import '../models/match_summary.dart';
 import '../models/muscle_report.dart';
+import '../models/player_position.dart';
 import '../models/training_session.dart';
 
 const maxProfilePhotoBytes = 5 * 1024 * 1024;
@@ -101,6 +102,9 @@ class FirebaseDataRepository {
     String formation = '',
     required int sprints,
     required List<Duration> sprintEvents,
+    int bnoSampleCount = 0,
+    double peakAccelerationG = 0,
+    PlayerPosition? initialPosition,
   }) async {
     final sessionId = _userDoc.collection('sessions').doc().id;
     final order = -startedAt.millisecondsSinceEpoch;
@@ -114,11 +118,21 @@ class FirebaseDataRepository {
       {
         'time': '0:00',
         'title': 'Session started',
-        'detail': 'BNO085 motion recording began.',
+        'detail': 'BNO085 acceleration recording began.',
         'value': 'START',
         'icon': 'schedule',
         'color': 'cyan',
       },
+      if (initialPosition != null)
+        {
+          'time': '0:00',
+          'title': 'Starting position captured',
+          'detail':
+              'PA1010D GPS fix acquired from ${initialPosition.satellites} satellites.',
+          'value': 'GPS',
+          'icon': 'location_on',
+          'color': 'cyan',
+        },
       for (var index = 0; index < sprintEvents.length; index++)
         {
           'time': _durationLabel(sprintEvents[index]),
@@ -167,6 +181,9 @@ class FirebaseDataRepository {
       'goalsConceded': 0,
       'startedAt': Timestamp.fromDate(startedAt),
       'durationSeconds': duration.inSeconds,
+      'bnoSampleCount': bnoSampleCount,
+      'peakAccelerationG': peakAccelerationG,
+      if (initialPosition != null) 'initialPosition': initialPosition.toMap(),
     });
     batch.set(_userDoc.collection('sessions').doc(sessionId), {
       'order': order,
@@ -188,6 +205,9 @@ class FirebaseDataRepository {
       'typeIcon': 'soccer',
       'events': events,
       'startedAt': Timestamp.fromDate(startedAt),
+      'bnoSampleCount': bnoSampleCount,
+      'peakAccelerationG': peakAccelerationG,
+      if (initialPosition != null) 'initialPosition': initialPosition.toMap(),
     });
     batch.update(_userDoc, {
       'matches': FieldValue.increment(1),

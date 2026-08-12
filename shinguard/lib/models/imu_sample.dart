@@ -42,6 +42,7 @@ class ImuSample {
     required this.sprintCount,
     required this.sprintEvent,
     required this.kickEvent,
+    required this.sensorHealthy,
   });
 
   final int sequence;
@@ -66,6 +67,9 @@ class ImuSample {
   final int sprintCount;
   final bool sprintEvent;
   final bool kickEvent;
+
+  /// True when the firmware successfully read the BNO accelerometer.
+  final bool sensorHealthy;
 }
 
 class ImuFrameAccumulator {
@@ -76,6 +80,7 @@ class ImuFrameAccumulator {
     final frameType = _integer(frame['f']);
     if (frameType == 0) {
       _motionFrame = Map<String, dynamic>.from(frame);
+      return null;
     } else if (frameType == 1) {
       _orientationFrame = Map<String, dynamic>.from(frame);
     } else {
@@ -85,11 +90,12 @@ class ImuFrameAccumulator {
     final motion = _motionFrame;
     final orientation = _orientationFrame;
     if (motion == null || orientation == null) return null;
+    final acceleration = ImuVector3.fromValue(motion['a']);
 
     return ImuSample(
       sequence: _integer(frame['n']).clamp(0, 1 << 31),
       sensorTimeSeconds: _decimal(frame['t']),
-      acceleration: ImuVector3.fromValue(motion['a']),
+      acceleration: acceleration,
       linearAcceleration: ImuVector3.fromValue(motion['l']),
       angularVelocity: ImuVector3.fromValue(motion['w']),
       magneticField: ImuVector3.fromValue(orientation['m']),
@@ -98,6 +104,10 @@ class ImuFrameAccumulator {
       sprintCount: _integer(frame['sc']).clamp(0, 1 << 31),
       sprintEvent: _flag(frame['sp']),
       kickEvent: _flag(frame['k']),
+      sensorHealthy: motion['ok'] == null
+          ? acceleration.x.abs() + acceleration.y.abs() + acceleration.z.abs() >
+                .01
+          : _flag(motion['ok']),
     );
   }
 
