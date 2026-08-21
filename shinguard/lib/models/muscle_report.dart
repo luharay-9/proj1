@@ -46,10 +46,13 @@ List<List<Offset>> _polygonsFromValue(Object? value) {
   }
   return value
       .map((polygon) {
-        if (polygon is! Iterable) {
+        final points = polygon is Map
+            ? Map<String, dynamic>.from(polygon)['points']
+            : polygon;
+        if (points is! Iterable) {
           return <Offset>[];
         }
-        return polygon.map((point) {
+        return points.map((point) {
           if (point is Map) {
             final mapped = Map<String, dynamic>.from(point);
             return Offset(

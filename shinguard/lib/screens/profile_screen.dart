@@ -13,6 +13,8 @@ import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
 import 'avatar_picker_screen.dart';
 import 'contacts_screen.dart';
+import 'demo_mode_screen.dart';
+import 'insights_screen.dart';
 import 'onboarding_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -93,7 +95,16 @@ class ProfileScreen extends StatelessWidget {
               profile: data.athleteProfile,
               repository: _repository,
             ),
-            const SectionHeader(title: 'Achievements', action: 'View all'),
+            SectionHeader(
+              title: 'Achievements',
+              action: 'View all',
+              onAction: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) =>
+                      AchievementsScreen(achievements: data.achievements),
+                ),
+              ),
+            ),
             SizedBox(
               height: 104,
               child: data.achievements.isEmpty
@@ -180,29 +191,6 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           const SectionHeader(title: 'App'),
-          if (kDebugMode) ...[
-            SettingsTile(
-              icon: Icons.bug_report_rounded,
-              title: 'Replay Onboarding (Debug)',
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (_) => OnboardingScreen(
-                    debugReplay: true,
-                    initialAnswers: {
-                      'username': data.displayName,
-                      'dominantFoot': data.athleteProfile.dominantFoot,
-                      'position': data.athleteProfile.position,
-                      'height': data.athleteProfile.height,
-                      'weight': data.athleteProfile.weight,
-                      'club': data.athleteProfile.club,
-                      'ageGroup': data.athleteProfile.ageGroup,
-                    },
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-          ],
           const NotificationPermissionTile(),
           const SizedBox(height: 10),
           const SettingsTile(
@@ -219,6 +207,41 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
+          if (!kReleaseMode) ...[
+            const SectionHeader(title: 'Developer'),
+            SettingsTile(
+              icon: Icons.bug_report_rounded,
+              title: 'Replay Onboarding (Debug)',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => OnboardingScreen(
+                    debugReplay: true,
+                    initialAnswers: {
+                      'username': data.displayName,
+                      'unitSystem': data.athleteProfile.measurementSystem.name,
+                      'dominantFoot': data.athleteProfile.dominantFoot,
+                      'position': data.athleteProfile.position,
+                      'height': data.athleteProfile.height,
+                      'weight': data.athleteProfile.weight,
+                      'club': data.athleteProfile.club,
+                      'ageGroup': data.athleteProfile.ageGroup,
+                    },
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            SettingsTile(
+              icon: Icons.science_rounded,
+              title: 'Demo Mode (Debug)',
+              iconColor: AppColors.gold,
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => DemoModeScreen(repository: repository),
+                ),
+              ),
+            ),
+          ],
           const SectionHeader(title: 'Account'),
           AccountActions(repository: repository),
         ],
@@ -360,6 +383,7 @@ class AthleteProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final rows = [
       ('Username', username),
+      ('Units', profile.measurementSystem.displayName),
       ('Dominant foot', profile.dominantFoot),
       ('Position', profile.position),
       ('Height', profile.height),
@@ -545,6 +569,7 @@ class _EditAthleteProfileSheetState extends State<EditAthleteProfileSheet> {
     try {
       await widget.repository.updateAthleteProfile({
         'username': _usernameController.text.trim(),
+        'unitSystem': widget.profile.measurementSystem.name,
         'dominantFoot': _dominantFoot,
         'position': _position,
         'height': _heightController.text.trim(),
@@ -766,6 +791,8 @@ class AccountActions extends StatefulWidget {
 }
 
 class _AccountActionsState extends State<AccountActions> {
+  static const _signOutCleanupTimeout = Duration(seconds: 3);
+
   bool _isDeleting = false;
   bool _isSigningOut = false;
 
@@ -791,14 +818,44 @@ class _AccountActionsState extends State<AccountActions> {
 
   Future<void> _signOut() async {
     setState(() => _isSigningOut = true);
-    await ShinGuardBleService.instance.disconnect(message: 'Signed out');
-    await NotificationService.instance.unregisterCurrentDevice();
     try {
-      await widget.repository.markDeviceDisconnected();
+      await Future.wait([
+        _runSignOutCleanup(
+          ShinGuardBleService.instance.disconnect(message: 'Signed out'),
+        ),
+        _runSignOutCleanup(
+          NotificationService.instance.unregisterCurrentDevice(),
+        ),
+        _runSignOutCleanup(widget.repository.markDeviceDisconnected()),
+      ]);
+      await FirebaseAuth.instance.signOut();
+      if (mounted) {
+        Navigator.of(
+          context,
+          rootNavigator: true,
+        ).popUntil((route) => route.isFirst);
+      }
+    } on FirebaseAuthException catch (error) {
+      if (mounted) {
+        _showError(context, error.message ?? 'Unable to sign out right now.');
+      }
     } catch (_) {
-      // Authentication state still takes priority over status persistence.
+      if (mounted) {
+        _showError(context, 'Unable to sign out right now.');
+      }
+    } finally {
+      if (mounted && FirebaseAuth.instance.currentUser != null) {
+        setState(() => _isSigningOut = false);
+      }
     }
-    await FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> _runSignOutCleanup(Future<void> operation) async {
+    try {
+      await operation.timeout(_signOutCleanupTimeout);
+    } catch (_) {
+      // Cleanup is best effort and must never prevent authentication changes.
+    }
   }
 
   Future<void> _showDeleteAccountDialog(BuildContext context) async {
@@ -835,6 +892,12 @@ class _AccountActionsState extends State<AccountActions> {
       await widget.repository.deleteCurrentUserData();
       await user.delete();
       deleteSucceeded = true;
+      if (context.mounted) {
+        Navigator.of(
+          context,
+          rootNavigator: true,
+        ).popUntil((route) => route.isFirst);
+      }
     } on FirebaseAuthException catch (error) {
       if (context.mounted) {
         _showError(context, _messageForAuthError(error));
@@ -1147,22 +1210,26 @@ class Achievement extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: panelDecoration(),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleAvatar(
-            radius: 22,
+            radius: 20,
             backgroundColor: AppColors.pulse.withValues(alpha: .18),
             child: Icon(icon, color: AppColors.pulse),
           ),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: MediaQuery.of(context).size.height * 0.0118,
-              fontWeight: FontWeight.w900,
+          const SizedBox(height: 5),
+          Expanded(
+            child: Center(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 10,
+                  height: 1.05,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
             ),
           ),
         ],

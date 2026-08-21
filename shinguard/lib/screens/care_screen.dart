@@ -89,6 +89,15 @@ class _CareScreenState extends State<CareScreen> {
                 const SizedBox(height: 12),
                 if (reportSnapshot.connectionState == ConnectionState.waiting)
                   const AppLoading()
+                else if (reportSnapshot.hasError)
+                  const SizedBox(
+                    height: 140,
+                    child: EmptyDataPanel(
+                      title: 'Body map data unavailable',
+                      detail: 'Check Firebase access and try again.',
+                      icon: Icons.cloud_off_rounded,
+                    ),
+                  )
                 else if (reports.isEmpty)
                   const SizedBox(
                     height: 140,

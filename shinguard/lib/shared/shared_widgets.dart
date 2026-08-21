@@ -187,10 +187,19 @@ class PulseAvatar extends StatelessWidget {
 }
 
 class SectionHeader extends StatelessWidget {
-  const SectionHeader({required this.title, this.action, super.key});
+  const SectionHeader({
+    required this.title,
+    this.action,
+    this.onAction,
+    super.key,
+  }) : assert(
+         (action == null) == (onAction == null),
+         'Section actions must include both a label and callback.',
+       );
 
   final String title;
   final String? action;
+  final VoidCallback? onAction;
 
   @override
   Widget build(BuildContext context) {
@@ -198,20 +207,24 @@ class SectionHeader extends StatelessWidget {
       padding: const EdgeInsets.only(top: 22, bottom: 10),
       child: Row(
         children: [
-          Text(
-            title,
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w900),
+          Expanded(
+            child: Text(
+              title,
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w900),
+            ),
           ),
-          const Spacer(),
           if (action != null)
-            Text(
-              action!,
-              style: const TextStyle(
-                color: AppColors.pulse,
-                fontWeight: FontWeight.w900,
+            TextButton(
+              onPressed: onAction,
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.pulse,
+                minimumSize: const Size(48, 40),
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                textStyle: const TextStyle(fontWeight: FontWeight.w900),
               ),
+              child: Text(action!),
             ),
         ],
       ),

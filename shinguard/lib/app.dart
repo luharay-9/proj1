@@ -224,7 +224,10 @@ class _ShinPulseShellState extends State<ShinPulseShell>
   @override
   Widget build(BuildContext context) {
     final pages = [
-      HomeDashboard(),
+      HomeDashboard(
+        onOpenTimeline: () => setState(() => _tabIndex = 1),
+        onOpenStats: () => setState(() => _tabIndex = 2),
+      ),
       const SessionTimelineScreen(),
       const PerformanceScreen(),
       const CareScreen(),

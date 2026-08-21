@@ -1,9 +1,9 @@
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 
+import 'demo_data.dart';
 import '../models/app_data.dart';
 import '../models/contact.dart';
 import '../models/match_summary.dart';
@@ -61,10 +61,9 @@ class FirebaseDataRepository {
   }
 
   Stream<List<MuscleReport>> watchMuscleReports(String view) {
-    return _orderedUserCollection(
-      'muscleReports',
-    ).where('view', isEqualTo: view).snapshots().map((snapshot) {
+    return _orderedUserCollection('muscleReports').snapshots().map((snapshot) {
       return snapshot.docs
+          .where((doc) => doc.data()['view'] == view)
           .map((doc) => MuscleReport.fromMap(doc.data()))
           .toList();
     });
@@ -231,6 +230,7 @@ class FirebaseDataRepository {
       'friendUids': <String>[],
       'avatar': {'type': 'icon', 'value': 'person', 'revision': 0},
       'athleteProfile': {
+        'unitSystem': '',
         'dominantFoot': '',
         'position': '',
         'height': '',
@@ -575,6 +575,190 @@ class FirebaseDataRepository {
     }, SetOptions(merge: true));
   }
 
+  Future<Set<DemoDataSection>> enabledDemoSections() async {
+    final snapshot = await _userDoc.get();
+    final demoState = _mapFromValue(snapshot.data()?['debugDemo']);
+    if (demoState['enabled'] != true || demoState['sections'] is! Iterable) {
+      return <DemoDataSection>{};
+    }
+    final names = (demoState['sections'] as Iterable)
+        .whereType<String>()
+        .toSet();
+    return DemoDataSection.values
+        .where((section) => names.contains(section.name))
+        .toSet();
+  }
+
+  Future<void> enableDemoMode(Set<DemoDataSection> sections) async {
+    _requireDeveloperBuild();
+    if (sections.isEmpty) {
+      throw ArgumentError('Select at least one demo data section.');
+    }
+
+    final snapshot = await _userDoc.get();
+    final userData = snapshot.data() ?? const <String, dynamic>{};
+    final currentDemoState = _mapFromValue(userData['debugDemo']);
+    final existingBackup = _mapFromValue(currentDemoState['backup']);
+    final backup = currentDemoState['enabled'] == true
+        ? existingBackup
+        : <String, dynamic>{
+            for (final field in demoRootFieldSections.keys)
+              if (userData.containsKey(field)) field: userData[field],
+          };
+    final demoFields = demoRootFields(sections);
+    final userUpdate = <String, dynamic>{
+      for (final entry in demoRootFieldSections.entries)
+        entry.key: sections.contains(entry.value)
+            ? demoFields[entry.key]
+            : backup.containsKey(entry.key)
+            ? backup[entry.key]
+            : FieldValue.delete(),
+      'debugDemo': {
+        'enabled': true,
+        'sections': sections.map((section) => section.name).toList()..sort(),
+        'backup': backup,
+        'updatedAt': DateTime.now().toUtc(),
+      },
+      'updatedAt': FieldValue.serverTimestamp(),
+    };
+
+    final batch = _firestore.batch();
+    batch.set(_userDoc, userUpdate, SetOptions(merge: true));
+    _writeDemoCollectionData(batch, sections);
+    await batch.commit();
+    await _verifyDemoData(sections);
+  }
+
+  Future<void> disableDemoMode() async {
+    _requireDeveloperBuild();
+    final snapshot = await _userDoc.get();
+    final userData = snapshot.data() ?? const <String, dynamic>{};
+    final demoState = _mapFromValue(userData['debugDemo']);
+    final backup = _mapFromValue(demoState['backup']);
+    final userUpdate = <String, dynamic>{
+      if (demoState['enabled'] == true)
+        for (final field in demoRootFieldSections.keys)
+          field: backup.containsKey(field)
+              ? backup[field]
+              : FieldValue.delete(),
+      'debugDemo': FieldValue.delete(),
+      'updatedAt': FieldValue.serverTimestamp(),
+    };
+
+    final batch = _firestore.batch();
+    batch.set(_userDoc, userUpdate, SetOptions(merge: true));
+    for (final id in demoDocumentIds) {
+      batch.delete(_userDoc.collection('matches').doc(id));
+      batch.delete(_userDoc.collection('sessions').doc(id));
+    }
+    for (final id in demoMuscleReportIds) {
+      batch.delete(_userDoc.collection('muscleReports').doc(id));
+    }
+    await batch.commit();
+  }
+
+  Future<void> _verifyDemoData(Set<DemoDataSection> sections) async {
+    final snapshot = await _userDoc.get(
+      const GetOptions(source: Source.server),
+    );
+    final userData = snapshot.data() ?? const <String, dynamic>{};
+    final demoState = _mapFromValue(userData['debugDemo']);
+    final storedSections =
+        (demoState['sections'] as Iterable?)?.whereType<String>().toSet() ??
+        const <String>{};
+    final expectedSections = sections.map((section) => section.name).toSet();
+    if (demoState['enabled'] != true ||
+        !storedSections.containsAll(expectedSections)) {
+      throw StateError('Firebase did not retain the Demo Mode state.');
+    }
+
+    for (final entry in demoRootFieldSections.entries) {
+      if (sections.contains(entry.value) && !userData.containsKey(entry.key)) {
+        throw StateError('Firebase did not retain ${entry.key} demo data.');
+      }
+    }
+
+    if (sections.contains(DemoDataSection.statistics)) {
+      final match = await _userDoc
+          .collection('matches')
+          .doc(demoDocumentIds.first)
+          .get(const GetOptions(source: Source.server));
+      final session = await _userDoc
+          .collection('sessions')
+          .doc(demoDocumentIds.first)
+          .get(const GetOptions(source: Source.server));
+      if (!match.exists || !session.exists) {
+        throw StateError('Firebase did not retain demo session history.');
+      }
+    }
+
+    if (sections.contains(DemoDataSection.care)) {
+      final report = await _userDoc
+          .collection('muscleReports')
+          .doc(demoMuscleReportIds.first)
+          .get(const GetOptions(source: Source.server));
+      if (!report.exists) {
+        throw StateError('Firebase did not retain demo body map data.');
+      }
+    }
+  }
+
+  void _writeDemoCollectionData(
+    WriteBatch batch,
+    Set<DemoDataSection> sections,
+  ) {
+    final statisticsEnabled = sections.contains(DemoDataSection.statistics);
+    final now = DateTime.now();
+    final matches = {
+      for (final data in demoMatchDocuments(now)) data['id'] as String: data,
+    };
+    final sessions = {
+      for (final data in demoSessionDocuments(now)) data['id'] as String: data,
+    };
+    for (final id in demoDocumentIds) {
+      final matchRef = _userDoc.collection('matches').doc(id);
+      final sessionRef = _userDoc.collection('sessions').doc(id);
+      if (statisticsEnabled) {
+        batch.set(
+          matchRef,
+          Map<String, dynamic>.from(matches[id]!)..remove('id'),
+        );
+        batch.set(
+          sessionRef,
+          Map<String, dynamic>.from(sessions[id]!)..remove('id'),
+        );
+      } else {
+        batch.delete(matchRef);
+        batch.delete(sessionRef);
+      }
+    }
+
+    final careEnabled = sections.contains(DemoDataSection.care);
+    final reports = {
+      for (final data in demoMuscleReportDocuments())
+        data['id'] as String: data,
+    };
+    for (final id in demoMuscleReportIds) {
+      final reportRef = _userDoc.collection('muscleReports').doc(id);
+      if (careEnabled) {
+        batch.set(
+          reportRef,
+          Map<String, dynamic>.from(reports[id]!)..remove('id'),
+        );
+      } else {
+        batch.delete(reportRef);
+      }
+    }
+  }
+
+  void _requireDeveloperBuild() {
+    if (kReleaseMode) {
+      throw UnsupportedError(
+        'Demo mode is only available in non-release builds.',
+      );
+    }
+  }
+
   Future<void> deleteCurrentUserData() async {
     final userSnapshot = await _userDoc.get();
     final usernameLower = userSnapshot.data()?['usernameLower'] as String?;
@@ -697,6 +881,10 @@ class FirebaseDataRepository {
   Query<Map<String, dynamic>> _orderedUserCollection(String path) {
     return _userDoc.collection(path).orderBy('order');
   }
+}
+
+Map<String, dynamic> _mapFromValue(Object? value) {
+  return value is Map ? Map<String, dynamic>.from(value) : <String, dynamic>{};
 }
 
 String normalizeUsername(String value) => value.trim().toLowerCase();

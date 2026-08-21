@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/firestore_mapping.dart';
+import 'measurement_system.dart';
 import '../theme/app_colors.dart';
 
 class UserAppData {
@@ -92,6 +93,7 @@ class AvatarData {
 
 class AthleteProfile {
   const AthleteProfile({
+    required this.measurementSystem,
     required this.dominantFoot,
     required this.position,
     required this.height,
@@ -100,6 +102,7 @@ class AthleteProfile {
     required this.ageGroup,
   });
 
+  final MeasurementSystem measurementSystem;
   final String dominantFoot;
   final String position;
   final String height;
@@ -108,11 +111,21 @@ class AthleteProfile {
   final String ageGroup;
 
   factory AthleteProfile.fromMap(Map<String, dynamic> map) {
+    final height = stringFromMap(map, 'height', '');
+    final weight = stringFromMap(map, 'weight', '');
+    final savedUnitSystem = stringFromMap(map, 'unitSystem', '');
+    final inferredUnitSystem = savedUnitSystem.isNotEmpty
+        ? savedUnitSystem
+        : height.toLowerCase().contains('ft') ||
+              weight.toLowerCase().contains('lb')
+        ? 'imperial'
+        : 'metric';
     return AthleteProfile(
+      measurementSystem: MeasurementSystem.fromValue(inferredUnitSystem),
       dominantFoot: stringFromMap(map, 'dominantFoot', ''),
       position: stringFromMap(map, 'position', ''),
-      height: stringFromMap(map, 'height', ''),
-      weight: stringFromMap(map, 'weight', ''),
+      height: height,
+      weight: weight,
       club: stringFromMap(map, 'club', ''),
       ageGroup: stringFromMap(map, 'ageGroup', ''),
     );

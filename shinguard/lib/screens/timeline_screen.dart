@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../data/firebase_data_repository.dart';
 import '../models/app_data.dart';
+import '../models/measurement_system.dart';
 import '../models/training_session.dart';
 import '../services/performance_scoring.dart';
 import '../shared/shared_widgets.dart';
@@ -172,9 +173,13 @@ class _SessionTimelineScreenState extends State<SessionTimelineScreen> {
                 final selectedPosition =
                     userSnapshot.data?.athleteProfile.position ??
                     session.position;
+                final measurementSystem =
+                    userSnapshot.data?.athleteProfile.measurementSystem ??
+                    MeasurementSystem.metric;
                 return TimelineHero(
                   session: session,
                   selectedPosition: selectedPosition,
+                  measurementSystem: measurementSystem,
                 );
               },
             ),
@@ -198,11 +203,13 @@ class TimelineHero extends StatelessWidget {
   const TimelineHero({
     required this.session,
     required this.selectedPosition,
+    this.measurementSystem = MeasurementSystem.metric,
     super.key,
   });
 
   final TrainingSession session;
   final String selectedPosition;
+  final MeasurementSystem measurementSystem;
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +218,7 @@ class TimelineHero extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         gradient: const LinearGradient(
-          colors: [Color(0xff712724), Color(0xffa33a36)],
+          colors: [Color(0xff153a35), Color(0xff2f7650)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -261,9 +268,12 @@ class TimelineHero extends StatelessWidget {
             children: [
               Expanded(
                 child: MiniSessionStat(
-                  value: '${session.topSpeed}',
+                  value: MeasurementFormatter.speedFromKilometersPerHour(
+                    session.topSpeed,
+                    measurementSystem,
+                  ).split(' ').first,
                   label: 'Top Speed',
-                  unit: 'km/h',
+                  unit: measurementSystem.speedUnit,
                   icon: Icons.speed_rounded,
                 ),
               ),

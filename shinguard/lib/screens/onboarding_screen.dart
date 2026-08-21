@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/firebase_data_repository.dart';
+import '../models/measurement_system.dart';
 import '../theme/app_colors.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -27,9 +28,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final _weightLbController = TextEditingController();
   final _weightKgController = TextEditingController();
 
-  String _heightSystem = 'imperial';
-  String _weightSystem = 'imperial';
-
   int _index = 0;
   bool _isSaving = false;
   String? _errorMessage;
@@ -41,6 +39,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       title: 'Choose a username',
       detail: 'This is the name shown throughout ShinGuard.',
       hint: 'Example: Leo7',
+    ),
+    _OnboardingStep.options(
+      keyName: 'unitSystem',
+      title: 'Choose your units',
+      detail:
+          'ShinGuard will use this for your profile, distances, and speeds.',
+      options: ['Imperial', 'Metric'],
     ),
     _OnboardingStep.options(
       keyName: 'dominantFoot',
@@ -126,28 +131,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     step: step,
                     selectedValue: _answers[step.keyName],
                     textController: _textController,
-                    heightSystem: _heightSystem,
-                    weightSystem: _weightSystem,
+                    measurementSystem: _measurementSystem,
                     heightFeetController: _heightFeetController,
                     heightInchesController: _heightInchesController,
                     heightCmController: _heightCmController,
                     weightLbController: _weightLbController,
                     weightKgController: _weightKgController,
-                    onHeightSystemChanged: (value) {
-                      setState(() {
-                        _heightSystem = value;
-                        _errorMessage = null;
-                      });
-                    },
-                    onWeightSystemChanged: (value) {
-                      setState(() {
-                        _weightSystem = value;
-                        _errorMessage = null;
-                      });
-                    },
                     onOptionSelected: (value) {
                       setState(() {
-                        _answers[step.keyName] = value;
+                        _answers[step.keyName] = step.keyName == 'unitSystem'
+                            ? value.toLowerCase()
+                            : value;
                         _errorMessage = null;
                       });
                     },
@@ -281,9 +275,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return step.kind == _OnboardingStepKind.input;
   }
 
+  MeasurementSystem get _measurementSystem {
+    return MeasurementSystem.fromValue(_answers['unitSystem']);
+  }
+
   String? _measurementAnswer(String keyName) {
     if (keyName == 'height') {
-      if (_heightSystem == 'imperial') {
+      if (_measurementSystem == MeasurementSystem.imperial) {
         final feet = int.tryParse(_heightFeetController.text.trim());
         final inches = int.tryParse(_heightInchesController.text.trim());
         if (feet == null || feet <= 0 || inches == null || inches < 0) {
@@ -307,19 +305,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       return '${_formatMeasurement(centimeters)} cm';
     }
 
-    final controller = _weightSystem == 'imperial'
+    final controller = _measurementSystem == MeasurementSystem.imperial
         ? _weightLbController
         : _weightKgController;
     final weight = double.tryParse(controller.text.trim());
     if (weight == null || weight <= 0) {
       setState(() {
-        _errorMessage = _weightSystem == 'imperial'
+        _errorMessage = _measurementSystem == MeasurementSystem.imperial
             ? 'Enter your weight in pounds.'
             : 'Enter your weight in kilograms.';
       });
       return null;
     }
-    final unit = _weightSystem == 'imperial' ? 'lb' : 'kg';
+    final unit = _measurementSystem == MeasurementSystem.imperial ? 'lb' : 'kg';
     return '${_formatMeasurement(weight)} $unit';
   }
 
@@ -332,12 +330,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final height = _answers['height'] ?? '';
     final heightValues = _numbersIn(height);
     if (height.toLowerCase().contains('cm')) {
-      _heightSystem = 'metric';
+      _answers.putIfAbsent('unitSystem', () => 'metric');
       if (heightValues.isNotEmpty) {
         _heightCmController.text = _formatMeasurement(heightValues.first);
       }
     } else if (heightValues.isNotEmpty) {
-      _heightSystem = 'imperial';
+      _answers.putIfAbsent('unitSystem', () => 'imperial');
       _heightFeetController.text = _formatMeasurement(heightValues.first);
       if (heightValues.length > 1) {
         _heightInchesController.text = _formatMeasurement(heightValues[1]);
@@ -347,12 +345,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final weight = _answers['weight'] ?? '';
     final weightValues = _numbersIn(weight);
     if (weight.toLowerCase().contains('kg')) {
-      _weightSystem = 'metric';
+      _answers.putIfAbsent('unitSystem', () => 'metric');
       if (weightValues.isNotEmpty) {
         _weightKgController.text = _formatMeasurement(weightValues.first);
       }
     } else if (weightValues.isNotEmpty) {
-      _weightSystem = 'imperial';
+      _answers.putIfAbsent('unitSystem', () => 'imperial');
       _weightLbController.text = _formatMeasurement(weightValues.first);
     }
   }
@@ -370,15 +368,12 @@ class _StepBody extends StatelessWidget {
     required this.selectedValue,
     required this.textController,
     required this.onOptionSelected,
-    required this.heightSystem,
-    required this.weightSystem,
+    required this.measurementSystem,
     required this.heightFeetController,
     required this.heightInchesController,
     required this.heightCmController,
     required this.weightLbController,
     required this.weightKgController,
-    required this.onHeightSystemChanged,
-    required this.onWeightSystemChanged,
     super.key,
   });
 
@@ -386,15 +381,12 @@ class _StepBody extends StatelessWidget {
   final String? selectedValue;
   final TextEditingController textController;
   final ValueChanged<String> onOptionSelected;
-  final String heightSystem;
-  final String weightSystem;
+  final MeasurementSystem measurementSystem;
   final TextEditingController heightFeetController;
   final TextEditingController heightInchesController;
   final TextEditingController heightCmController;
   final TextEditingController weightLbController;
   final TextEditingController weightKgController;
-  final ValueChanged<String> onHeightSystemChanged;
-  final ValueChanged<String> onWeightSystemChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -407,19 +399,17 @@ class _StepBody extends StatelessWidget {
         key: ValueKey(step.keyName),
         title: step.title,
         detail: step.detail,
-        measurementSystem: isHeight ? heightSystem : weightSystem,
-        onSystemChanged: isHeight
-            ? onHeightSystemChanged
-            : onWeightSystemChanged,
+        measurementSystem: measurementSystem,
         isHeight: isHeight,
         primaryController: isHeight
-            ? (heightSystem == 'imperial'
+            ? (measurementSystem == MeasurementSystem.imperial
                   ? heightFeetController
                   : heightCmController)
-            : (weightSystem == 'imperial'
+            : (measurementSystem == MeasurementSystem.imperial
                   ? weightLbController
                   : weightKgController),
-        secondaryController: isHeight && heightSystem == 'imperial'
+        secondaryController:
+            isHeight && measurementSystem == MeasurementSystem.imperial
             ? heightInchesController
             : null,
       );
@@ -452,7 +442,7 @@ class _StepBody extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 12),
               child: _OptionButton(
                 label: option,
-                selected: selectedValue == option,
+                selected: selectedValue?.toLowerCase() == option.toLowerCase(),
                 onTap: () => onOptionSelected(option),
               ),
             ),
@@ -481,7 +471,6 @@ class _MeasurementStep extends StatelessWidget {
     required this.title,
     required this.detail,
     required this.measurementSystem,
-    required this.onSystemChanged,
     required this.isHeight,
     required this.primaryController,
     this.secondaryController,
@@ -490,15 +479,14 @@ class _MeasurementStep extends StatelessWidget {
 
   final String title;
   final String detail;
-  final String measurementSystem;
-  final ValueChanged<String> onSystemChanged;
+  final MeasurementSystem measurementSystem;
   final bool isHeight;
   final TextEditingController primaryController;
   final TextEditingController? secondaryController;
 
   @override
   Widget build(BuildContext context) {
-    final isImperial = measurementSystem == 'imperial';
+    final isImperial = measurementSystem == MeasurementSystem.imperial;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -521,23 +509,12 @@ class _MeasurementStep extends StatelessWidget {
               ),
             ),
             SizedBox(height: constraints.maxHeight * 0.08),
-            DropdownButtonFormField<String>(
-              key: ValueKey('$title-$measurementSystem'),
-              initialValue: measurementSystem,
-              decoration: const InputDecoration(
-                labelText: 'Measurement system',
-                filled: true,
-                fillColor: AppColors.panel,
-                border: OutlineInputBorder(),
+            Text(
+              '${measurementSystem.displayName} units',
+              style: const TextStyle(
+                color: AppColors.pulse,
+                fontWeight: FontWeight.w900,
               ),
-              dropdownColor: AppColors.panel,
-              items: const [
-                DropdownMenuItem(value: 'imperial', child: Text('Imperial')),
-                DropdownMenuItem(value: 'metric', child: Text('Metric')),
-              ],
-              onChanged: (value) {
-                if (value != null) onSystemChanged(value);
-              },
             ),
             const SizedBox(height: 24),
             if (isHeight && isImperial)

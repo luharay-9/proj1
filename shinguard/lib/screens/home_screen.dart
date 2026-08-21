@@ -6,16 +6,24 @@ import '../data/firebase_data_repository.dart';
 import '../data/shinguard_ble_service.dart';
 import '../models/app_data.dart';
 import '../models/match_summary.dart';
+import '../models/measurement_system.dart';
 import '../services/session_recording_service.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
 import 'avatar_picker_screen.dart';
+import 'insights_screen.dart';
 import 'session_setup_screen.dart';
 
 class HomeDashboard extends StatelessWidget {
-  HomeDashboard({super.key});
+  HomeDashboard({
+    required this.onOpenTimeline,
+    required this.onOpenStats,
+    super.key,
+  });
 
   final FirebaseDataRepository _repository = FirebaseDataRepository();
+  final VoidCallback onOpenTimeline;
+  final VoidCallback onOpenStats;
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +75,15 @@ class HomeDashboard extends StatelessWidget {
                 const SizedBox(height: 12),
                 SessionControlPanel(),
                 const SizedBox(height: 18),
-                _MetricRow(metrics: data.metrics.take(3).toList()),
-                const SectionHeader(title: 'Last Match', action: 'View all'),
+                DashboardMetricRow(
+                  metrics: data.metrics.take(3).toList(),
+                  measurementSystem: data.athleteProfile.measurementSystem,
+                ),
+                SectionHeader(
+                  title: 'Last Match',
+                  action: 'View all',
+                  onAction: onOpenStats,
+                ),
                 if (matchSnapshot.connectionState == ConnectionState.waiting)
                   const SizedBox(height: 148, child: AppLoading())
                 else if (latestMatch == null)
@@ -81,8 +96,20 @@ class HomeDashboard extends StatelessWidget {
                     ),
                   )
                 else
-                  MatchPreviewCard(match: latestMatch),
-                const SectionHeader(title: "Today's Tips", action: 'See all'),
+                  MatchPreviewCard(
+                    match: latestMatch,
+                    measurementSystem: data.athleteProfile.measurementSystem,
+                    onTap: onOpenTimeline,
+                  ),
+                SectionHeader(
+                  title: "Today's Tips",
+                  action: 'See all',
+                  onAction: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => TipsScreen(tips: data.tips),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 170,
                   child: data.tips.isEmpty
@@ -506,10 +533,15 @@ class _DeviceConnectionPromptState extends State<DeviceConnectionPrompt>
   }
 }
 
-class _MetricRow extends StatelessWidget {
-  const _MetricRow({required this.metrics});
+class DashboardMetricRow extends StatelessWidget {
+  const DashboardMetricRow({
+    required this.metrics,
+    this.measurementSystem = MeasurementSystem.metric,
+    super.key,
+  });
 
   final List<DashboardMetric> metrics;
+  final MeasurementSystem measurementSystem;
 
   @override
   Widget build(BuildContext context) {
@@ -517,20 +549,28 @@ class _MetricRow extends StatelessWidget {
       return const AppMessage(title: 'No dashboard metrics synced yet');
     }
 
-    return Row(
-      children: [
-        for (var i = 0; i < metrics.length; i++) ...[
-          if (i > 0) const SizedBox(width: 10),
-          Expanded(
-            child: MetricCard(
-              icon: metrics[i].icon,
-              label: metrics[i].label,
-              value: metrics[i].value,
-              color: metrics[i].color,
+    return SizedBox(
+      height: 150,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (var i = 0; i < metrics.length; i++) ...[
+            if (i > 0) const SizedBox(width: 10),
+            Expanded(
+              child: MetricCard(
+                icon: metrics[i].icon,
+                label: metrics[i].label,
+                value: MeasurementFormatter.dashboardMetric(
+                  label: metrics[i].label,
+                  value: metrics[i].value,
+                  system: measurementSystem,
+                ),
+                color: metrics[i].color,
+              ),
             ),
-          ),
+          ],
         ],
-      ],
+      ),
     );
   }
 }
@@ -557,16 +597,20 @@ class ReadinessCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                readiness.label,
-                style: TextStyle(
-                  color: AppColors.softText,
-                  fontSize: 12,
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.w900,
+              Expanded(
+                child: Text(
+                  readiness.label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: AppColors.softText,
+                    fontSize: 12,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(width: 12),
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
@@ -578,7 +622,7 @@ class ReadinessCard extends StatelessWidget {
                 ),
                 child: Text(
                   readiness.status,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: AppColors.pulse,
                     fontWeight: FontWeight.w900,
                     fontSize: 11,
@@ -593,13 +637,16 @@ class ReadinessCard extends StatelessWidget {
             children: [
               Text(
                 '${readiness.score}',
-                style: TextStyle(fontSize: 54, fontWeight: FontWeight.w900),
+                style: const TextStyle(
+                  fontSize: 54,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 11),
+                padding: const EdgeInsets.only(bottom: 11),
                 child: Text(
                   '/100',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: AppColors.softText,
                     fontWeight: FontWeight.w900,
                   ),
@@ -620,22 +667,34 @@ class ReadinessCard extends StatelessWidget {
           const SizedBox(height: 8),
           Row(
             children: [
-              Icon(Icons.flash_on_rounded, color: AppColors.softText, size: 14),
-              Text(
-                readiness.detail,
-                style: TextStyle(
-                  color: AppColors.softText,
-                  fontWeight: FontWeight.w800,
+              const Icon(
+                Icons.flash_on_rounded,
+                color: AppColors.softText,
+                size: 14,
+              ),
+              const SizedBox(width: 3),
+              Expanded(
+                child: Text(
+                  readiness.detail,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: AppColors.softText,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
-              Spacer(),
-              Text(
-                readiness.recoveryLabel,
-                style: TextStyle(
-                  color: AppColors.softText,
-                  fontWeight: FontWeight.w800,
+              if (readiness.recoveryLabel.isNotEmpty) ...[
+                const SizedBox(width: 10),
+                Text(
+                  readiness.recoveryLabel,
+                  maxLines: 1,
+                  style: const TextStyle(
+                    color: AppColors.softText,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
+              ],
             ],
           ),
         ],
@@ -667,13 +726,13 @@ class MetricCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconBadge(icon: icon, color: color),
-          const SizedBox(height: 18),
-          Text(
-            value,
-            style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w900),
-          ),
+          const Spacer(),
+          _MetricValue(value),
+          const SizedBox(height: 2),
           Text(
             label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: AppColors.muted,
               fontWeight: FontWeight.w700,
@@ -686,93 +745,160 @@ class MetricCard extends StatelessWidget {
   }
 }
 
-class MatchPreviewCard extends StatelessWidget {
-  const MatchPreviewCard({required this.match, super.key});
+class _MetricValue extends StatelessWidget {
+  const _MetricValue(this.value);
 
-  final MatchSummary match;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 148,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        gradient: const LinearGradient(
-          colors: [Color(0xff132918), Color(0xff245035)],
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-        ),
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            child: StatusPill(
-              label: [
-                match.result,
-                match.score,
-              ].where((item) => item.isNotEmpty).join(' '),
-              icon: Icons.circle,
-            ),
-          ),
-          const Positioned(
-            right: 0,
-            top: 0,
-            child: CircleAvatar(
-              radius: 18,
-              backgroundColor: Colors.white,
-              child: Icon(Icons.play_arrow_rounded, color: AppColors.ink),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            bottom: 0,
-            right: 0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  match.title,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+    final separator = value.indexOf(' ');
+    final number = separator < 0 ? value : value.substring(0, separator);
+    final unit = separator < 0 ? '' : value.substring(separator + 1);
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text.rich(
+        TextSpan(
+          text: number,
+          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w900),
+          children: [
+            if (unit.isNotEmpty)
+              TextSpan(
+                text: ' $unit',
+                style: const TextStyle(
+                  color: AppColors.softText,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w900,
                 ),
-                SizedBox(height: 4),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.schedule_rounded,
-                      size: 14,
-                      color: AppColors.softText,
+              ),
+          ],
+        ),
+        maxLines: 1,
+        softWrap: false,
+      ),
+    );
+  }
+}
+
+class MatchPreviewCard extends StatelessWidget {
+  const MatchPreviewCard({
+    required this.match,
+    required this.onTap,
+    this.measurementSystem = MeasurementSystem.metric,
+    super.key,
+  });
+
+  final MatchSummary match;
+  final VoidCallback onTap;
+  final MeasurementSystem measurementSystem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: 'Open ${match.title} in Timeline',
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: onTap,
+          child: Ink(
+            height: 148,
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              gradient: const LinearGradient(
+                colors: [Color(0xff132918), Color(0xff245035)],
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: StatusPill(
+                    label: [
+                      match.result,
+                      match.score,
+                    ].where((item) => item.isNotEmpty).join(' '),
+                    icon: Icons.circle,
+                  ),
+                ),
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: IconButton.filled(
+                    tooltip: 'Open in Timeline',
+                    onPressed: onTap,
+                    style: IconButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: AppColors.ink,
                     ),
-                    Text(
-                      ' ${match.minutes} min  ',
-                      style: TextStyle(color: AppColors.softText),
-                    ),
-                    Icon(
-                      Icons.route_rounded,
-                      size: 14,
-                      color: AppColors.softText,
-                    ),
-                    Text(
-                      ' ${match.distance}  ',
-                      style: TextStyle(color: AppColors.softText),
-                    ),
-                    Icon(
-                      Icons.bolt_rounded,
-                      size: 14,
-                      color: AppColors.softText,
-                    ),
-                    Text(
-                      ' ${match.sprints} sprints',
-                      style: TextStyle(color: AppColors.softText),
-                    ),
-                  ],
+                    icon: const Icon(Icons.play_arrow_rounded),
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  bottom: 0,
+                  right: 0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        match.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.schedule_rounded,
+                              size: 14,
+                              color: AppColors.softText,
+                            ),
+                            Text(
+                              ' ${match.minutes} min  ',
+                              style: TextStyle(color: AppColors.softText),
+                            ),
+                            Icon(
+                              Icons.route_rounded,
+                              size: 14,
+                              color: AppColors.softText,
+                            ),
+                            Text(
+                              ' ${MeasurementFormatter.distance(match.distance, measurementSystem)}  ',
+                              style: TextStyle(color: AppColors.softText),
+                            ),
+                            Icon(
+                              Icons.bolt_rounded,
+                              size: 14,
+                              color: AppColors.softText,
+                            ),
+                            Text(
+                              ' ${match.sprints} sprints',
+                              style: TextStyle(color: AppColors.softText),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

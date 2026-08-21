@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../data/firebase_data_repository.dart';
 import '../models/app_data.dart';
 import '../models/match_summary.dart';
+import '../models/measurement_system.dart';
 import '../services/performance_scoring.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
@@ -39,6 +40,13 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
         final userData = userSnapshot.data!;
         final performance = userData.performance;
         final selectedPosition = userData.athleteProfile.position;
+        final measurementSystem = userData.athleteProfile.measurementSystem;
+        final distanceRun = MeasurementFormatter.distanceParts(
+          performance.distanceRun,
+          performance.distanceUnit,
+          measurementSystem,
+        );
+        final distanceParts = distanceRun.split(' ');
         return StreamBuilder<List<MatchSummary>>(
           stream: _repository.watchMatches(),
           builder: (context, matchSnapshot) {
@@ -78,8 +86,8 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                 const SizedBox(height: 18),
                 TrendCard(
                   title: 'DISTANCE RUN',
-                  value: performance.distanceRun,
-                  unit: performance.distanceUnit,
+                  value: distanceParts.first,
+                  unit: distanceParts.skip(1).join(' '),
                   delta: performance.distanceDelta,
                   points: performance.trendPoints,
                 ),
@@ -108,6 +116,16 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                     (match) => HistoryCard(
                       match: match,
                       selectedPosition: selectedPosition,
+                      measurementSystem: measurementSystem,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => MatchOverviewScreen(
+                            match: match,
+                            selectedPosition: selectedPosition,
+                            measurementSystem: measurementSystem,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
               ],
@@ -304,71 +322,105 @@ class HistoryCard extends StatelessWidget {
   const HistoryCard({
     required this.match,
     required this.selectedPosition,
+    this.measurementSystem = MeasurementSystem.metric,
+    this.onTap,
     super.key,
   });
 
   final MatchSummary match;
   final String selectedPosition;
+  final MeasurementSystem measurementSystem;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        gradient: LinearGradient(
-          colors: [match.color.withValues(alpha: .58), AppColors.panel],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              StatusPill(label: match.result, icon: Icons.circle),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: .35),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  match.score,
-                  style: const TextStyle(fontWeight: FontWeight.w900),
-                ),
+    return Semantics(
+      button: onTap != null,
+      label: onTap == null ? null : 'Open ${match.title} overview',
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: onTap,
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              gradient: LinearGradient(
+                colors: [match.color.withValues(alpha: .58), AppColors.panel],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-            ],
-          ),
-          const SizedBox(height: 48),
-          Text(
-            match.title,
-            style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            '${match.date} · ${match.minutes} min · ${match.position}',
-            style: const TextStyle(
-              color: AppColors.muted,
-              fontWeight: FontWeight.w700,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    StatusPill(label: match.result, icon: Icons.circle),
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 9,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: .35),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        match.score,
+                        style: const TextStyle(fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 48),
+                Text(
+                  match.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '${match.date} · ${match.minutes} min · ${match.position}',
+                  style: const TextStyle(
+                    color: AppColors.muted,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    HistoryMetric(
+                      value: MeasurementFormatter.distance(
+                        match.distance,
+                        measurementSystem,
+                      ),
+                      label: 'Distance',
+                    ),
+                    HistoryMetric(
+                      value: MeasurementFormatter.speed(
+                        match.speed,
+                        measurementSystem,
+                      ),
+                      label: 'Top Speed',
+                    ),
+                    HistoryMetric(value: '${match.sprints}', label: 'Sprints'),
+                    HistoryMetric(
+                      value:
+                          '${PerformanceScoring.score(match, selectedPosition)}',
+                      label: 'Score',
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              HistoryMetric(value: match.distance, label: 'Distance'),
-              HistoryMetric(value: match.speed, label: 'Top Speed'),
-              HistoryMetric(value: '${match.sprints}', label: 'Sprints'),
-              HistoryMetric(
-                value: '${PerformanceScoring.score(match, selectedPosition)}',
-                label: 'Score',
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -386,16 +438,216 @@ class HistoryMetric extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            value,
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900),
-          ),
+          _SingleLineHistoryValue(value),
           Text(
             label,
             style: const TextStyle(
               color: AppColors.muted,
               fontSize: 11,
               fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SingleLineHistoryValue extends StatelessWidget {
+  const _SingleLineHistoryValue(this.value);
+
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final separator = value.indexOf(' ');
+    final number = separator < 0 ? value : value.substring(0, separator);
+    final unit = separator < 0 ? '' : value.substring(separator + 1);
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text.rich(
+        TextSpan(
+          text: number,
+          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900),
+          children: [
+            if (unit.isNotEmpty)
+              TextSpan(
+                text: ' $unit',
+                style: const TextStyle(
+                  color: AppColors.softText,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+          ],
+        ),
+        maxLines: 1,
+        softWrap: false,
+      ),
+    );
+  }
+}
+
+class MatchOverviewScreen extends StatelessWidget {
+  const MatchOverviewScreen({
+    required this.match,
+    required this.selectedPosition,
+    this.measurementSystem = MeasurementSystem.metric,
+    super.key,
+  });
+
+  final MatchSummary match;
+  final String selectedPosition;
+  final MeasurementSystem measurementSystem;
+
+  @override
+  Widget build(BuildContext context) {
+    final score = PerformanceScoring.score(match, selectedPosition);
+    final details = <(String, String, IconData)>[
+      (
+        MeasurementFormatter.distance(match.distance, measurementSystem),
+        'Distance',
+        Icons.route_rounded,
+      ),
+      (
+        MeasurementFormatter.speed(match.speed, measurementSystem),
+        'Top Speed',
+        Icons.speed_rounded,
+      ),
+      ('${match.sprints}', 'Sprints', Icons.directions_run_rounded),
+      ('${match.kicks}', 'Kicks', Icons.sports_soccer_rounded),
+      ('${match.goals}', 'Goals', Icons.sports_score_rounded),
+      ('${match.assists}', 'Assists', Icons.assistant_rounded),
+      ('${match.tackles}', 'Tackles', Icons.shield_rounded),
+      ('${match.passAccuracy.round()}%', 'Pass Accuracy', Icons.adjust_rounded),
+    ];
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Match Overview')),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(22, 14, 22, 32),
+        children: [
+          HistoryCard(
+            match: match,
+            selectedPosition: selectedPosition,
+            measurementSystem: measurementSystem,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: _MatchOverviewSummary(
+                  value: '$score',
+                  label: 'PERFORMANCE SCORE',
+                  color: AppColors.gold,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _MatchOverviewSummary(
+                  value: '${match.minutes}',
+                  label: 'MINUTES PLAYED',
+                  color: AppColors.pulse,
+                ),
+              ),
+            ],
+          ),
+          const SectionHeader(title: 'Match Statistics'),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 1.65,
+            ),
+            itemCount: details.length,
+            itemBuilder: (context, index) {
+              final detail = details[index];
+              return Container(
+                padding: const EdgeInsets.all(14),
+                decoration: panelDecoration(),
+                child: Row(
+                  children: [
+                    IconBadge(icon: detail.$3, color: AppColors.cyan),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              detail.$1,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            detail.$2,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: AppColors.muted,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MatchOverviewSummary extends StatelessWidget {
+  const _MatchOverviewSummary({
+    required this.value,
+    required this.label,
+    required this.color,
+  });
+
+  final String value;
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: panelDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            value,
+            style: TextStyle(
+              color: color,
+              fontSize: 24,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: AppColors.muted,
+              fontSize: 10,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ],
