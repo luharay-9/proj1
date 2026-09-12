@@ -1,0 +1,34 @@
+{
+  "Adafruit_BNO085_STEMMA_QT_v2": {
+    "placement_preserved": true,
+    "volume_preserved": true,
+    "solid_count": 126
+  },
+  "_400mAh_Battery_v2": {
+    "placement_preserved": true,
+    "volume_preserved": true,
+    "solid_count": 2
+  },
+  "PCB_Component": {
+    "placement_preserved": true,
+    "volume_preserved": true,
+    "solid_count": 39
+  },
+  "Adafruit_ESP32_Feather_V2_v2": {
+    "placement_preserved": true,
+    "volume_preserved": true,
+    "solid_count": 148
+  },
+  "GuardBase": {
+    "valid_single_solid": true,
+    "volume_mm3": 35419.61968698426
+  },
+  "GuardCover": {
+    "valid_single_solid": true,
+    "volume_mm3": 26349.05536196223
+  },
+  "display": {
+    "cover_transparency": 65,
+    "construction_supports_hidden": true
+  }
+}

@@ -1,0 +1,8506 @@
+[
+  {
+    "name": "Part__Feature188",
+    "label": "Printed Circuit Board",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      7.68330660390588,
+      2.870920919510261,
+      -0.6999346663104092,
+      30.955972933983134,
+      27.628105609397103,
+      9.865978236954332
+    ],
+    "volume": 892.1234767100207,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature189",
+    "label": "BNO055-9axis-IMU v2",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.46333096710663,
+      17.45226590883629,
+      4.564677449166156,
+      17.9443466353462,
+      17.732186001782658,
+      4.748549419775543
+    ],
+    "volume": 0.011874999999999986,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature190",
+    "label": "BNO055-9axis-IMU v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.50241661848222,
+      15.580471517388707,
+      3.86121595910297,
+      17.983432286721786,
+      15.860391610335077,
+      4.0450879297123565
+    ],
+    "volume": 0.011874999999999894,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature191",
+    "label": "BNO055-9axis-IMU v002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.492645205638322,
+      16.048420115250604,
+      4.037081331618767,
+      17.97366087387789,
+      16.328340208196973,
+      4.220953302228153
+    ],
+    "volume": 0.011874999999999894,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature192",
+    "label": "BNO055-9axis-IMU v003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.482873792794425,
+      16.516368713112495,
+      4.212946704134563,
+      17.963889461033993,
+      16.796288806058868,
+      4.396818674743949
+    ],
+    "volume": 0.011874999999999985,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature193",
+    "label": "BNO055-9axis-IMU v004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.473102379950525,
+      16.984317310974394,
+      4.3888120766503596,
+      17.954118048190097,
+      17.264237403920763,
+      4.572684047259746
+    ],
+    "volume": 0.011874999999999986,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature194",
+    "label": "BNO055-9axis-IMU v005",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.54150226985781,
+      13.708677125941122,
+      3.1577544690397823,
+      18.022517938097376,
+      13.988597218887493,
+      3.3416264396491693
+    ],
+    "volume": 0.011874999999999983,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature195",
+    "label": "BNO055-9axis-IMU v006",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.531730857013912,
+      14.176625723803017,
+      3.333619841555579,
+      18.01274652525348,
+      14.45654581674939,
+      3.517491812164966
+    ],
+    "volume": 0.011874999999999985,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature196",
+    "label": "BNO055-9axis-IMU v007",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.521959444170015,
+      14.644574321664914,
+      3.5094852140713764,
+      18.002975112409583,
+      14.924494414611285,
+      3.693357184680763
+    ],
+    "volume": 0.011874999999999934,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature197",
+    "label": "BNO055-9axis-IMU v008",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.512188031326115,
+      15.11252291952681,
+      3.6853505865871736,
+      17.993203699565687,
+      15.392443012473182,
+      3.8692225571965593
+    ],
+    "volume": 0.01187499999999989,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature198",
+    "label": "BNO055-9axis-IMU v009",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.385368051957958,
+      17.49600113907207,
+      4.5563368961004835,
+      19.643887359868753,
+      17.887796471456358,
+      4.783071313109539
+    ],
+    "volume": 0.009374999999999994,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature199",
+    "label": "BNO055-9axis-IMU v010",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      18.385638214003514,
+      17.473281538949585,
+      4.561243103786174,
+      18.64415752191431,
+      17.865076871333873,
+      4.787977520795229
+    ],
+    "volume": 0.009374999999999994,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature200",
+    "label": "BNO055-9axis-IMU v011",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      18.885503132980737,
+      17.484641339010828,
+      4.558789999943328,
+      19.144022440891533,
+      17.876436671395115,
+      4.785524416952384
+    ],
+    "volume": 0.00937499999999999,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature201",
+    "label": "BNO055-9axis-IMU v012",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.551273682701705,
+      13.240728528079227,
+      2.981889096523986,
+      18.032289350941276,
+      13.520648621025599,
+      3.1657610671333725
+    ],
+    "volume": 0.011874999999999986,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature202",
+    "label": "BNO055-9axis-IMU v013",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.65588660062155,
+      14.24762447418578,
+      3.318287942537798,
+      21.136902268861117,
+      14.527544567132152,
+      3.5021599131471848
+    ],
+    "volume": 0.011875000000000004,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature203",
+    "label": "BNO055-9axis-IMU v014",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.665658013465446,
+      13.779675876323884,
+      3.142422570022001,
+      21.146673681705018,
+      14.059595969270255,
+      3.3262945406313884
+    ],
+    "volume": 0.011875000000000004,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature204",
+    "label": "BNO055-9axis-IMU v015",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.675429426309343,
+      13.311727278461989,
+      2.9665571975062046,
+      21.156445094548914,
+      13.59164737140836,
+      3.1504291681155916
+    ],
+    "volume": 0.011875000000000007,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature205",
+    "label": "BNO055-9axis-IMU v016",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.88523297093518,
+      17.50736093913331,
+      4.553883792257638,
+      20.143752278845977,
+      17.899156271517597,
+      4.780618209266694
+    ],
+    "volume": 0.009374999999999996,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature206",
+    "label": "BNO055-9axis-IMU v017",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.61680094924596,
+      16.119418865633364,
+      4.021749432600986,
+      21.097816617485528,
+      16.399338958579737,
+      4.2056214032103725
+    ],
+    "volume": 0.011874999999999957,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature207",
+    "label": "BNO055-9axis-IMU v018",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.626572362089856,
+      15.651470267771469,
+      3.8458840600851887,
+      21.107588030329428,
+      15.93139036071784,
+      4.029756030694576
+    ],
+    "volume": 0.011874999999999955,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature208",
+    "label": "BNO055-9axis-IMU v019",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.636343774933756,
+      15.183521669909572,
+      3.6700186875693923,
+      21.117359443173324,
+      15.463441762855943,
+      3.853890658178779
+    ],
+    "volume": 0.011874999999999953,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature209",
+    "label": "BNO055-9axis-IMU v020",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.646115187777653,
+      14.715573072047677,
+      3.4941533150535955,
+      21.12713085601722,
+      14.995493164994048,
+      3.678025285662982
+    ],
+    "volume": 0.011874999999999955,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature210",
+    "label": "BNO055-9axis-IMU v021",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.975618539741234,
+      13.178836408910776,
+      2.9271290964865186,
+      20.23413784765203,
+      13.570631741295063,
+      3.1538635134955744
+    ],
+    "volume": 0.009375000000000001,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature211",
+    "label": "BNO055-9axis-IMU v022",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.587486710714266,
+      17.52326465921905,
+      4.5493455501483755,
+      21.068502378953838,
+      17.80318475216542,
+      4.733217520757762
+    ],
+    "volume": 0.011875000000000004,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature212",
+    "label": "BNO055-9axis-IMU v023",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.597258123558166,
+      17.055316061357154,
+      4.373480177632579,
+      21.078273791797734,
+      17.335236154303526,
+      4.557352148241965
+    ],
+    "volume": 0.011875000000000002,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature213",
+    "label": "BNO055-9axis-IMU v024",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.607029536402063,
+      16.58736746349526,
+      4.197614805116782,
+      21.08804520464163,
+      16.86728755644163,
+      4.381486775726168
+    ],
+    "volume": 0.011875000000000007,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature214",
+    "label": "BNO055-9axis-IMU v025",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      18.476023782809566,
+      13.14475700872705,
+      2.9344884080150537,
+      18.73454309072036,
+      13.536552341111337,
+      3.1612228250241095
+    ],
+    "volume": 0.009375000000000003,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature215",
+    "label": "BNO055-9axis-IMU v026",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      18.975888701786786,
+      13.15611680878829,
+      2.9320353041722087,
+      19.23440800969758,
+      13.54791214117258,
+      3.1587697211812644
+    ],
+    "volume": 0.009375000000000001,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature216",
+    "label": "BNO055-9axis-IMU v027",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.47575362076401,
+      13.167476608849533,
+      2.9295822003293637,
+      19.734272928674805,
+      13.55927194123382,
+      3.1563166173384194
+    ],
+    "volume": 0.009374999999999998,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature217",
+    "label": "BNO055-9axis-IMU v028",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      18.127351462538982,
+      13.253792298149655,
+      3.0726445139736174,
+      18.23223531853216,
+      13.490741636771997,
+      3.162939997714101
+    ],
+    "volume": 4.99999999999972e-05,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature218",
+    "label": "BNO055-9axis-IMU v029",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.35896084753143,
+      12.64821667229089,
+      2.886927159105527,
+      21.274404733048094,
+      18.016033581215524,
+      5.839154883744704
+    ],
+    "volume": 23.001727815044976,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature219",
+    "label": "BNO055-9axis-IMU v030",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.633189264281054,
+      12.902814864012354,
+      4.100312661850701,
+      17.84756716209258,
+      13.104205055260296,
+      4.177592588871733
+    ],
+    "volume": 7.218495503648121e-05,
+    "solids": 1
+  },
+  {
+    "name": "BNO055_9axis_IMU_v2",
+    "label": "BNO055-9axis-IMU v031",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.35896084753143,
+      12.64821667229089,
+      2.886927159105527,
+      21.274404733048094,
+      18.016033581215524,
+      5.839154883744704
+    ],
+    "volume": 23.314349999999983,
+    "solids": 31,
+    "group": [
+      "Part__Feature189",
+      "Part__Feature190",
+      "Part__Feature191",
+      "Part__Feature192",
+      "Part__Feature193",
+      "Part__Feature194",
+      "Part__Feature195",
+      "Part__Feature196",
+      "Part__Feature197",
+      "Part__Feature198",
+      "Part__Feature199",
+      "Part__Feature200",
+      "Part__Feature201",
+      "Part__Feature202",
+      "Part__Feature203",
+      "Part__Feature204",
+      "Part__Feature205",
+      "Part__Feature206",
+      "Part__Feature207",
+      "Part__Feature208",
+      "Part__Feature209",
+      "Part__Feature210",
+      "Part__Feature211",
+      "Part__Feature212",
+      "Part__Feature213",
+      "Part__Feature214",
+      "Part__Feature215",
+      "Part__Feature216",
+      "Part__Feature217",
+      "Part__Feature218",
+      "Part__Feature219"
+    ]
+  },
+  {
+    "name": "Origin",
+    "label": "Origin",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "BNO055_9axis_IMU_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis",
+    "label": "X-axis",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis",
+    "label": "Y-axis",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis",
+    "label": "Z-axis",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane",
+    "label": "XY-plane",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane",
+    "label": "XZ-plane",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane",
+    "label": "YZ-plane",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin156",
+    "label": "Origin213",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807,
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature220",
+    "label": "BNO085-9axis-IMU v1",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.64894208957471,
+      16.890458611430223,
+      6.127296731625532,
+      17.12995775781428,
+      17.170378704376592,
+      6.311168702234919
+    ],
+    "volume": 0.01187499999999999,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature221",
+    "label": "BNO085-9axis-IMU v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.68802774095029,
+      15.01866421998264,
+      5.423835241562345,
+      17.16904340918986,
+      15.298584312929009,
+      5.607707212171732
+    ],
+    "volume": 0.011874999999999894,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature222",
+    "label": "BNO085-9axis-IMU v002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.678256328106396,
+      15.486612817844536,
+      5.599700614078142,
+      17.159271996345964,
+      15.766532910790904,
+      5.783572584687529
+    ],
+    "volume": 0.011874999999999893,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature223",
+    "label": "BNO085-9axis-IMU v003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.6684849152625,
+      15.95456141570643,
+      5.775565986593938,
+      17.14950058350207,
+      16.2344815086528,
+      5.959437957203326
+    ],
+    "volume": 0.011874999999999986,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature224",
+    "label": "BNO085-9axis-IMU v004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.658713502418607,
+      16.422510013568328,
+      5.951431359109735,
+      17.139729170658175,
+      16.702430106514697,
+      6.135303329719123
+    ],
+    "volume": 0.011874999999999991,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature225",
+    "label": "BNO085-9axis-IMU v005",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.727113392325872,
+      13.146869828535054,
+      4.7203737514991575,
+      17.20812906056544,
+      13.426789921481426,
+      4.904245722108546
+    ],
+    "volume": 0.01187499999999999,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature226",
+    "label": "BNO085-9axis-IMU v006",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.717341979481976,
+      13.614818426396951,
+      4.896239124014954,
+      17.198357647721544,
+      13.89473851934332,
+      5.080111094624342
+    ],
+    "volume": 0.01187499999999999,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature227",
+    "label": "BNO085-9axis-IMU v007",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.70757056663808,
+      14.082767024258848,
+      5.072104496530752,
+      17.18858623487765,
+      14.362687117205217,
+      5.255976467140139
+    ],
+    "volume": 0.01187499999999994,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature228",
+    "label": "BNO085-9axis-IMU v008",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.697799153794186,
+      14.550715622120745,
+      5.247969869046549,
+      17.178814822033754,
+      14.830635715067112,
+      5.431841839655936
+    ],
+    "volume": 0.0118749999999999,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature229",
+    "label": "BNO085-9axis-IMU v009",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      18.570979174426043,
+      16.934193841665994,
+      6.118956178559856,
+      18.829498482336835,
+      17.32598917405028,
+      6.345690595568912
+    ],
+    "volume": 0.009374999999999994,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature230",
+    "label": "BNO085-9axis-IMU v010",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.5712493364716,
+      16.911474241543512,
+      6.1238623862455475,
+      17.82976864438239,
+      17.303269573927803,
+      6.350596803254604
+    ],
+    "volume": 0.009374999999999991,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature231",
+    "label": "BNO085-9axis-IMU v011",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      18.071114255448823,
+      16.92283404160475,
+      6.121409282402702,
+      18.329633563359614,
+      17.314629373989042,
+      6.348143699411758
+    ],
+    "volume": 0.009374999999999996,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature232",
+    "label": "BNO085-9axis-IMU v012",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.736884805169765,
+      12.67892123067316,
+      4.544508378983361,
+      17.217900473409333,
+      12.958841323619529,
+      4.728380349592749
+    ],
+    "volume": 0.011874999999999993,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature233",
+    "label": "BNO085-9axis-IMU v013",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.841497723089613,
+      13.685817176779699,
+      4.880907224997168,
+      20.32251339132918,
+      13.965737269726068,
+      5.0647791956065555
+    ],
+    "volume": 0.011875000000000007,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature234",
+    "label": "BNO085-9axis-IMU v014",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.85126913593351,
+      13.217868578917802,
+      4.705041852481371,
+      20.332284804173078,
+      13.497788671864173,
+      4.888913823090759
+    ],
+    "volume": 0.011875000000000009,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature235",
+    "label": "BNO085-9axis-IMU v015",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.861040548777403,
+      12.749919981055907,
+      4.5291764799655745,
+      20.342056217016975,
+      13.029840074002278,
+      4.713048450574962
+    ],
+    "volume": 0.011875000000000002,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature236",
+    "label": "BNO085-9axis-IMU v016",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.070844093403267,
+      16.945553641727233,
+      6.11650307471701,
+      19.32936340131406,
+      17.33734897411152,
+      6.343237491726065
+    ],
+    "volume": 0.009374999999999998,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature237",
+    "label": "BNO085-9axis-IMU v017",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.802412071714034,
+      15.557611568227284,
+      5.584368715060355,
+      20.283427739953602,
+      15.837531661173653,
+      5.768240685669743
+    ],
+    "volume": 0.011874999999999959,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature238",
+    "label": "BNO085-9axis-IMU v018",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.81218348455793,
+      15.089662970365387,
+      5.408503342544559,
+      20.2931991527975,
+      15.369583063311758,
+      5.592375313153946
+    ],
+    "volume": 0.011874999999999962,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature239",
+    "label": "BNO085-9axis-IMU v019",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.821954897401824,
+      14.621714372503492,
+      5.232637970028762,
+      20.30297056564139,
+      14.901634465449861,
+      5.416509940638149
+    ],
+    "volume": 0.011874999999999955,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature240",
+    "label": "BNO085-9axis-IMU v020",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.83172631024572,
+      14.153765774641595,
+      5.056772597512965,
+      20.31274197848529,
+      14.433685867587966,
+      5.240644568122352
+    ],
+    "volume": 0.011874999999999952,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature241",
+    "label": "BNO085-9axis-IMU v021",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.161229662209294,
+      12.617029111504698,
+      4.48974837894589,
+      19.419748970120086,
+      13.008824443888983,
+      4.7164827959549465
+    ],
+    "volume": 0.009374999999999993,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature242",
+    "label": "BNO085-9axis-IMU v022",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.77309783318235,
+      16.96145736181297,
+      6.111964832607745,
+      20.25411350142192,
+      17.241377454759338,
+      6.295836803217132
+    ],
+    "volume": 0.011875,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature243",
+    "label": "BNO085-9axis-IMU v023",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.782869246026245,
+      16.49350876395107,
+      5.936099460091948,
+      20.263884914265812,
+      16.773428856897443,
+      6.1199714307013355
+    ],
+    "volume": 0.011875000000000005,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature244",
+    "label": "BNO085-9axis-IMU v024",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.79264065887014,
+      16.025560166089175,
+      5.760234087576151,
+      20.27365632710971,
+      16.305480259035548,
+      5.94410605818554
+    ],
+    "volume": 0.011875000000000002,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature245",
+    "label": "BNO085-9axis-IMU v025",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.661634905277626,
+      12.582949711320978,
+      4.497107690474428,
+      17.920154213188418,
+      12.974745043705266,
+      4.723842107483484
+    ],
+    "volume": 0.009374999999999991,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature246",
+    "label": "BNO085-9axis-IMU v026",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      18.16149982425485,
+      12.594309511382217,
+      4.494654586631582,
+      18.420019132165642,
+      12.986104843766505,
+      4.721389003640638
+    ],
+    "volume": 0.009375000000000005,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature247",
+    "label": "BNO085-9axis-IMU v027",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      18.661364743232074,
+      12.605669311443458,
+      4.492201482788736,
+      18.919884051142866,
+      12.997464643827744,
+      4.718935899797792
+    ],
+    "volume": 0.009374999999999994,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature248",
+    "label": "BNO085-9axis-IMU v028",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.312962585007043,
+      12.691985000743585,
+      4.635263796432993,
+      17.417846441000222,
+      12.928934339365926,
+      4.725559280173476
+    ],
+    "volume": 4.999999999999715e-05,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature249",
+    "label": "BNO085-9axis-IMU v029",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.544571969999513,
+      12.086409374884822,
+      4.449546441564896,
+      20.46001585551615,
+      17.45422628380944,
+      7.40177416620408
+    ],
+    "volume": 23.00172781504496,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature250",
+    "label": "BNO085-9axis-IMU v030",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0.0397428,0.834599,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.818800386749114,
+      12.341007566606287,
+      5.662931944310078,
+      17.03317828456064,
+      12.542397757854229,
+      5.74021187133111
+    ],
+    "volume": 7.218495503648083e-05,
+    "solids": 1
+  },
+  {
+    "name": "BNO085_9axis_IMU_v1",
+    "label": "BNO085-9axis-IMU v031",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.544571969999502,
+      12.086409374884813,
+      4.4495464415649,
+      20.460015855516165,
+      17.454226283809447,
+      7.401774166204077
+    ],
+    "volume": 23.314349999999997,
+    "solids": 31,
+    "group": [
+      "Part__Feature220",
+      "Part__Feature221",
+      "Part__Feature222",
+      "Part__Feature223",
+      "Part__Feature224",
+      "Part__Feature225",
+      "Part__Feature226",
+      "Part__Feature227",
+      "Part__Feature228",
+      "Part__Feature229",
+      "Part__Feature230",
+      "Part__Feature231",
+      "Part__Feature232",
+      "Part__Feature233",
+      "Part__Feature234",
+      "Part__Feature235",
+      "Part__Feature236",
+      "Part__Feature237",
+      "Part__Feature238",
+      "Part__Feature239",
+      "Part__Feature240",
+      "Part__Feature241",
+      "Part__Feature242",
+      "Part__Feature243",
+      "Part__Feature244",
+      "Part__Feature245",
+      "Part__Feature246",
+      "Part__Feature247",
+      "Part__Feature248",
+      "Part__Feature249",
+      "Part__Feature250"
+    ]
+  },
+  {
+    "name": "Origin157",
+    "label": "Origin216",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "BNO085_9axis_IMU_v1"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis078",
+    "label": "X-axis078",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin157"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis078",
+    "label": "Y-axis078",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin157"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis078",
+    "label": "Z-axis078",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin157"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane078",
+    "label": "XY-plane078",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin157"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane078",
+    "label": "XZ-plane078",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin157"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane078",
+    "label": "YZ-plane078",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin157"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin158",
+    "label": "Origin215",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin157"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807,
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature251",
+    "label": "BODY-TSSOP",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0.68), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      20.84463032079153,
+      12.19270906735519,
+      4.554770157862135,
+      25.9273908680916,
+      16.577035839192426,
+      6.953592682275203
+    ],
+    "volume": 21.20256724489689,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature252",
+    "label": "LEAD-TSSOP",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(-2.575,2.275,0.25), Yaw-Pitch-Roll=(-90,-6.36111e-15,90)]",
+    "bounds": [
+      21.031208807866992,
+      11.499304751414048,
+      4.055043445678945,
+      21.29089934876207,
+      12.307054660123198,
+      5.040835969886761
+    ],
+    "volume": 0.047623441273327786,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature253",
+    "label": "LEAD-TSSOP001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(-2.575,1.625,0.25), Yaw-Pitch-Roll=(-90,-6.36111e-15,90)]",
+    "bounds": [
+      21.681033202537378,
+      11.514072491493662,
+      4.051854410683246,
+      21.940723743432457,
+      12.321822400202812,
+      5.037646934891062
+    ],
+    "volume": 0.04762344127332779,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature254",
+    "label": "LEAD-TSSOP002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(-2.575,0.975,0.25), Yaw-Pitch-Roll=(-90,-6.36111e-15,90)]",
+    "bounds": [
+      22.330857597207768,
+      11.528840231573277,
+      4.0486653756875475,
+      22.590548138102847,
+      12.336590140282427,
+      5.034457899895363
+    ],
+    "volume": 0.047623441273327786,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature255",
+    "label": "LEAD-TSSOP003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(-2.575,0.325,0.25), Yaw-Pitch-Roll=(-90,-6.36111e-15,90)]",
+    "bounds": [
+      22.980681991878157,
+      11.543607971652893,
+      4.045476340691849,
+      23.240372532773236,
+      12.351357880362043,
+      5.031268864899665
+    ],
+    "volume": 0.04762344127332779,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature256",
+    "label": "LEAD-TSSOP004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(-2.575,-0.325,0.25), Yaw-Pitch-Roll=(-90,-6.36111e-15,90)]",
+    "bounds": [
+      23.630506386548547,
+      11.558375711732506,
+      4.04228730569615,
+      23.890196927443625,
+      12.366125620441656,
+      5.028079829903966
+    ],
+    "volume": 0.04762344127332779,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature257",
+    "label": "LEAD-TSSOP005",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(-2.575,-0.975,0.25), Yaw-Pitch-Roll=(-90,-6.36111e-15,90)]",
+    "bounds": [
+      24.280330781218936,
+      11.573143451812122,
+      4.0390982707004515,
+      24.540021322114015,
+      12.380893360521272,
+      5.024890794908267
+    ],
+    "volume": 0.04762344127332778,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature258",
+    "label": "LEAD-TSSOP006",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(-2.575,-1.625,0.25), Yaw-Pitch-Roll=(-90,-6.36111e-15,90)]",
+    "bounds": [
+      24.930155175889325,
+      11.587911191891735,
+      4.035909235704753,
+      25.189845716784404,
+      12.395661100600885,
+      5.021701759912569
+    ],
+    "volume": 0.0476234412733278,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature259",
+    "label": "LEAD-TSSOP007",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(-2.575,-2.275,0.25), Yaw-Pitch-Roll=(-90,-6.36111e-15,90)]",
+    "bounds": [
+      25.57997957055971,
+      11.60267893197135,
+      4.032720200709054,
+      25.83967011145479,
+      12.4104288406805,
+      5.01851272491687
+    ],
+    "volume": 0.04762344127332779,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature260",
+    "label": "LEAD-TSSOP008",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(2.575,-2.275,0.25), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      25.4679838670536,
+      16.47007922389931,
+      6.1656569031559005,
+      25.740812381016138,
+      17.64079707933828,
+      6.656537519700197
+    ],
+    "volume": 0.047623441273327835,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature261",
+    "label": "LEAD-TSSOP009",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(2.575,-1.625,0.25), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      24.818159472383215,
+      16.455311483819695,
+      6.168845938151598,
+      25.090987986345752,
+      17.626029339258665,
+      6.659726554695895
+    ],
+    "volume": 0.04762344127332782,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature262",
+    "label": "LEAD-TSSOP010",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(2.575,-0.975,0.25), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      24.168335077712825,
+      16.440543743740083,
+      6.172034973147297,
+      24.441163591675362,
+      17.611261599179052,
+      6.662915589691593
+    ],
+    "volume": 0.04762344127332782,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature263",
+    "label": "LEAD-TSSOP011",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(2.575,-0.325,0.25), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      23.518510683042436,
+      16.425776003660467,
+      6.175224008142996,
+      23.791339197004973,
+      17.596493859099436,
+      6.666104624687292
+    ],
+    "volume": 0.04762344127332783,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature264",
+    "label": "LEAD-TSSOP012",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(2.575,0.325,0.25), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      22.868686288372047,
+      16.41100826358085,
+      6.178413043138695,
+      23.141514802334584,
+      17.58172611901982,
+      6.6692936596829915
+    ],
+    "volume": 0.04762344127332783,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature265",
+    "label": "LEAD-TSSOP013",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(2.575,0.975,0.25), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      22.218861893701657,
+      16.396240523501238,
+      6.181602078134393,
+      22.491690407664194,
+      17.566958378940207,
+      6.672482694678689
+    ],
+    "volume": 0.04762344127332782,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature266",
+    "label": "LEAD-TSSOP014",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(2.575,1.625,0.25), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      21.569037499031268,
+      16.381472783421625,
+      6.1847911131300926,
+      21.841866012993805,
+      17.552190638860594,
+      6.675671729674389
+    ],
+    "volume": 0.04762344127332782,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature267",
+    "label": "LEAD-TSSOP015",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(2.575,2.275,0.25), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      20.91921310436088,
+      16.366705043342012,
+      6.187980148125791,
+      21.19204161832342,
+      17.53742289878098,
+      6.6788607646700875
+    ],
+    "volume": 0.04762344127332782,
+    "solids": 1
+  },
+  {
+    "name": "CD74HC4050PW_v2",
+    "label": "CD74HC4050PW v2",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(-0.480857,-4.04007,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      20.84463032079153,
+      11.499304751414048,
+      4.032720200709054,
+      25.9273908680916,
+      17.64079707933828,
+      6.953592682275203
+    ],
+    "volume": 21.96454230531189,
+    "solids": 17,
+    "group": [
+      "Part__Feature251",
+      "Part__Feature252",
+      "Part__Feature253",
+      "Part__Feature254",
+      "Part__Feature255",
+      "Part__Feature256",
+      "Part__Feature257",
+      "Part__Feature258",
+      "Part__Feature259",
+      "Part__Feature260",
+      "Part__Feature261",
+      "Part__Feature262",
+      "Part__Feature263",
+      "Part__Feature264",
+      "Part__Feature265",
+      "Part__Feature266",
+      "Part__Feature267"
+    ]
+  },
+  {
+    "name": "Origin159",
+    "label": "Origin219",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "CD74HC4050PW_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis079",
+    "label": "X-axis079",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin159"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis079",
+    "label": "Y-axis079",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin159"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis079",
+    "label": "Z-axis079",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin159"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane079",
+    "label": "XY-plane079",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin159"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane079",
+    "label": "XZ-plane079",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin159"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane079",
+    "label": "YZ-plane079",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin159"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin160",
+    "label": "Origin218",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin159"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      23.378397947266556,
+      14.60124854495258,
+      5.166340893264483,
+      23.378397947266556,
+      14.60124854495258,
+      5.166340893264483
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature268",
+    "label": "Crystal_XTAL3215_32.768KHz v2",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Crystal_XTAL3215_32_768KHz_v2"
+    ],
+    "placement": "Placement [Pos=(-1.27195,4.88696,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      13.697675956980259,
+      11.829460836100466,
+      4.927582468763446,
+      15.259674057343085,
+      14.959329294447564,
+      6.340325429958298
+    ],
+    "volume": 1.4305752220392305,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature269",
+    "label": "Crystal_XTAL3215_32.768KHz v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Crystal_XTAL3215_32_768KHz_v2"
+    ],
+    "placement": "Placement [Pos=(-1.27195,4.88696,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      13.690126224244711,
+      11.934922787972198,
+      4.365929454558732,
+      15.255899190975311,
+      15.170253198191027,
+      6.059498922855942
+    ],
+    "volume": 2.5798345847087947,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature270",
+    "label": "Crystal_XTAL3215_32.768KHz v002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Crystal_XTAL3215_32_768KHz_v2"
+    ],
+    "placement": "Placement [Pos=(-1.27195,4.88696,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      13.756997805418704,
+      12.100818555351372,
+      4.368825585876811,
+      15.242007074777433,
+      12.871625168637117,
+      4.775292284953581
+    ],
+    "volume": 0.13390792968483342,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature271",
+    "label": "Crystal_XTAL3215_32.768KHz v003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Crystal_XTAL3215_32_768KHz_v2"
+    ],
+    "placement": "Placement [Pos=(-1.27195,4.88696,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      13.698356040890928,
+      14.384927865296964,
+      5.227424469501853,
+      15.183365310249659,
+      15.162550358619455,
+      5.635363030884329
+    ],
+    "volume": 0.1474079296848334,
+    "solids": 1
+  },
+  {
+    "name": "Crystal_XTAL3215_32_768KHz_v2",
+    "label": "Crystal_XTAL3215_32.768KHz v004",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      13.690126224244711,
+      11.829460836100466,
+      4.365929454558732,
+      15.259674057343085,
+      15.170253198191027,
+      6.340325429958298
+    ],
+    "volume": 4.291725666117694,
+    "solids": 4,
+    "group": [
+      "Part__Feature268",
+      "Part__Feature269",
+      "Part__Feature270",
+      "Part__Feature271"
+    ]
+  },
+  {
+    "name": "Origin161",
+    "label": "Origin221",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "Crystal_XTAL3215_32_768KHz_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis080",
+    "label": "X-axis080",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin161"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis080",
+    "label": "Y-axis080",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin161"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis080",
+    "label": "Z-axis080",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin161"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane080",
+    "label": "XY-plane080",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin161"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane080",
+    "label": "XZ-plane080",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin161"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane080",
+    "label": "YZ-plane080",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin161"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin162",
+    "label": "Origin220",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin161"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807,
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature272",
+    "label": "SOT23-5 v1",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "SOT23_5_v1"
+    ],
+    "placement": "Placement [Pos=(-6.713,-5.17721,1.62965), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.13243953046791,
+      7.60039374979014,
+      2.7730256338081807,
+      26.161939736298674,
+      9.509566544655025,
+      4.36476083563254
+    ],
+    "volume": 5.159548834655822,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature273",
+    "label": "SOT23-5 v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "SOT23_5_v1"
+    ],
+    "placement": "Placement [Pos=(-6.713,-5.17721,1.62965), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.359704550933138,
+      9.171770937129264,
+      3.4029508193964544,
+      23.98339405476872,
+      10.104134961561181,
+      4.122013837636835
+    ],
+    "volume": 0.08817754329564689,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature274",
+    "label": "SOT23-5 v002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "SOT23_5_v1"
+    ],
+    "placement": "Placement [Pos=(-6.713,-5.17721,1.62965), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.409127017083424,
+      7.3864492400645405,
+      2.474150640586834,
+      24.017578684192213,
+      7.8007114287378165,
+      3.5381545375745866
+    ],
+    "volume": 0.08817754329564667,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature275",
+    "label": "SOT23-5 v003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "SOT23_5_v1"
+    ],
+    "placement": "Placement [Pos=(-6.713,-5.17721,1.62965), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      25.359164226842026,
+      9.21721013737423,
+      3.393138404025074,
+      25.98285373067761,
+      10.149574161806148,
+      4.112201422265455
+    ],
+    "volume": 0.08817754329564688,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature276",
+    "label": "SOT23-5 v004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "SOT23_5_v1"
+    ],
+    "placement": "Placement [Pos=(-6.713,-5.17721,1.62965), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      25.408586692992312,
+      7.431888440309508,
+      2.4643382252154535,
+      26.017038360101104,
+      7.846150628982784,
+      3.528342122203206
+    ],
+    "volume": 0.08817754329564668,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature277",
+    "label": "SOT23-5 v005",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "SOT23_5_v1"
+    ],
+    "placement": "Placement [Pos=(-6.713,-5.17721,1.62965), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      24.408856855037868,
+      7.409168840187024,
+      2.469244432901144,
+      25.01730852214666,
+      7.8234310288603,
+      3.5332483298888966
+    ],
+    "volume": 0.08817754329564666,
+    "solids": 1
+  },
+  {
+    "name": "SOT23_5_v1",
+    "label": "SOT23-5 v006",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      23.13243953046791,
+      7.386449240064542,
+      2.4643382252154535,
+      26.161939736298674,
+      10.14957416180615,
+      4.36476083563254
+    ],
+    "volume": 5.582057243134897,
+    "solids": 6,
+    "group": [
+      "Part__Feature272",
+      "Part__Feature273",
+      "Part__Feature274",
+      "Part__Feature275",
+      "Part__Feature276",
+      "Part__Feature277"
+    ]
+  },
+  {
+    "name": "Origin163",
+    "label": "Origin224",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "SOT23_5_v1"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis081",
+    "label": "X-axis081",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin163"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis081",
+    "label": "Y-axis081",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin163"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis081",
+    "label": "Z-axis081",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin163"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane081",
+    "label": "XY-plane081",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin163"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane081",
+    "label": "XZ-plane081",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin163"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane081",
+    "label": "YZ-plane081",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin163"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin164",
+    "label": "Origin223",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin163"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807,
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature278",
+    "label": "BSS138PS v2",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BSS138PS_v2"
+    ],
+    "placement": "Placement [Pos=(8.84171,4.56758,1.725), Yaw-Pitch-Roll=(90,-1.26051e-13,1.12996e-29)]",
+    "bounds": [
+      13.538725515652837,
+      22.691494372672004,
+      8.448280814706358,
+      14.0103553152853,
+      23.22626573657592,
+      9.353764109084489
+    ],
+    "volume": 0.042190871798481584,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature279",
+    "label": "BSS138PS v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BSS138PS_v2"
+    ],
+    "placement": "Placement [Pos=(8.84171,4.56758,1.725), Yaw-Pitch-Roll=(90,-1.26051e-13,1.12996e-29)]",
+    "bounds": [
+      15.193434135958672,
+      22.71956067106522,
+      8.438485878012921,
+      15.645245887160321,
+      23.271489223410303,
+      9.347732406857002
+    ],
+    "volume": 0.042190871798481605,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature280",
+    "label": "BSS138PS v002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BSS138PS_v2"
+    ],
+    "placement": "Placement [Pos=(8.84171,4.56758,1.725), Yaw-Pitch-Roll=(90,-1.26051e-13,1.12996e-29)]",
+    "bounds": [
+      13.526022678955771,
+      23.29982754989247,
+      8.676905798976895,
+      13.997652478588234,
+      23.834598913796384,
+      9.582389093355024
+    ],
+    "volume": 0.04219087179848164,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature281",
+    "label": "BSS138PS v003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BSS138PS_v2"
+    ],
+    "placement": "Placement [Pos=(8.84171,4.56758,1.725), Yaw-Pitch-Roll=(90,-1.26051e-13,1.12996e-29)]",
+    "bounds": [
+      15.180731299261605,
+      23.327893848285687,
+      8.667110862283456,
+      15.632543050463255,
+      23.879822400630765,
+      9.576357391127537
+    ],
+    "volume": 0.04219087179848165,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature282",
+    "label": "BSS138PS v004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BSS138PS_v2"
+    ],
+    "placement": "Placement [Pos=(8.84171,4.56758,1.725), Yaw-Pitch-Roll=(90,-1.26051e-13,1.12996e-29)]",
+    "bounds": [
+      15.206136972655738,
+      22.11122749384476,
+      8.209860893742386,
+      15.65794872385739,
+      22.663156046189837,
+      9.119107422586467
+    ],
+    "volume": 0.04219087179848159,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature283",
+    "label": "BSS138PS v005",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BSS138PS_v2"
+    ],
+    "placement": "Placement [Pos=(8.84171,4.56758,1.725), Yaw-Pitch-Roll=(90,-1.26051e-13,1.12996e-29)]",
+    "bounds": [
+      13.551428352349905,
+      22.08316119545154,
+      8.219655830435823,
+      14.023058151982367,
+      22.61793255935546,
+      9.125139124813954
+    ],
+    "volume": 0.04219087179848162,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature284",
+    "label": "BSS138PS v006",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "BSS138PS_v2"
+    ],
+    "placement": "Placement [Pos=(8.84171,4.56758,1.725), Yaw-Pitch-Roll=(90,-1.26051e-13,1.12996e-29)]",
+    "bounds": [
+      13.955318745831462,
+      21.79545815588319,
+      8.203553926644751,
+      15.244066694650108,
+      24.051874152590816,
+      9.87175201804046
+    ],
+    "volume": 2.366427044487021,
+    "solids": 1
+  },
+  {
+    "name": "BSS138PS_v2",
+    "label": "BSS138PS v007",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      13.526022678955771,
+      21.795458155883185,
+      8.203553926644751,
+      15.65794872385739,
+      24.051874152590813,
+      9.871752018040459
+    ],
+    "volume": 2.619572275277911,
+    "solids": 7,
+    "group": [
+      "Part__Feature278",
+      "Part__Feature279",
+      "Part__Feature280",
+      "Part__Feature281",
+      "Part__Feature282",
+      "Part__Feature283",
+      "Part__Feature284"
+    ]
+  },
+  {
+    "name": "Origin165",
+    "label": "Origin227",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "BSS138PS_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis082",
+    "label": "X-axis082",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin165"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis082",
+    "label": "Y-axis082",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin165"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis082",
+    "label": "Z-axis082",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin165"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane082",
+    "label": "XY-plane082",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin165"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane082",
+    "label": "XZ-plane082",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin165"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane082",
+    "label": "YZ-plane082",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin165"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin166",
+    "label": "Origin226",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin165"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807,
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature285",
+    "label": "LED 0603 single color v1",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "LED_0603_single_color_v1"
+    ],
+    "placement": "Placement [Pos=(-11.1101,4.07892,1.65762), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      15.171147824470555,
+      4.228553744371431,
+      1.3782184822328631,
+      15.757673105793028,
+      4.713331774337929,
+      1.5654696549559532
+    ],
+    "volume": 0.0011353290973952017,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature286",
+    "label": "LED 0603 single color v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "LED_0603_single_color_v1"
+    ],
+    "placement": "Placement [Pos=(-11.1101,4.07892,1.65762), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      15.09539474287518,
+      3.4226319687291777,
+      1.1308138476339775,
+      15.86971092964435,
+      4.144355034913845,
+      1.5929015042041212
+    ],
+    "volume": 0.00454521120119838,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature287",
+    "label": "LED 0603 single color v002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "LED_0603_single_color_v1"
+    ],
+    "placement": "Placement [Pos=(-11.1101,4.07892,1.65762), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      15.072809099227797,
+      4.790420507237988,
+      1.5919531114892744,
+      15.843402377703441,
+      5.381270810973595,
+      2.151115883627523
+    ],
+    "volume": 0.004545211206729908,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature288",
+    "label": "LED 0603 single color v003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "LED_0603_single_color_v1"
+    ],
+    "placement": "Placement [Pos=(-11.1101,4.07892,1.65762), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      15.06031652856701,
+      3.4226319687291777,
+      1.1308138476339775,
+      15.882203500305135,
+      5.381270810973595,
+      2.151115883627523
+    ],
+    "volume": 0.3342300860195059,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature289",
+    "label": "LED 0603 single color v004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "LED_0603_single_color_v1"
+    ],
+    "placement": "Placement [Pos=(-11.1101,4.07892,1.65762), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      15.068866332895345,
+      3.7381305474849094,
+      1.5565352453377095,
+      15.881489691305642,
+      4.882607516240684,
+      2.296835147653866
+    ],
+    "volume": 0.34086755674515934,
+    "solids": 1
+  },
+  {
+    "name": "LED_0603_single_color_v1",
+    "label": "LED 0603 single color v005",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      15.06031652856701,
+      3.4226319687291777,
+      1.1308138476339775,
+      15.882203500305135,
+      5.381270810973595,
+      2.296835147653866
+    ],
+    "volume": 0.685065964505921,
+    "solids": 5,
+    "group": [
+      "Part__Feature285",
+      "Part__Feature286",
+      "Part__Feature287",
+      "Part__Feature288",
+      "Part__Feature289"
+    ]
+  },
+  {
+    "name": "Origin167",
+    "label": "Origin230",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "LED_0603_single_color_v1"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis083",
+    "label": "X-axis083",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin167"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis083",
+    "label": "Y-axis083",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin167"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis083",
+    "label": "Z-axis083",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin167"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane083",
+    "label": "XY-plane083",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin167"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane083",
+    "label": "XZ-plane083",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin167"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane083",
+    "label": "YZ-plane083",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin167"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin168",
+    "label": "Origin229",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin167"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807,
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature290",
+    "label": "CAPC-0805-T0.95-BN v1",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(-5.76735,-1.60636,1.65), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      19.988935218515806,
+      8.639806724545158,
+      3.105561247863198,
+      22.12033332608965,
+      10.222910619539567,
+      4.421439667008233
+    ],
+    "volume": 2.656819449441066,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature291",
+    "label": "CAPC-0805-T0.95-BN v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(-9.58996,-4.86923,1.65), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      23.32562374734226,
+      5.136366222529547,
+      1.7450229181356898,
+      25.457021854916103,
+      6.719470117523957,
+      3.060901337280725
+    ],
+    "volume": 2.6568194494410657,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature292",
+    "label": "CAPC-0603-T0.9-BN v1",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(-3.91817,4.74576,1.65), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      13.806737950326477,
+      10.458830186673142,
+      3.8672605124913466,
+      15.528820706764403,
+      11.59411551156423,
+      4.976093195447495
+    ],
+    "volume": 1.348295033044875,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature293",
+    "label": "CAPC-0603-T0.9-BN v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(1.38535,4.40519,1.65), Yaw-Pitch-Roll=(-90,6.87549e-14,5.6498e-30)]",
+    "bounds": [
+      14.043569840652166,
+      15.430114974261508,
+      5.73099977867446,
+      15.765652597090092,
+      16.5654002991526,
+      6.83983246163061
+    ],
+    "volume": 1.3482950330448749,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature294",
+    "label": "CAPC-0603-T0.9-BN v002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(11.4254,5.18954,1.65), Yaw-Pitch-Roll=(-90,6.87549e-14,5.6498e-30)]",
+    "bounds": [
+      13.063217026077075,
+      24.80877781376839,
+      9.266252914546408,
+      14.785299782515,
+      25.944063138659484,
+      10.37508559750256
+    ],
+    "volume": 1.3482950330448749,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature295",
+    "label": "CAPC-0603-T0.9-BN v003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(-5.1728,2.29973,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.668703149421667,
+      8.974926059956221,
+      3.275237536470666,
+      17.60663629604628,
+      10.840753461328356,
+      4.6615298493035375
+    ],
+    "volume": 1.3482950330448746,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature296",
+    "label": "CAPC-0603-T0.9-BN v004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(-5.03492,0.984521,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      17.980857801290796,
+      9.133852564501918,
+      3.317283036486729,
+      18.918790947915408,
+      10.999679965874053,
+      4.7035753493196015
+    ],
+    "volume": 1.3482950330448746,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature297",
+    "label": "YC164_RESPACK v1",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(-4.85646,5.94433,1.65), Yaw-Pitch-Roll=(-180,-0,0)]",
+    "bounds": [
+      13.755750693573347,
+      6.919477611489255,
+      2.482612666859549,
+      15.42457537202354,
+      10.163806398100732,
+      4.186722561536926
+    ],
+    "volume": 2.7373775933024866,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature298",
+    "label": "YC164_RESPACK v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(3.72877,3.34539,1.65), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      13.978177028100747,
+      18.274266484204205,
+      6.743815002301019,
+      15.64700170655093,
+      21.51859527081568,
+      8.447924896978398
+    ],
+    "volume": 2.737377593302485,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature299",
+    "label": "YC164_RESPACK v002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(4.16527,1.97253,1.65), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      17.40869108152229,
+      18.855449313415455,
+      6.908525453985466,
+      20.645923618414894,
+      20.63868021671578,
+      8.0577160889094
+    ],
+    "volume": 2.7373775933024858,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature300",
+    "label": "qwicc v1",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v1"
+    ],
+    "placement": "Placement [Pos=(-8.45735,0.0215083,1.345), Yaw-Pitch-Roll=(-90,1.27222e-14,90)]",
+    "bounds": [
+      16.823409359367492,
+      2.9328630214778144,
+      1.0891800750484542,
+      17.06506371006426,
+      4.687519477066862,
+      2.3699223586897005
+    ],
+    "volume": 0.2285495693176906,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature301",
+    "label": "qwicc v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v1"
+    ],
+    "placement": "Placement [Pos=(-8.45735,0.0215083,1.345), Yaw-Pitch-Roll=(-90,1.27222e-14,90)]",
+    "bounds": [
+      17.854375668237505,
+      3.7832170334862756,
+      2.496673291988618,
+      18.152669229839155,
+      7.97410631850134,
+      4.707692589752151
+    ],
+    "volume": 0.41074499551134147,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature302",
+    "label": "qwicc v002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v1"
+    ],
+    "placement": "Placement [Pos=(-8.45735,0.0215083,1.345), Yaw-Pitch-Roll=(-90,1.27222e-14,90)]",
+    "bounds": [
+      18.854105506191942,
+      3.8059366336087623,
+      2.4917670843029285,
+      19.1523990677936,
+      7.996825918623826,
+      4.702786382066462
+    ],
+    "volume": 0.41074499551134014,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature303",
+    "label": "qwicc v003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v1"
+    ],
+    "placement": "Placement [Pos=(-8.45735,0.0215083,1.345), Yaw-Pitch-Roll=(-90,1.27222e-14,90)]",
+    "bounds": [
+      20.853565182100837,
+      3.851375833853736,
+      2.4819546689315497,
+      21.151858743702487,
+      8.042265118868801,
+      4.692973966695083
+    ],
+    "volume": 0.41074499551134136,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature304",
+    "label": "qwicc v004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v1"
+    ],
+    "placement": "Placement [Pos=(-8.45735,0.0215083,1.345), Yaw-Pitch-Roll=(-90,1.27222e-14,90)]",
+    "bounds": [
+      22.02200451673062,
+      3.0510049421147456,
+      1.0636677950828692,
+      22.26365886742741,
+      4.805661397703796,
+      2.344410078724115
+    ],
+    "volume": 0.22854956931769044,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature305",
+    "label": "qwicc v005",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v1"
+    ],
+    "placement": "Placement [Pos=(-8.45735,0.0215083,1.345), Yaw-Pitch-Roll=(-90,1.27222e-14,90)]",
+    "bounds": [
+      19.85383534414639,
+      3.828656233731249,
+      2.4868608766172393,
+      20.152128905748043,
+      8.019545518746314,
+      4.6978801743807725
+    ],
+    "volume": 0.4107449955113404,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature306",
+    "label": "qwicc v006",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v1"
+    ],
+    "placement": "Placement [Pos=(-8.45735,0.0215083,1.345), Yaw-Pitch-Roll=(-90,1.27222e-14,90)]",
+    "bounds": [
+      16.46974763733972,
+      2.2987281342400157,
+      1.0467105401045964,
+      22.584339583836496,
+      7.386194565980957,
+      5.085829708167018
+    ],
+    "volume": 38.31789115443669,
+    "solids": 1
+  },
+  {
+    "name": "qwicc_v1",
+    "label": "qwicc v007",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.46974763733971,
+      2.2987281342400148,
+      1.0467105401045975,
+      22.584339583836492,
+      8.042265118868801,
+      5.085829708167019
+    ],
+    "volume": 40.41797027511745,
+    "solids": 7,
+    "group": [
+      "Part__Feature300",
+      "Part__Feature301",
+      "Part__Feature302",
+      "Part__Feature303",
+      "Part__Feature304",
+      "Part__Feature305",
+      "Part__Feature306"
+    ]
+  },
+  {
+    "name": "Origin169",
+    "label": "Origin232",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "qwicc_v1"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis084",
+    "label": "X-axis084",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin169"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis084",
+    "label": "Y-axis084",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin169"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis084",
+    "label": "Z-axis084",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin169"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane084",
+    "label": "XY-plane084",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin169"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane084",
+    "label": "XZ-plane084",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin169"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane084",
+    "label": "YZ-plane084",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin169"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin170",
+    "label": "Origin231",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin169"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807,
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature307",
+    "label": "qwicc v008",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v001"
+    ],
+    "placement": "Placement [Pos=(8.46074,0.018239,1.345), Yaw-Pitch-Roll=(90,-3.18055e-15,90)]",
+    "bounds": [
+      21.571721225805387,
+      24.964810486727938,
+      9.226649793732838,
+      21.806454988161235,
+      26.526120030552136,
+      10.823949747902525
+    ],
+    "volume": 0.22854956931769063,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature308",
+    "label": "qwicc v009",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v001"
+    ],
+    "placement": "Placement [Pos=(8.46074,0.018239,1.345), Yaw-Pitch-Roll=(90,-3.18055e-15,90)]",
+    "bounds": [
+      20.51676830011173,
+      21.883874451443315,
+      7.97178300534142,
+      20.778976473392277,
+      24.763520134853184,
+      11.248613973737378
+    ],
+    "volume": 0.4107449955113418,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature309",
+    "label": "qwicc v010",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v001"
+    ],
+    "placement": "Placement [Pos=(8.46074,0.018239,1.345), Yaw-Pitch-Roll=(90,-3.18055e-15,90)]",
+    "bounds": [
+      19.51703846215728,
+      21.86115485132083,
+      7.976689213027109,
+      19.779246635437833,
+      24.740800534730695,
+      11.253520181423065
+    ],
+    "volume": 0.41074499551134075,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature310",
+    "label": "qwicc v011",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v001"
+    ],
+    "placement": "Placement [Pos=(8.46074,0.018239,1.345), Yaw-Pitch-Roll=(90,-3.18055e-15,90)]",
+    "bounds": [
+      17.517578786248393,
+      21.815715651075852,
+      7.986501628398486,
+      17.779786959528945,
+      24.69536133448572,
+      11.263332596794443
+    ],
+    "volume": 0.41074499551134164,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature311",
+    "label": "qwicc v012",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v001"
+    ],
+    "placement": "Placement [Pos=(8.46074,0.018239,1.345), Yaw-Pitch-Roll=(90,-3.18055e-15,90)]",
+    "bounds": [
+      16.373126068442236,
+      24.846668566090987,
+      9.252162073698418,
+      16.607859830798105,
+      26.407978109915195,
+      10.8494620278681
+    ],
+    "volume": 0.22854956931769052,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature312",
+    "label": "qwicc v013",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v001"
+    ],
+    "placement": "Placement [Pos=(8.46074,0.018239,1.345), Yaw-Pitch-Roll=(90,-3.18055e-15,90)]",
+    "bounds": [
+      18.517308624202837,
+      21.83843525119834,
+      7.981595420712797,
+      18.779516797483385,
+      24.718080934608206,
+      11.258426389108754
+    ],
+    "volume": 0.41074499551134036,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature313",
+    "label": "qwicc v014",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "qwicc_v001"
+    ],
+    "placement": "Placement [Pos=(8.46074,0.018239,1.345), Yaw-Pitch-Roll=(90,-3.18055e-15,90)]",
+    "bounds": [
+      16.088117839208603,
+      21.627146494666064,
+      8.346158184825072,
+      22.172646498661997,
+      26.555187312041763,
+      12.476279681745778
+    ],
+    "volume": 38.3178911544367,
+    "solids": 1
+  },
+  {
+    "name": "qwicc_v001",
+    "label": "qwicc v015",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      16.088117839208607,
+      21.627146494666064,
+      7.971783005341421,
+      22.172646498661997,
+      26.55518731204176,
+      12.476279681745776
+    ],
+    "volume": 40.41797027511745,
+    "solids": 7,
+    "group": [
+      "Part__Feature307",
+      "Part__Feature308",
+      "Part__Feature309",
+      "Part__Feature310",
+      "Part__Feature311",
+      "Part__Feature312",
+      "Part__Feature313"
+    ]
+  },
+  {
+    "name": "Origin171",
+    "label": "Origin235",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "qwicc_v001"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis085",
+    "label": "X-axis085",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin171"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis085",
+    "label": "Y-axis085",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin171"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis085",
+    "label": "Z-axis085",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin171"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane085",
+    "label": "XY-plane085",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin171"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane085",
+    "label": "XZ-plane085",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin171"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane085",
+    "label": "YZ-plane085",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin171"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin172",
+    "label": "Origin234",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin171"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807,
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Adafruit_BNO085_STEMMA_QT_v2",
+    "label": "Adafruit BNO085 STEMMA QT v2",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [],
+    "placement": "Placement [Pos=(19.3093,15.5395,3.81075), Yaw-Pitch-Roll=(91.1962,-20.5932,0.300295)]",
+    "bounds": [
+      7.6833066039058755,
+      2.2987281342400117,
+      -0.6999346663104107,
+      30.955972933983148,
+      27.628105609397107,
+      12.476279681745776
+    ],
+    "volume": 1074.9758632273458,
+    "solids": 126,
+    "group": [
+      "Part__Feature188",
+      "BNO055_9axis_IMU_v2",
+      "BNO085_9axis_IMU_v1",
+      "CD74HC4050PW_v2",
+      "Crystal_XTAL3215_32_768KHz_v2",
+      "SOT23_5_v1",
+      "BSS138PS_v2",
+      "LED_0603_single_color_v1",
+      "Part__Feature290",
+      "Part__Feature291",
+      "Part__Feature292",
+      "Part__Feature293",
+      "Part__Feature294",
+      "Part__Feature295",
+      "Part__Feature296",
+      "Part__Feature297",
+      "Part__Feature298",
+      "Part__Feature299",
+      "qwicc_v1",
+      "qwicc_v001"
+    ]
+  },
+  {
+    "name": "Origin173",
+    "label": "Origin238",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "Adafruit_BNO085_STEMMA_QT_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis086",
+    "label": "X-axis086",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin173"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis086",
+    "label": "Y-axis086",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin173"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis086",
+    "label": "Z-axis086",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin173"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane086",
+    "label": "XY-plane086",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin173"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane086",
+    "label": "XZ-plane086",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin173"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.684996666696915e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane086",
+    "label": "YZ-plane086",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin173"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.6175968000290385e+168,
+    "solids": 0
+  },
+  {
+    "name": "Origin174",
+    "label": "Origin237",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin173"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807,
+      19.309258886433142,
+      15.539533632100946,
+      3.8107488907904807
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature314",
+    "label": "400mAh Battery v2",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "_400mAh_Battery_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      56.32949789645372,
+      -20.83801389633033,
+      0.6069489237622674,
+      87.47553695735594,
+      -2.960647159990334,
+      12.913548059262185
+    ],
+    "volume": 3732.5260875878885,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature315",
+    "label": "400mAh Battery v001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "_400mAh_Battery_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      51.330294296229525,
+      -20.696758296637267,
+      1.1418868161425302,
+      56.480474635965926,
+      -2.9378639987495174,
+      12.999828364484808
+    ],
+    "volume": 636.3429173528853,
+    "solids": 1
+  },
+  {
+    "name": "_400mAh_Battery_v2",
+    "label": "400mAh Battery v002",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [],
+    "placement": "Placement [Pos=(51.4829,-18.6779,13.3957), Yaw-Pitch-Roll=(90.0668,18.3463,-178.958)]",
+    "bounds": [
+      51.33029429622952,
+      -20.838013896330324,
+      0.6069489237622634,
+      87.47553695735596,
+      -2.9378639987495134,
+      12.99982836448481
+    ],
+    "volume": 4368.869004940777,
+    "solids": 2,
+    "group": [
+      "Part__Feature314",
+      "Part__Feature315"
+    ]
+  },
+  {
+    "name": "Origin175",
+    "label": "Origin241",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "_400mAh_Battery_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis087",
+    "label": "X-axis087",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin175"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis087",
+    "label": "Y-axis087",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin175"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis087",
+    "label": "Z-axis087",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin175"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane087",
+    "label": "XY-plane087",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin175"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -5.391989333430128e+167,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane087",
+    "label": "XZ-plane087",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin175"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.7113247396140543e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane087",
+    "label": "YZ-plane087",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin175"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 5.391989333430128e+167,
+    "solids": 0
+  },
+  {
+    "name": "Origin176",
+    "label": "Origin240",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin175"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      51.48287953216332,
+      -18.67789916577242,
+      13.395713469403244,
+      51.48287953216332,
+      -18.67789916577242,
+      13.395713469403244
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature316",
+    "label": "Board",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      15.99999999999999,
+      -22.711664104812904,
+      -0.23518715540483903,
+      41.39999999999999,
+      0.07038115131184997,
+      13.824472728536708
+    ],
+    "volume": 926.4077810001255,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature317",
+    "label": "0805-NO",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(1.143,6.858,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      16.51799999999999,
+      -16.85348728944366,
+      9.895472728536715,
+      17.76799999999999,
+      -14.621436481874781,
+      11.761498132321154
+    ],
+    "volume": 2.496102400000001,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature318",
+    "label": "0805-NO001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(9.906,6.35,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      25.28099999999999,
+      -17.293428194566157,
+      10.149472728536715,
+      26.53099999999999,
+      -15.061377386997277,
+      12.015498132321154
+    ],
+    "volume": 2.4961024000000007,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature319",
+    "label": "0805-NO002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(8.001,6.35,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      23.37599999999999,
+      -17.293428194566154,
+      10.149472728536715,
+      24.62599999999999,
+      -15.061377386997274,
+      12.015498132321154
+    ],
+    "volume": 2.496102400000001,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature320",
+    "label": "SOT23-5",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(4.953,6.477,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      19.45299999999999,
+      -17.47985312979975,
+      9.972575268915163,
+      22.45299999999999,
+      -14.404981999202537,
+      12.498408293835189
+    ],
+    "volume": 6.331066134766533,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature321",
+    "label": "0603-NO",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(4.953,8.89,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      20.152999999999988,
+      -14.617409696872237,
+      9.154472728536717,
+      21.75299999999999,
+      -13.437986833466242,
+      10.297293051564267
+    ],
+    "volume": 1.149921599999998,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature322",
+    "label": "RESPACK_4X0603",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(23.114,18.161,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      38.31399999999999,
+      -7.519465487454969,
+      3.9814727285367275,
+      39.91399999999999,
+      -4.628088005912429,
+      5.939485430428945
+    ],
+    "volume": 2.3384899999999997,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature323",
+    "label": "RESPACK_4X0604",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(1.778,18.415,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      16.977999999999984,
+      -7.299495034893727,
+      3.8544727285367286,
+      18.577999999999985,
+      -4.408117553351187,
+      5.812485430428946
+    ],
+    "volume": 2.3384900000000024,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature324",
+    "label": "SOT363",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(19.304,19.939,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      34.253999999999984,
+      -5.416981597566669,
+      3.4549727285367284,
+      36.35399999999999,
+      -3.300985559943473,
+      5.274098546365361
+    ],
+    "volume": 2.6467246826863913,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature325",
+    "label": "JST_SH4",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(22.86,12.7,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      36.384999999999984,
+      -13.496217688103881,
+      6.026434252763791,
+      41.33500000000003,
+      -6.850065265397221,
+      11.537907923738672
+    ],
+    "volume": 44.037631216351365,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature326",
+    "label": "JST_SH001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(2.54,12.7,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      16.064999999999948,
+      -13.496217688103833,
+      6.026434252763769,
+      21.01499999999999,
+      -6.850065265397186,
+      11.537907923738643
+    ],
+    "volume": 44.03763121635134,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature327",
+    "label": "CHIPLED_0603_NOOUTLINE",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE"
+    ],
+    "placement": "Placement [Pos=(4.572,17.78,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      20.31799999999999,
+      -6.782732425525518,
+      4.787825760162591,
+      20.825999999999993,
+      -6.270922425525626,
+      5.087718810487695
+    ],
+    "volume": 0.001135329097395196,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature328",
+    "label": "CHIPLED_0603_NOOUTLINE001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE"
+    ],
+    "placement": "Placement [Pos=(4.572,17.78,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      19.594326544329505,
+      -6.8580531043674435,
+      4.7450725807995315,
+      20.216399999999993,
+      -6.0457417466837,
+      5.4014360559394845
+    ],
+    "volume": 0.004545211197862966,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature329",
+    "label": "CHIPLED_0603_NOOUTLINE002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE"
+    ],
+    "placement": "Placement [Pos=(4.572,17.78,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      20.92759999999999,
+      -6.8580531043674435,
+      4.7450725807995315,
+      21.54967345567048,
+      -6.0457417466837,
+      5.401436055939485
+    ],
+    "volume": 0.004545211203714006,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature330",
+    "label": "CHIPLED_0603_NOOUTLINE003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE"
+    ],
+    "placement": "Placement [Pos=(4.572,17.78,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      19.594326544329505,
+      -6.865876626995505,
+      4.7442218421135625,
+      21.54967345567048,
+      -6.037918224055639,
+      5.401436055939485
+    ],
+    "volume": 0.3342300859987332,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature331",
+    "label": "CHIPLED_0603_NOOUTLINE004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE"
+    ],
+    "placement": "Placement [Pos=(4.572,17.78,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      20.026033115759414,
+      -6.718556626995505,
+      4.99938756708461,
+      21.11796688424057,
+      -5.833448224055639,
+      5.7450402911826055
+    ],
+    "volume": 0.34086755674515956,
+    "solids": 1
+  },
+  {
+    "name": "CHIPLED_0603_NOOUTLINE",
+    "label": "CHIPLED_0603_NOOUTLINE005",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.5943265443295,
+      -6.865876626995508,
+      4.744221842113561,
+      21.549673455670476,
+      -5.833448224055642,
+      5.745040291182603
+    ],
+    "volume": 0.6850659644945253,
+    "solids": 5,
+    "group": [
+      "Part__Feature327",
+      "Part__Feature328",
+      "Part__Feature329",
+      "Part__Feature330",
+      "Part__Feature331"
+    ]
+  },
+  {
+    "name": "Origin177",
+    "label": "Origin243",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis088",
+    "label": "X-axis088",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin177"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -22.711664104812904,
+      12.464812844595139,
+      1e+100,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis088",
+    "label": "Y-axis088",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin177"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis088",
+    "label": "Z-axis088",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin177"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane088",
+    "label": "XY-plane088",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin177"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 5.391989333430128e+167,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane088",
+    "label": "XZ-plane088",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin177"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane088",
+    "label": "YZ-plane088",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin177"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      15.99999999999999,
+      -1e+100,
+      -1e+100,
+      15.99999999999999,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Origin178",
+    "label": "Origin242",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin177"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139,
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature332",
+    "label": "CHIPLED_0603_NOOUTLINE006",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE001"
+    ],
+    "placement": "Placement [Pos=(4.572,18.923,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      20.31799999999999,
+      -5.792865388999905,
+      4.216325760162592,
+      20.825999999999993,
+      -5.281055389000013,
+      4.516218810487696
+    ],
+    "volume": 0.001135329097395194,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature333",
+    "label": "CHIPLED_0603_NOOUTLINE007",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE001"
+    ],
+    "placement": "Placement [Pos=(4.572,18.923,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      19.594326544329505,
+      -5.8681860678418305,
+      4.173572580799531,
+      20.216399999999993,
+      -5.055874710158087,
+      4.829936055939486
+    ],
+    "volume": 0.004545211197862968,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature334",
+    "label": "CHIPLED_0603_NOOUTLINE008",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE001"
+    ],
+    "placement": "Placement [Pos=(4.572,18.923,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      20.92759999999999,
+      -5.8681860678418305,
+      4.173572580799532,
+      21.54967345567048,
+      -5.055874710158087,
+      4.829936055939486
+    ],
+    "volume": 0.004545211203714011,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature335",
+    "label": "CHIPLED_0603_NOOUTLINE009",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE001"
+    ],
+    "placement": "Placement [Pos=(4.572,18.923,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      19.594326544329505,
+      -5.876009590469892,
+      4.172721842113563,
+      21.54967345567048,
+      -5.048051187530026,
+      4.829936055939486
+    ],
+    "volume": 0.3342300859987332,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature336",
+    "label": "CHIPLED_0603_NOOUTLINE010",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE001"
+    ],
+    "placement": "Placement [Pos=(4.572,18.923,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      20.026033115759414,
+      -5.728689590469892,
+      4.4278875670846105,
+      21.11796688424057,
+      -4.843581187530026,
+      5.173540291182606
+    ],
+    "volume": 0.34086755674515956,
+    "solids": 1
+  },
+  {
+    "name": "CHIPLED_0603_NOOUTLINE001",
+    "label": "CHIPLED_0603_NOOUTLINE011",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.5943265443295,
+      -5.876009590469895,
+      4.172721842113564,
+      21.549673455670476,
+      -4.843581187530029,
+      5.173540291182606
+    ],
+    "volume": 0.6850659644945255,
+    "solids": 5,
+    "group": [
+      "Part__Feature332",
+      "Part__Feature333",
+      "Part__Feature334",
+      "Part__Feature335",
+      "Part__Feature336"
+    ]
+  },
+  {
+    "name": "Origin179",
+    "label": "Origin246",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "CHIPLED_0603_NOOUTLINE001"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis089",
+    "label": "X-axis089",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin179"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -22.711664104812904,
+      12.464812844595139,
+      1e+100,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis089",
+    "label": "Y-axis089",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin179"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis089",
+    "label": "Z-axis089",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin179"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane089",
+    "label": "XY-plane089",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin179"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 5.391989333430128e+167,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane089",
+    "label": "XZ-plane089",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin179"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane089",
+    "label": "YZ-plane089",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin179"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      15.99999999999999,
+      -1e+100,
+      -1e+100,
+      15.99999999999999,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Origin180",
+    "label": "Origin245",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin179"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139,
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature337",
+    "label": "GPS_PA1010D",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.69999999999999,
+      -14.598357137988998,
+      4.593472728536716,
+      33.69999999999999,
+      -5.63810310014457,
+      10.11308797080739
+    ],
+    "volume": 56.40000000000018,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature338",
+    "label": "GPS_PA1010D001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.69999999999999,
+      -10.051723768120686,
+      6.568472728536732,
+      24.44999999999999,
+      -9.05890344509314,
+      7.488087970807392
+    ],
+    "volume": 0.35999999999999727,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature339",
+    "label": "GPS_PA1010D002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.69999999999999,
+      -8.666083122065588,
+      5.768472728536733,
+      24.44999999999999,
+      -7.673262799038038,
+      6.688087970807397
+    ],
+    "volume": 0.36,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature340",
+    "label": "GPS_PA1010D003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.69999999999999,
+      -12.563197439095566,
+      8.018472728536729,
+      24.44999999999999,
+      -11.570377116068014,
+      8.938087970807393
+    ],
+    "volume": 0.36,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature341",
+    "label": "GPS_PA1010D004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.69999999999999,
+      -7.280442476010485,
+      4.968472728536735,
+      24.44999999999999,
+      -6.287622152982935,
+      5.888087970807398
+    ],
+    "volume": 0.35999999999999965,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature342",
+    "label": "GPS_PA1010D005",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.69999999999999,
+      -13.948838085150669,
+      8.818472728536728,
+      24.44999999999999,
+      -12.956017762123118,
+      9.738087970807392
+    ],
+    "volume": 0.3600000000000001,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature343",
+    "label": "GPS_PA1010D006",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      32.94999999999999,
+      -12.563197439095566,
+      8.018472728536729,
+      33.69999999999999,
+      -11.570377116068014,
+      8.938087970807393
+    ],
+    "volume": 0.36,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature344",
+    "label": "GPS_PA1010D007",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      32.94999999999999,
+      -8.666083122065588,
+      5.768472728536733,
+      33.69999999999999,
+      -7.673262799038038,
+      6.688087970807397
+    ],
+    "volume": 0.36,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature345",
+    "label": "GPS_PA1010D008",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      32.94999999999999,
+      -7.280442476010485,
+      4.968472728536735,
+      33.69999999999999,
+      -6.287622152982935,
+      5.888087970807398
+    ],
+    "volume": 0.35999999999999965,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature346",
+    "label": "GPS_PA1010D009",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      32.94999999999999,
+      -10.051723768120686,
+      6.568472728536732,
+      33.69999999999999,
+      -9.05890344509314,
+      7.488087970807392
+    ],
+    "volume": 0.35999999999999727,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature347",
+    "label": "GPS_PA1010D010",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      32.94999999999999,
+      -13.948838085150669,
+      8.818472728536728,
+      33.69999999999999,
+      -12.956017762123118,
+      9.738087970807392
+    ],
+    "volume": 0.36000000000000004,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature348",
+    "label": "GPS_PA1010D011",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.69999999999999,
+      -14.298357137988997,
+      5.1130879708073795,
+      33.69999999999999,
+      -4.938103100144572,
+      11.325523536105605
+    ],
+    "volume": 141.01787601976346,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature349",
+    "label": "GPS_PA1010D012",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(12.7,13.462,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      23.69999999999999,
+      -13.598357137989002,
+      6.325523536105593,
+      33.69999999999999,
+      -2.938103100144574,
+      14.789625151243362
+    ],
+    "volume": 399.48542818236086,
+    "solids": 1
+  },
+  {
+    "name": "GPS_PA1010D",
+    "label": "GPS_PA1010D013",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      23.69999999999999,
+      -14.598357137989,
+      4.593472728536714,
+      33.69999999999999,
+      -2.9381031001445765,
+      14.789625151243362
+    ],
+    "volume": 600.5053701277487,
+    "solids": 13,
+    "group": [
+      "Part__Feature337",
+      "Part__Feature338",
+      "Part__Feature339",
+      "Part__Feature340",
+      "Part__Feature341",
+      "Part__Feature342",
+      "Part__Feature343",
+      "Part__Feature344",
+      "Part__Feature345",
+      "Part__Feature346",
+      "Part__Feature347",
+      "Part__Feature348",
+      "Part__Feature349"
+    ]
+  },
+  {
+    "name": "Origin181",
+    "label": "Origin249",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "GPS_PA1010D"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis090",
+    "label": "X-axis090",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin181"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -22.711664104812904,
+      12.464812844595139,
+      1e+100,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis090",
+    "label": "Y-axis090",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin181"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis090",
+    "label": "Z-axis090",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin181"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane090",
+    "label": "XY-plane090",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin181"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 5.391989333430128e+167,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane090",
+    "label": "XZ-plane090",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin181"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane090",
+    "label": "YZ-plane090",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin181"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      15.99999999999999,
+      -1e+100,
+      -1e+100,
+      15.99999999999999,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Origin182",
+    "label": "Origin248",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin181"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139,
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature350",
+    "label": "CR1220-2",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CR1220_2"
+    ],
+    "placement": "Placement [Pos=(12.7,12.7,0), Yaw-Pitch-Roll=(180,7.01671e-15,180)]",
+    "bounds": [
+      19.41697928681067,
+      -18.957830399021752,
+      -0.36745423098861973,
+      22.69993039821967,
+      -6.8155255536084836,
+      8.663634682256905
+    ],
+    "volume": 30.209000000000014,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature351",
+    "label": "CR1220-001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CR1220_2"
+    ],
+    "placement": "Placement [Pos=(12.7,12.7,0), Yaw-Pitch-Roll=(180,7.01671e-15,180)]",
+    "bounds": [
+      24.66697928680727,
+      -15.107990472043195,
+      2.615514789148147,
+      37.91697928680727,
+      -8.765002836108005,
+      7.818350112842433
+    ],
+    "volume": 17.953879215109904,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature352",
+    "label": "CR1220-002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CR1220_2"
+    ],
+    "placement": "Placement [Pos=(12.7,12.7,0), Yaw-Pitch-Roll=(180,7.01671e-15,180)]",
+    "bounds": [
+      33.113998095157655,
+      -10.355334161597337,
+      0.3650980865032562,
+      34.26618255781678,
+      -9.184343386706756,
+      1.4153092135585865
+    ],
+    "volume": 0.24679621285617714,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature353",
+    "label": "CR1220-003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "CR1220_2"
+    ],
+    "placement": "Placement [Pos=(12.7,12.7,0), Yaw-Pitch-Roll=(180,7.01671e-15,180)]",
+    "bounds": [
+      20.88504456777627,
+      -20.256757562912853,
+      -1.1174597804991184,
+      36.112815298044325,
+      -5.266477835897682,
+      9.84658333187937
+    ],
+    "volume": 217.81523349795117,
+    "solids": 1
+  },
+  {
+    "name": "CR1220_2",
+    "label": "CR1220-004",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      19.41697928681067,
+      -20.256757562912856,
+      -1.1174597804991193,
+      37.91697928680727,
+      -5.266477835897684,
+      9.84658333187937
+    ],
+    "volume": 266.2248571112626,
+    "solids": 4,
+    "group": [
+      "Part__Feature350",
+      "Part__Feature351",
+      "Part__Feature352",
+      "Part__Feature353"
+    ]
+  },
+  {
+    "name": "Origin183",
+    "label": "Origin251",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "CR1220_2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis091",
+    "label": "X-axis091",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin183"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -22.711664104812904,
+      12.464812844595139,
+      1e+100,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis091",
+    "label": "Y-axis091",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin183"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis091",
+    "label": "Z-axis091",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin183"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane091",
+    "label": "XY-plane091",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin183"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 5.391989333430128e+167,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane091",
+    "label": "XZ-plane091",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin183"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane091",
+    "label": "YZ-plane091",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin183"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      15.99999999999999,
+      -1e+100,
+      -1e+100,
+      15.99999999999999,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Origin184",
+    "label": "Origin250",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin183"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139,
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature354",
+    "label": "SOD-323",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(13.335,19.939,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      27.98499999999999,
+      -5.168550726309467,
+      3.6473765391043944,
+      30.68499999999999,
+      -3.524416431200475,
+      5.145100672699611
+    ],
+    "volume": 2.3549102492124145,
+    "solids": 1
+  },
+  {
+    "name": "PCB_Component",
+    "label": "PCB Component",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [],
+    "placement": "Placement [Pos=(16,-22.7117,12.4648), Yaw-Pitch-Roll=(0,0,-30)]",
+    "bounds": [
+      15.99999999999999,
+      -22.7116641048129,
+      -1.1174597804991215,
+      41.39999999999999,
+      0.07038115131185352,
+      14.78962515124336
+    ],
+    "volume": 1907.2309015560172,
+    "solids": 39,
+    "group": [
+      "Part__Feature316",
+      "Part__Feature317",
+      "Part__Feature318",
+      "Part__Feature319",
+      "Part__Feature320",
+      "Part__Feature321",
+      "Part__Feature322",
+      "Part__Feature323",
+      "Part__Feature324",
+      "Part__Feature325",
+      "Part__Feature326",
+      "CHIPLED_0603_NOOUTLINE",
+      "CHIPLED_0603_NOOUTLINE001",
+      "GPS_PA1010D",
+      "CR1220_2",
+      "Part__Feature354"
+    ]
+  },
+  {
+    "name": "Origin185",
+    "label": "Origin254",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "PCB_Component"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis092",
+    "label": "X-axis092",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin185"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -22.711664104812904,
+      12.464812844595139,
+      1e+100,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis092",
+    "label": "Y-axis092",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin185"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis092",
+    "label": "Z-axis092",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin185"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane092",
+    "label": "XY-plane092",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin185"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 5.391989333430128e+167,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane092",
+    "label": "XZ-plane092",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin185"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane092",
+    "label": "YZ-plane092",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin185"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      15.99999999999999,
+      -1e+100,
+      -1e+100,
+      15.99999999999999,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Origin186",
+    "label": "Origin253",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin185"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139,
+      15.99999999999999,
+      -22.711664104812904,
+      12.464812844595139
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Distance_Free",
+    "label": "Distance_Free: 11.89 mm",
+    "type": "Measure::MeasureDistanceDetached",
+    "visible": true,
+    "parents": [],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]"
+  },
+  {
+    "name": "Soccer_shin_pads001_solid001",
+    "label": "Soccer_shin_pads001 (Solid)001",
+    "type": "Part::Feature",
+    "visible": false,
+    "parents": [
+      "Soccer_shin_pads001_solid002"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -31.255634307861328,
+      -10.74708366394043,
+      -3.6806708810702823e-17,
+      31.254716873168945,
+      7.5,
+      70.0
+    ],
+    "volume": 8904.463126235336,
+    "solids": 1
+  },
+  {
+    "name": "Soccer_shin_pads001_solid002",
+    "label": "Soccer_shin_pads001 (Solid)002",
+    "type": "Part::Refine",
+    "visible": false,
+    "parents": [
+      "Body",
+      "BaseFeature"
+    ],
+    "placement": "Placement [Pos=(72,1,4.5e-15), Yaw-Pitch-Roll=(90,3.49861e-14,-90)]",
+    "bounds": [
+      2.000000000000014,
+      -30.255634307861317,
+      -7.499999999999992,
+      72.00000000000001,
+      32.25471687316896,
+      10.747083663940439
+    ],
+    "volume": 8904.463126183982,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature355",
+    "label": "slide switch v2 v1",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [],
+    "placement": "Placement [Pos=(111.25,-35.7271,7), Yaw-Pitch-Roll=(90,2.54444e-14,90)]",
+    "bounds": [
+      104.95005132251818,
+      -35.727116866032276,
+      3.0000000000000018,
+      112.95005132251819,
+      -24.02711686603227,
+      7.000000000000014
+    ],
+    "volume": 279.23999999999995,
+    "solids": 1
+  },
+  {
+    "name": "Body",
+    "label": "Body",
+    "type": "PartDesign::Body",
+    "visible": false,
+    "parents": [],
+    "placement": "Placement [Pos=(2.10849,0.201292,1.8745), Yaw-Pitch-Roll=(-88.8319,-4.82616,-93.3105)]",
+    "bounds": [
+      1.5626325265532013,
+      -30.11187437627376,
+      -10.792722627000668,
+      93.13738651553851,
+      33.65886698117637,
+      14.771792244685823
+    ],
+    "volume": 15040.284546458375,
+    "solids": 1,
+    "group": [
+      "BaseFeature",
+      "Sketch",
+      "Pad"
+    ]
+  },
+  {
+    "name": "Origin187",
+    "label": "Origin257",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "Body"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis093",
+    "label": "X-axis093",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin187"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis093",
+    "label": "Y-axis093",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin187"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis093",
+    "label": "Z-axis093",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin187"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane093",
+    "label": "XY-plane093",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin187"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane093",
+    "label": "XZ-plane093",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin187"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -3.36999333339383e+166,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane093",
+    "label": "YZ-plane093",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin187"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "Origin188",
+    "label": "Origin256",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin187"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      2.108490952498144,
+      0.2012918799148252,
+      1.8744992617533458,
+      2.108490952498144,
+      0.2012918799148252,
+      1.8744992617533458
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "BaseFeature",
+    "label": "BaseFeature",
+    "type": "PartDesign::FeatureBase",
+    "visible": false,
+    "parents": [
+      "Body",
+      "Sketch",
+      "Pad"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      1.58492497086742,
+      -29.977026538490108,
+      -9.706445615395642,
+      72.6140650099086,
+      33.07095407940753,
+      14.462378567521258
+    ],
+    "volume": 8904.463126183984,
+    "solids": 1
+  },
+  {
+    "name": "Sketch",
+    "label": "Sketch",
+    "type": "Sketcher::SketchObject",
+    "visible": false,
+    "parents": [
+      "Body",
+      "Pad",
+      "Pad"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,180)]",
+    "bounds": [
+      1.5626325265532057,
+      -30.11187437627376,
+      -5.613933741718057,
+      3.2973304927321174,
+      32.264421033609416,
+      14.771792244685834
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Pad",
+    "label": "Pad",
+    "type": "PartDesign::Pad",
+    "visible": true,
+    "parents": [
+      "Body",
+      "Body"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      1.5626325265532008,
+      -30.111874376273757,
+      -10.792722627000675,
+      93.13738651553851,
+      33.65886698117637,
+      14.771792244685834
+    ],
+    "volume": 15040.284546458257,
+    "solids": 1
+  },
+  {
+    "name": "Body001",
+    "label": "shinguard",
+    "type": "PartDesign::Body",
+    "visible": false,
+    "parents": [],
+    "placement": "Placement [Pos=(0,1,17), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      -28.752309948043816,
+      10.00860001980903,
+      90.0,
+      33.875170330326824,
+      29.83295303071544
+    ],
+    "volume": 7708.583459690002,
+    "solids": 2,
+    "group": [
+      "Sketch001",
+      "Pad001"
+    ]
+  },
+  {
+    "name": "Origin189",
+    "label": "Origin260",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "Body001",
+      "Sketch001"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis094",
+    "label": "X-axis094",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin189"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      1.0,
+      17.0,
+      1e+100,
+      1.0,
+      17.0
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis094",
+    "label": "Y-axis094",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin189"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      0.0,
+      -1e+100,
+      17.0,
+      0.0,
+      1e+100,
+      17.0
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis094",
+    "label": "Z-axis094",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin189"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      0.0,
+      1.0,
+      -1e+100,
+      0.0,
+      1.0,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane094",
+    "label": "XY-plane094",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin189"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      17.0,
+      1e+100,
+      1e+100,
+      17.0
+    ],
+    "volume": 4.533333333333333e+101,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane094",
+    "label": "XZ-plane094",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin189"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      1.0,
+      -1e+100,
+      1e+100,
+      1.0,
+      1e+100
+    ],
+    "volume": 1.1972621413014757e+152,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane094",
+    "label": "YZ-plane094",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin189"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      0.0,
+      -1e+100,
+      -1e+100,
+      0.0,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Origin190",
+    "label": "Origin259",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin189"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      1.0,
+      17.0,
+      0.0,
+      1.0,
+      17.0
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Sketch001",
+    "label": "Sketch001",
+    "type": "Sketcher::SketchObject",
+    "visible": false,
+    "parents": [
+      "Body001",
+      "Pad001",
+      "Pad001"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,0,90)]",
+    "bounds": [
+      0.0,
+      -28.752309948043816,
+      10.00860001980903,
+      0.0,
+      33.875170330326824,
+      29.83295303071544
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Pad001",
+    "label": "Pad001",
+    "type": "PartDesign::Pad",
+    "visible": true,
+    "parents": [
+      "Body001",
+      "Body001"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      -28.752309948043816,
+      10.00860001980903,
+      90.0,
+      33.875170330326824,
+      29.83295303071544
+    ],
+    "volume": 7708.583459690002,
+    "solids": 2
+  },
+  {
+    "name": "Body002",
+    "label": "shinguard001",
+    "type": "PartDesign::Body",
+    "visible": true,
+    "parents": [],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      -29.514939000000002,
+      -6.785344029422788,
+      90.0,
+      32.708983,
+      13.70006880589375
+    ],
+    "volume": 23606.79621511627,
+    "solids": 1,
+    "group": [
+      "Sketch002",
+      "Pad002",
+      "DatumPlane",
+      "Sketch003",
+      "Pad003",
+      "DatumPlane001",
+      "Sketch004",
+      "Pad004",
+      "DatumPlane002",
+      "Sketch005",
+      "Pad005",
+      "DatumPlane003",
+      "Sketch006",
+      "Pad006"
+    ]
+  },
+  {
+    "name": "Origin191",
+    "label": "Origin191",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "Sketch002"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "Origin192",
+    "label": "Origin261",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin191"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Pad002",
+    "label": "Pad002",
+    "type": "PartDesign::Pad",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "DatumPlane",
+      "DatumPlane",
+      "Pad003"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      -29.514939000000002,
+      -6.785344029422788,
+      90.0,
+      32.708983,
+      13.70006880589375
+    ],
+    "volume": 18692.621262186214,
+    "solids": 1
+  },
+  {
+    "name": "Sketch002",
+    "label": "Sketch002",
+    "type": "Sketcher::SketchObject",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "Pad002",
+      "Pad002"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,0,90)]",
+    "bounds": [
+      0.0,
+      -29.514939,
+      -6.785344029422788,
+      0.0,
+      32.708983,
+      13.70006880589375
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane095",
+    "label": "XY-plane095",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin191"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      0.0,
+      1e+100,
+      1e+100,
+      0.0
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane095",
+    "label": "XZ-plane095",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin191"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      0.0,
+      -1e+100,
+      1e+100,
+      0.0,
+      1e+100
+    ],
+    "volume": 1.1972621413014757e+152,
+    "solids": 0
+  },
+  {
+    "name": "X_Axis095",
+    "label": "X-axis095",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin191"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      0.0,
+      0.0,
+      1e+100,
+      0.0,
+      0.0
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane095",
+    "label": "YZ-plane095",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin191"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      0.0,
+      -1e+100,
+      -1e+100,
+      0.0,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis095",
+    "label": "Y-axis095",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin191"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      0.0,
+      -1e+100,
+      0.0,
+      0.0,
+      1e+100,
+      0.0
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis095",
+    "label": "Z-axis095",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin191"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      0.0,
+      0.0,
+      -1e+100,
+      0.0,
+      0.0,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Part__Feature356",
+    "label": "Board001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      35.19999999999998,
+      3.869226824644711,
+      -1.838404608383665,
+      86.00000000000001,
+      25.88757176083189,
+      7.4554932826749996
+    ],
+    "volume": 1721.4094489670397,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature357",
+    "label": "0805-NO003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(22.265,14.282,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      63.11,
+      10.648197361634658,
+      2.2287414523721285,
+      64.36,
+      12.869602746532145,
+      3.8524743598093747
+    ],
+    "volume": 2.4961024000000003,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature358",
+    "label": "0805-NO004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(20.272,14.291,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      65.103,
+      10.639740128047588,
+      2.2256632710821993,
+      66.353,
+      12.861145512945075,
+      3.8493961785194455
+    ],
+    "volume": 2.4961023999999976,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature359",
+    "label": "0805-NO005",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(16.954,18.606,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      68.04599999999999,
+      6.9373512021511115,
+      0.878103906379064,
+      70.04599999999999,
+      8.453987121459168,
+      2.2453217063220587
+    ],
+    "volume": 2.4961024000000016,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature360",
+    "label": "0805-NO006",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(42.926,18.796,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      42.07399999999999,
+      6.7588096042017884,
+      0.8131200791471865,
+      44.07399999999999,
+      8.275445523509843,
+      2.1803378790901813
+    ],
+    "volume": 2.496102400000002,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature361",
+    "label": "0805-NO007",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(15.989,4.128,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      69.011,
+      20.5422209658895,
+      5.829871541448095,
+      71.011,
+      22.058856885197553,
+      7.19708934139109
+    ],
+    "volume": 2.4961024000000016,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature362",
+    "label": "0805-NO008",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(32.702,10.287,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      52.672999999999995,
+      14.402269381674364,
+      3.595111924958175,
+      53.922999999999995,
+      16.623674766571853,
+      5.218844832395421
+    ],
+    "volume": 2.496102400000003,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature363",
+    "label": "0805-NO009",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(26.226,18.352,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      58.774,
+      7.176033127830733,
+      0.9649770227837834,
+      60.774,
+      8.69266904713879,
+      2.332194822726778
+    ],
+    "volume": 2.4961024000000016,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature364",
+    "label": "SOT23-001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(20.764,17.716,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      63.73599999999999,
+      6.908607796210873,
+      0.9858402515266501,
+      66.73599999999999,
+      9.984373320735136,
+      3.190662293273873
+    ],
+    "volume": 6.331066134766544,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature365",
+    "label": "SOT23-002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(29.782,9.906,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      54.71799999999999,
+      14.247607164548816,
+      3.657017570900122,
+      57.718,
+      17.323372689073533,
+      5.861839612647344
+    ],
+    "volume": 6.331066134766537,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature366",
+    "label": "SOD-123",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(12.319,12.128,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      71.881,
+      12.8344960028793,
+      3.1792154306741645,
+      75.481,
+      14.560489843970375,
+      4.815472122810236
+    ],
+    "volume": 4.891286343721562,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature367",
+    "label": "JSTPH2_BATT",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(10.986,19.304,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      71.064,
+      2.468091447602699,
+      -0.27553003705841395,
+      78.964,
+      12.156942659992161,
+      6.28711540266796
+    ],
+    "volume": 101.61253995659467,
+    "solids": 5
+  },
+  {
+    "name": "Part__Feature368",
+    "label": "SOT23-5 (1)",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(17.145,13.97,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      67.355,
+      10.428696353674884,
+      2.267047708424605,
+      70.355,
+      13.504461878199603,
+      4.471869750171827
+    ],
+    "volume": 6.331066134766543,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature369",
+    "label": "CHIPLED_0603_NOOUTLINE012",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(2.032,5.461,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      82.99032654432952,
+      19.60660575412616,
+      5.45860501499484,
+      84.94567345567049,
+      20.586289525010013,
+      6.388297183046981
+    ],
+    "volume": 0.6850659644945266,
+    "solids": 5
+  },
+  {
+    "name": "Part__Feature370",
+    "label": "CHIPLED_0603_NOOUTLINE013",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(2.35,17.336,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      82.67232654432952,
+      8.4477558822935,
+      1.3971158130025259,
+      84.62767345567049,
+      9.42743965317735,
+      2.326807981054666
+    ],
+    "volume": 0.6850659644945263,
+    "solids": 5
+  },
+  {
+    "name": "Part__Feature371",
+    "label": "0603-NO001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(5.969,4.191,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      79.2185,
+      20.9018051962148,
+      5.883568703950226,
+      80.8435,
+      21.79292387351514,
+      6.517688215942663
+    ],
+    "volume": 0.4988814000000016,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature372",
+    "label": "0603-NO002",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(5.588,21.082,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      80.007,
+      4.646532395549766,
+      -0.03286674536885442,
+      80.81700000000001,
+      6.303500558790622,
+      0.8799991834340025
+    ],
+    "volume": 0.4988814000000009,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature373",
+    "label": "0603-NO003",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(23.432,17.716,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      62.163,
+      7.809537757115127,
+      1.1183730570653458,
+      62.973,
+      9.466505920355983,
+      2.0312389858682027
+    ],
+    "volume": 0.49888140000000236,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature374",
+    "label": "0603-NO004",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(16.954,11.684,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      68.23349999999999,
+      13.860688388665984,
+      3.3208117700109905,
+      69.85849999999999,
+      14.751807065966327,
+      3.9549312820034275
+    ],
+    "volume": 0.4988814000000015,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature375",
+    "label": "0603-NO005",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(24.13,13.906,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      61.464999999999996,
+      11.389766642309436,
+      2.4214698031361417,
+      62.275,
+      13.046734805550292,
+      3.3343357319389986
+    ],
+    "volume": 0.4988814000000024,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature376",
+    "label": "0603-NO006",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(26.289,15.43,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      58.8985,
+      10.34059983120197,
+      2.0396043131130352,
+      60.5235,
+      11.231718508502313,
+      2.6737238251054722
+    ],
+    "volume": 0.49888140000000125,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature377",
+    "label": "0603-NO007",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(8.255,5.207,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      77.34,
+      19.56415275052606,
+      5.396703029926136,
+      78.15,
+      21.221120913766917,
+      6.309568958728994
+    ],
+    "volume": 0.4988814000000008,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature378",
+    "label": "0603-NO008",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(16.764,16.446,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      68.4235,
+      9.385872128483486,
+      1.6921118474941554,
+      70.0485,
+      10.276990805783829,
+      2.3262313594865924
+    ],
+    "volume": 0.4988814000000016,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature379",
+    "label": "0603-NO009",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(26.289,16.828,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      58.8985,
+      9.02690954734327,
+      1.5614601527437495,
+      60.5235,
+      9.918028224643612,
+      2.1955796647361865
+    ],
+    "volume": 0.4988814000000016,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature380",
+    "label": "0603-NO010",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(8.636,9.842,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      76.959,
+      15.20867745318337,
+      3.8114396656116623,
+      77.769,
+      16.865645616424228,
+      4.72430559441452
+    ],
+    "volume": 0.4988814000000008,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature381",
+    "label": "0603-NO011",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(8.7,12.954,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      76.895,
+      12.284354017297623,
+      2.747072979582181,
+      77.705,
+      13.94132218053848,
+      3.6599389083850378
+    ],
+    "volume": 0.4988814000000009,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature382",
+    "label": "0603-NO012",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(15.875,9.398,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      69.72,
+      15.625900976812312,
+      3.963296609248259,
+      70.53,
+      17.282869140053172,
+      4.876162538051116
+    ],
+    "volume": 0.4988814000000008,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature383",
+    "label": "0603-NO013",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(16.32,5.778,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      68.86749999999999,
+      19.41051300702756,
+      5.34078273649239,
+      70.49249999999999,
+      20.3016316843279,
+      5.974902248484827
+    ],
+    "volume": 0.4988814000000012,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature384",
+    "label": "0603-NO014",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(14.351,9.398,1.57), Yaw-Pitch-Roll=(90,0,0)]",
+    "bounds": [
+      71.244,
+      15.625900976812312,
+      3.963296609248259,
+      72.054,
+      17.282869140053172,
+      4.876162538051116
+    ],
+    "volume": 0.4988814000000008,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature385",
+    "label": "0603-NO015",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(22.542,4.699,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      63.053,
+      20.041516601885295,
+      5.570449262735576,
+      63.863,
+      21.698484765126153,
+      6.483315191538433
+    ],
+    "volume": 0.49888140000000236,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature386",
+    "label": "BTN_KMR2_4.6X2.8",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(11.748,6.35,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      71.95199999999998,
+      17.58915412406386,
+      4.804837171901066,
+      76.552,
+      20.699121662920344,
+      7.411101495375897
+    ],
+    "volume": 16.658796326794924,
+    "solids": 6
+  },
+  {
+    "name": "Part__Feature387",
+    "label": "BTN_KMR2_4.6X2.001",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(26.226,6.35,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      57.474000000000004,
+      17.589154124063857,
+      4.804837171901066,
+      62.074,
+      20.69912166292034,
+      7.411101495375896
+    ],
+    "volume": 16.65879632679489,
+    "solids": 6
+  },
+  {
+    "name": "Part__Feature388",
+    "label": "SOT23-R",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(11.748,9.652,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      72.73199999999999,
+      14.972554375185789,
+      3.7123682708991517,
+      75.77200000000103,
+      17.494925232225587,
+      5.429083687737557
+    ],
+    "volume": 4.413635229164088,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature389",
+    "label": "RESPACK_4X0605",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(25.781,9.652,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      58.69399999999999,
+      15.357922791693436,
+      3.8806987446351107,
+      61.744,
+      17.032441056613727,
+      4.897777284349135
+    ],
+    "volume": 2.338490000000001,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature390",
+    "label": "RESPACK_4X0606",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(19.812,4.762,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      64.66299999999998,
+      19.953019707336527,
+      5.55317724549763,
+      67.713,
+      21.62753797225682,
+      6.570255785211654
+    ],
+    "volume": 2.3384900000000046,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature391",
+    "label": "ESP32-PICO-MINI",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(39.37,11.43,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      35.66999999999999,
+      8.134326068380108,
+      1.2888700985131898,
+      52.270000000000024,
+      20.811884777414647,
+      7.915561392809647
+    ],
+    "volume": 202.625478838449,
+    "solids": 68
+  },
+  {
+    "name": "Part__Feature392",
+    "label": "LED3535",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(31.242,6.096,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      53.007999999999996,
+      17.567347661133546,
+      4.772003238141803,
+      56.507999999999996,
+      21.26669600587503,
+      7.096704884724734
+    ],
+    "volume": 13.993141652942294,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature393",
+    "label": "JST_SH4_RA",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(29.782,15.748,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      54.14104250864705,
+      6.310606608551804,
+      1.1077731614379462,
+      57.74104250864705,
+      13.402347942401352,
+      7.153587659732072
+    ],
+    "volume": 39.67915040967156,
+    "solids": 7
+  },
+  {
+    "name": "Part__Feature394",
+    "label": "USB_C_CUSB31-CFM2AX-01-X",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(2.667,11.43,1.57), Yaw-Pitch-Roll=(-90,0,0)]",
+    "bounds": [
+      79.19451162915148,
+      9.670230237870252,
+      1.1107217494004906,
+      87.0945116291515,
+      19.155425914524614,
+      7.762949882893315
+    ],
+    "volume": 107.94451887505853,
+    "solids": 1
+  },
+  {
+    "name": "Part__Feature395",
+    "label": "QFN24_4MM_SMSC",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(20.51,8.763,1.57), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      63.48899999999999,
+      14.927126026567787,
+      3.7740824291795807,
+      67.491,
+      18.99636443204194,
+      6.0490216895088995
+    ],
+    "volume": 15.283634567490143,
+    "solids": 13
+  },
+  {
+    "name": "Part__Feature396",
+    "label": "SOT364",
+    "type": "Part::Feature",
+    "visible": true,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(26.48,13.272,1.57), Yaw-Pitch-Roll=(180,0,0)]",
+    "bounds": [
+      58.519999999999506,
+      11.817077989383156,
+      2.5570807899647705,
+      60.52000000000011,
+      13.865676924565213,
+      4.140709608798693
+    ],
+    "volume": 2.646724682686389,
+    "solids": 1
+  },
+  {
+    "name": "PCB_Component001",
+    "label": "PCB Component001",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [
+      "Adafruit_ESP32_Feather_V2_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      35.19999999999998,
+      2.468091447602699,
+      -1.838404608383665,
+      87.0945116291515,
+      25.88757176083189,
+      7.915561392809649
+    ],
+    "volume": 2297.813396565191,
+    "solids": 148,
+    "group": [
+      "Part__Feature356",
+      "Part__Feature357",
+      "Part__Feature358",
+      "Part__Feature359",
+      "Part__Feature360",
+      "Part__Feature361",
+      "Part__Feature362",
+      "Part__Feature363",
+      "Part__Feature364",
+      "Part__Feature365",
+      "Part__Feature366",
+      "Part__Feature367",
+      "Part__Feature368",
+      "Part__Feature369",
+      "Part__Feature370",
+      "Part__Feature371",
+      "Part__Feature372",
+      "Part__Feature373",
+      "Part__Feature374",
+      "Part__Feature375",
+      "Part__Feature376",
+      "Part__Feature377",
+      "Part__Feature378",
+      "Part__Feature379",
+      "Part__Feature380",
+      "Part__Feature381",
+      "Part__Feature382",
+      "Part__Feature383",
+      "Part__Feature384",
+      "Part__Feature385",
+      "Part__Feature386",
+      "Part__Feature387",
+      "Part__Feature388",
+      "Part__Feature389",
+      "Part__Feature390",
+      "Part__Feature391",
+      "Part__Feature392",
+      "Part__Feature393",
+      "Part__Feature394",
+      "Part__Feature395",
+      "Part__Feature396"
+    ]
+  },
+  {
+    "name": "Origin193",
+    "label": "Origin264",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "PCB_Component001"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis096",
+    "label": "X-axis096",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin193"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      25.88757176083189,
+      5.9801758680411226,
+      1e+100,
+      25.88757176083189,
+      5.9801758680411226
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis096",
+    "label": "Y-axis096",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin193"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis096",
+    "label": "Z-axis096",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin193"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane096",
+    "label": "XY-plane096",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin193"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.0783978666860256e+168,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane096",
+    "label": "XZ-plane096",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin193"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane096",
+    "label": "YZ-plane096",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin193"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      86.0,
+      -1e+100,
+      -1e+100,
+      86.0,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.1972621413014757e+152,
+    "solids": 0
+  },
+  {
+    "name": "Origin194",
+    "label": "Origin263",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin193"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      86.0,
+      25.88757176083189,
+      5.9801758680411226,
+      86.0,
+      25.88757176083189,
+      5.9801758680411226
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Adafruit_ESP32_Feather_V2_v2",
+    "label": "Adafruit ESP32 Feather V2 v2",
+    "type": "App::Part",
+    "visible": true,
+    "parents": [],
+    "placement": "Placement [Pos=(86,25.8876,5.98018), Yaw-Pitch-Roll=(-180,1.21844e-15,-20)]",
+    "bounds": [
+      35.19999999999994,
+      2.468091447602699,
+      -1.838404608383665,
+      87.09451162915146,
+      25.887571760831882,
+      7.915561392809649
+    ],
+    "volume": 2297.813396565191,
+    "solids": 148,
+    "group": [
+      "PCB_Component001"
+    ]
+  },
+  {
+    "name": "Origin195",
+    "label": "Origin267",
+    "type": "App::Origin",
+    "visible": false,
+    "parents": [
+      "Adafruit_ESP32_Feather_V2_v2"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "group": []
+  },
+  {
+    "name": "X_Axis097",
+    "label": "X-axis097",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin195"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      25.88757176083189,
+      5.9801758680411226,
+      1e+100,
+      25.88757176083189,
+      5.9801758680411226
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Y_Axis097",
+    "label": "Y-axis097",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin195"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Z_Axis097",
+    "label": "Z-axis097",
+    "type": "App::Line",
+    "visible": true,
+    "parents": [
+      "Origin195"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,-90,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "XY_Plane097",
+    "label": "XY-plane097",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin195"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.0783978666860256e+168,
+    "solids": 0
+  },
+  {
+    "name": "XZ_Plane097",
+    "label": "XZ-plane097",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin195"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,90)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "YZ_Plane097",
+    "label": "YZ-plane097",
+    "type": "App::Plane",
+    "visible": true,
+    "parents": [
+      "Origin195"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(90,6.36111e-15,90)]",
+    "bounds": [
+      86.0,
+      -1e+100,
+      -1e+100,
+      86.0,
+      1e+100,
+      1e+100
+    ],
+    "volume": -1.1972621413014757e+152,
+    "solids": 0
+  },
+  {
+    "name": "Origin196",
+    "label": "Origin266",
+    "type": "App::Point",
+    "visible": true,
+    "parents": [
+      "Origin195"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      86.0,
+      25.88757176083189,
+      5.9801758680411226,
+      86.0,
+      25.88757176083189,
+      5.9801758680411226
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "DatumPlane",
+    "label": "DatumPlane",
+    "type": "Part::DatumPlane",
+    "visible": true,
+    "parents": [
+      "Body002",
+      "Sketch003"
+    ],
+    "placement": "Placement [Pos=(61,11.467,-0.166105), Yaw-Pitch-Roll=(90,-20.1369,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.0952478333529948e+168,
+    "solids": 0
+  },
+  {
+    "name": "Sketch003",
+    "label": "Sketch003",
+    "type": "Sketcher::SketchObject",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "Pad003",
+      "Pad003"
+    ],
+    "placement": "Placement [Pos=(61,11.467,-0.166105), Yaw-Pitch-Roll=(90,-20.1369,1.69382e-15)]",
+    "bounds": [
+      35.41344799999996,
+      4.4701846647700565,
+      -2.7316987043080587,
+      86.40627899999998,
+      26.305268857790608,
+      5.274759890309213
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Pad003",
+    "label": "Pad003",
+    "type": "PartDesign::Pad",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "DatumPlane001",
+      "DatumPlane001",
+      "Pad004"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      -29.514939000000002,
+      -6.785344029422788,
+      90.0,
+      32.708983,
+      13.70006880589375
+    ],
+    "volume": 20866.329872185255,
+    "solids": 1
+  },
+  {
+    "name": "DatumPlane001",
+    "label": "DatumPlane001",
+    "type": "Part::DatumPlane",
+    "visible": true,
+    "parents": [
+      "Body002",
+      "Sketch004"
+    ],
+    "placement": "Placement [Pos=(21,15.707,2.48399), Yaw-Pitch-Roll=(90,-20.1369,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 1.0952478333529948e+168,
+    "solids": 0
+  },
+  {
+    "name": "Sketch004",
+    "label": "Sketch004",
+    "type": "Sketcher::SketchObject",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "Pad004",
+      "Pad004"
+    ],
+    "placement": "Placement [Pos=(21,15.707,2.48399), Yaw-Pitch-Roll=(90,-20.1369,1.69382e-15)]",
+    "bounds": [
+      8.006576999999982,
+      3.7976055536072675,
+      -1.8829093171976576,
+      30.929656999999995,
+      28.25425794791058,
+      7.084822294321693
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Pad004",
+    "label": "Pad004",
+    "type": "PartDesign::Pad",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "DatumPlane002",
+      "DatumPlane002",
+      "Pad005"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      -29.514939000000002,
+      -6.785344029422788,
+      90.0,
+      32.708983,
+      13.70006880589375
+    ],
+    "volume": 22473.407504380226,
+    "solids": 1
+  },
+  {
+    "name": "DatumPlane002",
+    "label": "DatumPlane002",
+    "type": "Part::DatumPlane",
+    "visible": true,
+    "parents": [
+      "Body002",
+      "Sketch005"
+    ],
+    "placement": "Placement [Pos=(68,-12.4466,1.8685), Yaw-Pitch-Roll=(90,17.8631,1.67082e-15)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": 8.087984000145193e+167,
+    "solids": 0
+  },
+  {
+    "name": "Sketch005",
+    "label": "Sketch005",
+    "type": "Sketcher::SketchObject",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "Pad005",
+      "Pad005"
+    ],
+    "placement": "Placement [Pos=(68,-12.4466,1.8685), Yaw-Pitch-Roll=(90,17.8631,0)]",
+    "bounds": [
+      50.81626899999999,
+      -19.217094913791072,
+      -0.8036213412684658,
+      87.913536,
+      -4.155278543457243,
+      4.0505007443865475
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Pad005",
+    "label": "Pad005",
+    "type": "PartDesign::Pad",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "DatumPlane003",
+      "DatumPlane003",
+      "Pad006"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      -29.514939000000002,
+      -6.785344029422788,
+      90.0,
+      32.708983,
+      13.70006880589375
+    ],
+    "volume": 23262.89042849502,
+    "solids": 1
+  },
+  {
+    "name": "DatumPlane003",
+    "label": "DatumPlane003",
+    "type": "Part::DatumPlane",
+    "visible": true,
+    "parents": [
+      "Body002",
+      "Sketch006"
+    ],
+    "placement": "Placement [Pos=(34,-11.5349,0.787322), Yaw-Pitch-Roll=(90,29.8631,0)]",
+    "bounds": [
+      -1e+100,
+      -1e+100,
+      -1e+100,
+      1e+100,
+      1e+100,
+      1e+100
+    ],
+    "volume": -2.695994666715064e+167,
+    "solids": 0
+  },
+  {
+    "name": "Sketch006",
+    "label": "Sketch006",
+    "type": "Sketcher::SketchObject",
+    "visible": false,
+    "parents": [
+      "Body002",
+      "Pad006",
+      "Pad006"
+    ],
+    "placement": "Placement [Pos=(34,-11.5349,0.787322), Yaw-Pitch-Roll=(90,29.8631,-1.83377e-15)]",
+    "bounds": [
+      15.885014999999978,
+      -25.41705939523436,
+      -4.344769331115361,
+      42.199527999999994,
+      -2.5966495701704133,
+      8.757995156360918
+    ],
+    "volume": 0.0,
+    "solids": 0
+  },
+  {
+    "name": "Pad006",
+    "label": "Pad006",
+    "type": "PartDesign::Pad",
+    "visible": true,
+    "parents": [
+      "Body002",
+      "Body002"
+    ],
+    "placement": "Placement [Pos=(0,0,0), Yaw-Pitch-Roll=(0,0,0)]",
+    "bounds": [
+      0.0,
+      -29.514939000000002,
+      -6.785344029422788,
+      90.0,
+      32.708983,
+      13.70006880589375
+    ],
+    "volume": 23606.796215116254,
+    "solids": 1
+  }
+]

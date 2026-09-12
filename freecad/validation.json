@@ -1,0 +1,103 @@
+{
+  "units": "mm",
+  "source": "Shinguard CAD.FCStd",
+  "parameters": {
+    "outline_length_mm": 106,
+    "nominal_wide_end_mm": 78,
+    "nominal_narrow_end_mm": 60,
+    "corner_radius_mm": 12,
+    "edge_radius_mm": 0.75,
+    "shell_thickness_mm": 2.4,
+    "cover_seam_mm": 0.4,
+    "base_curvature_radius_mm": 73,
+    "cover_curvature_radius_mm": 90
+  },
+  "checks": {
+    "Adafruit_BNO085_STEMMA_QT_v2": {
+      "base": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 0.249999999999988
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 4.663829576812167
+      }
+    },
+    "_400mAh_Battery_v2": {
+      "base": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 0.34999999999999687
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 3.176865317266427
+      }
+    },
+    "PCB_Component": {
+      "base": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 0.24999999999999822
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 1.7464452630810854
+      }
+    },
+    "Adafruit_ESP32_Feather_V2_v2": {
+      "base": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 0.24999999999999242
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 4.3509199723940615
+      }
+    },
+    "Part__Feature355": {
+      "base": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 0.34999999996773334
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "minimum_clearance_mm": 0.49999999996772165
+      }
+    },
+    "shells_overlap_mm3": 0.0,
+    "placements_unchanged": {
+      "Adafruit_BNO085_STEMMA_QT_v2": true,
+      "_400mAh_Battery_v2": true,
+      "PCB_Component": true,
+      "Adafruit_ESP32_Feather_V2_v2": true
+    },
+    "base_valid": true,
+    "cover_valid": true
+  },
+  "platforms": [
+    {
+      "component": "IMU",
+      "volume_mm3": 1461.832574200911,
+      "seating_gap_mm": 0.25
+    },
+    {
+      "component": "Battery",
+      "volume_mm3": 2847.2554216397734,
+      "seating_gap_mm": 0.35
+    },
+    {
+      "component": "GPS",
+      "volume_mm3": 1947.97361059907,
+      "seating_gap_mm": 0.25
+    },
+    {
+      "component": "ESP32",
+      "volume_mm3": 1820.0025106597107,
+      "seating_gap_mm": 0.25
+    }
+  ],
+  "switch": {
+    "placement": "Placement [Pos=(43.1371,-34.4265,11), Yaw-Pitch-Roll=(4.8531,2.42517e-14,90)]",
+    "actuator_projection_mm": 1.3,
+    "edge": "negative Y long side"
+  }
+}

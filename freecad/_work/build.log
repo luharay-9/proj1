@@ -1,0 +1,12 @@
+Base skin and perimeter created
+IMU support fitted
+Battery support fitted
+GPS support fitted
+ESP32 support fitted
+Clearance verified: Adafruit_BNO085_STEMMA_QT_v2 {'base': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 0.249999999999988}, 'cover': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 4.663829576812167}}
+Clearance verified: _400mAh_Battery_v2 {'base': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 0.34999999999999687}, 'cover': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 3.176865317266427}}
+Clearance verified: PCB_Component {'base': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 0.24999999999999822}, 'cover': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 1.7464452630810854}}
+Clearance verified: Adafruit_ESP32_Feather_V2_v2 {'base': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 0.24999999999999242}, 'cover': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 4.3509199723940615}}
+Clearance verified: Part__Feature355 {'base': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 0.34999999996773334}, 'cover': {'overlap_mm3': 0.0, 'minimum_clearance_mm': 0.49999999996772165}}
+Shell overlap: 0.0 BoundBox (1.79769e+308, 1.79769e+308, 1.79769e+308, -1.79769e+308, -1.79769e+308, -1.79769e+308)
+SUCCESS: saved redesigned guard and geometry validation
