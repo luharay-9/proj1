@@ -1,0 +1,15 @@
+Positioned IMU; roof requirement 8.596
+Positioned Battery; roof requirement 11.048
+Positioned GPS; roof requirement 15.224
+Positioned ESP32; roof requirement 10.002
+Back-mounted frame IMU
+Back-mounted frame Battery
+Back-mounted frame GPS
+Back-mounted frame ESP32
+Built compact geometry; checking exact collisions
+Adafruit_BNO085_STEMMA_QT_v2 {'back_carrier': {'intersection_mm3': 0.0, 'clearance_mm': 0.19999999999999285}, 'impact_shell': {'intersection_mm3': 0.0, 'clearance_mm': 1.7700000000000093}}
+_400mAh_Battery_v2 {'back_carrier': {'intersection_mm3': 0.0, 'clearance_mm': 0.29999999999999977}, 'impact_shell': {'intersection_mm3': 0.0, 'clearance_mm': 1.0980721802437892}}
+PCB_Component {'back_carrier': {'intersection_mm3': 0.0, 'clearance_mm': 0.19999999999999657}, 'impact_shell': {'intersection_mm3': 0.0, 'clearance_mm': 1.1232529315287383}}
+Adafruit_ESP32_Feather_V2_v2 {'back_carrier': {'intersection_mm3': 0.0, 'clearance_mm': 0.19999999999999887}, 'impact_shell': {'intersection_mm3': 0.0, 'clearance_mm': 1.420299350119568}}
+Part__Feature355 {'back_carrier': {'intersection_mm3': 0.0, 'clearance_mm': 0.2499999999999908}, 'impact_shell': {'intersection_mm3': 0.0, 'clearance_mm': 0.4999999999999961}}
+SUCCESS {'old_envelope_mm': [106.00000019999999, 75.87591206911868, 34.84133062909673], 'new_envelope_mm': [96.0000002, 65.64476218063271, 22.660995102687455], 'nominal_outline_before_mm': [106, 78, 60], 'nominal_outline_after_mm': [96.0, 68.0, 50.0], 'proximal_center_depth_mm': 17.65, 'distal_center_depth_mm': 13.450000000000001, 'impact_skin_nominal_radial_mm': 2.4, 'back_skin_mm': 1.5, 'sidewall_mm': 1.8, 'wrap_radius_mm': 110.0, 'minimum_requested_impact_gap_mm': 1, 'seam_mm': 0.25}

@@ -1,0 +1,191 @@
+{
+  "source": "/Users/harrylu/Downloads/proj1/test/Shinguard_Redesigned_CoreOnly.FCStd",
+  "units": "mm",
+  "coordinates": "+Z impact, -Z leg",
+  "parts": {
+    "IMU": {
+      "name": "Adafruit_BNO085_STEMMA_QT_v2",
+      "placement": "Placement [Pos=(20,14.2,1.09618), Yaw-Pitch-Roll=(90,7.31673,-1.60333e-15)]",
+      "source_volume_mm3": 1074.9758632273451,
+      "volume_mm3": 1074.9758632273406,
+      "geometry_preserved": true,
+      "tilt_degrees": -7.316731738537636,
+      "required_roof_height_mm": 8.595844757877572
+    },
+    "Battery": {
+      "name": "_400mAh_Battery_v2",
+      "placement": "Placement [Pos=(36.8,-2.33997,2.30139), Yaw-Pitch-Roll=(-90,5.55844,-1.19834e-15)]",
+      "source_volume_mm3": 4368.869004940774,
+      "volume_mm3": 4368.869004940778,
+      "geometry_preserved": true,
+      "tilt_degrees": 5.558440540293444,
+      "required_roof_height_mm": 11.047763330147077
+    },
+    "GPS": {
+      "name": "PCB_Component",
+      "placement": "Placement [Pos=(8.3,-26.008,3.73808), Yaw-Pitch-Roll=(0,0,6.90245)]",
+      "source_volume_mm3": 1907.2309015560172,
+      "volume_mm3": 1907.2309015560143,
+      "geometry_preserved": true,
+      "tilt_degrees": 6.902454767529139,
+      "required_roof_height_mm": 15.22444711218779
+    },
+    "ESP32": {
+      "name": "Adafruit_ESP32_Feather_V2_v2",
+      "placement": "Placement [Pos=(83.8527,22.968,0.208521), Yaw-Pitch-Roll=(180,7.29989e-16,5.97162)]",
+      "source_volume_mm3": 2297.8133965651905,
+      "volume_mm3": 2297.8133965651887,
+      "geometry_preserved": true,
+      "tilt_degrees": -5.9716220149742805,
+      "required_roof_height_mm": 10.001646545757367
+    }
+  },
+  "checks": {
+    "Adafruit_BNO085_STEMMA_QT_v2": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.19999999999999285
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 1.7700000000000093
+      },
+      "retained_inside_outline_mm3": 0.0
+    },
+    "_400mAh_Battery_v2": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.29999999999999977
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 1.0980721802437892
+      },
+      "retained_inside_outline_mm3": 0.0
+    },
+    "PCB_Component": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.19999999999999657
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 1.1232529315287383
+      },
+      "retained_inside_outline_mm3": 0.0
+    },
+    "Adafruit_ESP32_Feather_V2_v2": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.19999999999999887
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 1.420299350119568
+      },
+      "retained_inside_outline_mm3": 0.0
+    },
+    "Part__Feature355": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.2499999999999908
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.4999999999999961
+      },
+      "retained_inside_outline_mm3": null
+    },
+    "Adafruit_BNO085_STEMMA_QT_v2 / _400mAh_Battery_v2": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 7.823165806372278
+    },
+    "Adafruit_BNO085_STEMMA_QT_v2 / PCB_Component": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 3.2428368537128986
+    },
+    "Adafruit_BNO085_STEMMA_QT_v2 / Adafruit_ESP32_Feather_V2_v2": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 1.6227441854242741
+    },
+    "Adafruit_BNO085_STEMMA_QT_v2 / Part__Feature355": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 26.525355555172954
+    },
+    "_400mAh_Battery_v2 / PCB_Component": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 3.099999999999987
+    },
+    "_400mAh_Battery_v2 / Adafruit_ESP32_Feather_V2_v2": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 2.7978971975212055
+    },
+    "_400mAh_Battery_v2 / Part__Feature355": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 3.219668069216192
+    },
+    "PCB_Component / Adafruit_ESP32_Feather_V2_v2": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 3.6879185706110054
+    },
+    "PCB_Component / Part__Feature355": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 2.8781174465133104
+    },
+    "Adafruit_ESP32_Feather_V2_v2 / Part__Feature355": {
+      "intersection_mm3": 0.0,
+      "clearance_mm": 23.03376362911238
+    },
+    "shells": {
+      "back_valid": true,
+      "impact_valid": true,
+      "back_solids": 1,
+      "impact_solids": 1,
+      "intersection_mm3": 0.0,
+      "all_supports_on_back": true
+    }
+  },
+  "dimensions": {
+    "old_envelope_mm": [
+      106.00000019999999,
+      75.87591206911868,
+      34.84133062909673
+    ],
+    "new_envelope_mm": [
+      96.0000002,
+      65.64476218063271,
+      22.660995102687455
+    ],
+    "nominal_outline_before_mm": [
+      106,
+      78,
+      60
+    ],
+    "nominal_outline_after_mm": [
+      96.0,
+      68.0,
+      50.0
+    ],
+    "proximal_center_depth_mm": 17.65,
+    "distal_center_depth_mm": 13.450000000000001,
+    "impact_skin_nominal_radial_mm": 2.4,
+    "back_skin_mm": 1.5,
+    "sidewall_mm": 1.8,
+    "wrap_radius_mm": 110.0,
+    "minimum_requested_impact_gap_mm": 1,
+    "seam_mm": 0.25
+  },
+  "roof_profile": {
+    "high": 15.25,
+    "low": 11.05,
+    "transition_x_mm": [
+      32,
+      54
+    ]
+  },
+  "limitations": [
+    "Clearances are CAD fit checks; impact performance is not certified.",
+    "0.2 mm PCB and 0.3 mm battery seating interfaces require insulating adhesive.",
+    "Fastener choice, cable routing, and physical fit remain fabrication checks."
+  ]
+}
