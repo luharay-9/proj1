@@ -1,0 +1,17 @@
+import FreeCAD as App,FreeCADGui as Gui
+from PySide import QtCore
+p='/Users/harrylu/Downloads/proj1/test/'
+d=App.openDocument(p+'Shinguard_Compact_Reinforced_Threaded.FCStd')
+for o in d.Objects:
+ if o.Name.startswith(('Support','Origin','X_Axis','Y_Axis','Z_Axis','XY_Plane','XZ_Plane','YZ_Plane')):
+  o.Visibility=False
+Gui.activeDocument().activeView().viewAxonometric()
+Gui.activeDocument().activeView().fitAll()
+Gui.updateGui()
+def finish():
+ Gui.activeDocument().activeView().saveImage(p+'Reinforced_FreeCAD_GUI.png',1400,1000,'White')
+ Gui.updateGui()
+ print('REINFORCED_GUI_OPEN_RENDER_SUCCESS',flush=True)
+ App.closeDocument(d.Name)
+ QtCore.QTimer.singleShot(250,Gui.getMainWindow().close)
+QtCore.QTimer.singleShot(2500,finish)

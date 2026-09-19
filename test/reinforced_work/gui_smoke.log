@@ -1,0 +1,58 @@
+CODEX_APP_TOOLS_PIPE_PATH=/tmp/codex-browser-use/98a30e46-c3be-4dfd-94b1-47f9b582a11b.sock
+CODEX_CI=1
+CODEX_INTERNAL_ORIGINATOR_OVERRIDE=Codex Desktop
+CODEX_MCP_NODE_PATH=/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node
+CODEX_PERMISSION_PROFILE=:workspace
+CODEX_SAGE_BACKFILL_TRACKER_TAB_REUSE=1
+CODEX_SANDBOX_NETWORK_DISABLED=1
+CODEX_SESSION_ID=01a097b2-0ea7-7471-91e3-ad69dd0adcb2
+CODEX_SHELL=1
+CODEX_THREAD_ID=01a097b2-0ea7-7471-91e3-ad69dd0adcb2
+COLORTERM=
+COMMAND_MODE=unix2003
+DISABLE_AUTO_UPDATE=true
+FONTCONFIG_FILE=/etc/fonts/fonts.conf
+FONTCONFIG_PATH=/etc/fonts
+GEM_HOME=/Users/harrylu/.gem
+GH_PAGER=cat
+GIT_PAGER=cat
+GIT_SSL_CAINFO=/Applications/FreeCAD.app/Contents/Resources/ssl/cacert.pem
+HOME=/Users/harrylu
+LANG=C.UTF-8
+LC_ALL=C.UTF-8
+LC_CTYPE=C.UTF-8
+LD_LIBRARY_PATH=/Applications/FreeCAD.app/Contents/Resources/lib
+LOGNAME=harrylu
+LOG_FORMAT=json
+MallocNanoZone=0
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S=e7fc907079d6797973cb63f97d2562c965aad8d33f52fb726005bf6702f30afc
+NO_COLOR=1
+OLDPWD=/Users/harrylu/Downloads/proj1
+OSLogRateLimit=64
+PAGER=cat
+PATH=/Users/harrylu/.local/bin:/opt/homebrew/opt/ruby/bin:/Users/harrylu/.gem/bin:/Users/harrylu/Develop/flutter/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/opt/homebrew/bin:/Users/harrylu/flutter/bin:/Users/harrylu/.codex/tmp/arg0/codex-arg0mpd8vG:/Users/harrylu/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/harrylu/.local/bin:/opt/homebrew/opt/ruby/bin:/Users/harrylu/.gem/bin:/Users/harrylu/Develop/flutter/bin:/Users/harrylu/.pub-cache/bin:/Users/harrylu/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Applications/ChatGPT.app/Contents/Resources:/Users/harrylu/.pub-cache/bin
+PREFIX=/Applications/FreeCAD.app/Contents/Resources
+PWD=/Users/harrylu/Downloads/proj1
+PYTHONHOME=/Applications/FreeCAD.app/Contents/Resources
+PYTHONPATH=/Applications/FreeCAD.app/Contents/Resources
+RUST_LOG=warn
+SHELL=/bin/zsh
+SHLVL=1
+SSH_AUTH_SOCK=/var/run/com.apple.launchd.VtKeIql1ky/Listeners
+SSL_CERT_FILE=/Applications/FreeCAD.app/Contents/Resources/ssl/cacert.pem
+TERM=dumb
+TMPDIR=/var/folders/xt/q422bg9d7b13hs1lr_8pdppm0000gp/T/
+USER=harrylu
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+ZSH_TMUX_AUTOSTART=false
+ZSH_TMUX_AUTOSTARTED=true
+_=/Applications/FreeCAD.app/Contents/MacOS/FreeCAD
+__CF_USER_TEXT_ENCODING=0x1F6:0x0:0x0
+Running: /Applications/FreeCAD.app/Contents/Resources/bin/freecad
+Error: Failed to open library "/Library/Frameworks/3DconnexionNavlib.framework/3DconnexionNavlib"! Error: dlopen(/Library/Frameworks/3DconnexionNavlib.framework/3DconnexionNavlib, 0x0005): tried: '/Library/Frameworks/3DconnexionNavlib.framework/3DconnexionNavlib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Library/Frameworks/3DconnexionNavlib.framework/3DconnexionNavlib' (no such file), '/Library/Frameworks/3DconnexionNavlib.framework/3DconnexionNavlib' (no such file)!
+FreeCAD 1.1.3, Libs: 1.1.3R20260725 (Git shallow)
+(C) 2001-2026 FreeCAD contributors
+FreeCAD is free and open-source software licensed under the terms of LGPL2+ license.
+
+REINFORCED_GUI_OPEN_RENDER_SUCCESS

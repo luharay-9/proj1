@@ -1,0 +1,47 @@
+{
+  "object_names_types_preserved": 377,
+  "unchanged_shape_objects": 339,
+  "electronics_and_supports_unchanged": true,
+  "valid_single_shell_solids": true,
+  "central_skin_measurements": [
+    {
+      "x_mm": 10,
+      "solid_thickness_vertical_mm": 3.5999999999999996
+    },
+    {
+      "x_mm": 25,
+      "solid_thickness_vertical_mm": 3.5999999999999996
+    },
+    {
+      "x_mm": 35,
+      "solid_thickness_vertical_mm": 3.5999999999999996
+    },
+    {
+      "x_mm": 43,
+      "solid_thickness_vertical_mm": 3.6000000000000014
+    },
+    {
+      "x_mm": 50,
+      "solid_thickness_vertical_mm": 3.6000000000000014
+    },
+    {
+      "x_mm": 65,
+      "solid_thickness_vertical_mm": 3.599999999999998
+    },
+    {
+      "x_mm": 85,
+      "solid_thickness_vertical_mm": 3.599999999999998
+    }
+  ],
+  "archive_integrity": true,
+  "saved_gui_payload": true,
+  "appearance_saved_by_FreeCAD_GUI": true,
+  "derived_cache_note": "FreeCAD refreshed PCB_Component App::Part cached compound; all leaf shapes, hierarchy placements, and recursively assembled electronics geometry remain unchanged.",
+  "final_file": "Shinguard_Compact_Reinforced_Threaded_Ready.FCStd",
+  "sha256": "f858a83032e7b6c44933675b1faeeaed6df06a64b3172674a665e5ff5d0c503e",
+  "gui_open_render_close": {
+    "exit_code": 0,
+    "marker": "REINFORCED_GUI_OPEN_RENDER_SUCCESS",
+    "log": "reinforced_work/gui_ready_check.log"
+  }
+}

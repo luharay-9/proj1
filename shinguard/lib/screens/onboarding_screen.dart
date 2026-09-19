@@ -612,7 +612,7 @@ class _WelcomeStep extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         const Text(
-          'A few athlete details help tune motion spikes, kick detection, and recovery guidance before your first device connection.',
+          'A paired device app for soccer players to track their performance. To get the most out of this app, make sure you have purchased the correct Smart Shinguard.',
           textAlign: TextAlign.center,
           style: TextStyle(color: AppColors.muted, fontWeight: FontWeight.w700),
         ),

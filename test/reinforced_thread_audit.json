@@ -1,0 +1,45 @@
+{
+  "threads": [
+    {
+      "xy": [
+        4,
+        -18
+      ],
+      "cad_crest_intervals": 10,
+      "cad_measured_pitch_mm": 0.4999998536219689,
+      "stl_thread_surface_crossings": 19,
+      "stl_max_pitch_error_mm": 0.00019474298957522507
+    },
+    {
+      "xy": [
+        4,
+        18
+      ],
+      "cad_crest_intervals": 10,
+      "cad_measured_pitch_mm": 0.49999985362196886,
+      "stl_thread_surface_crossings": 19,
+      "stl_max_pitch_error_mm": 0.00019474298957522507
+    },
+    {
+      "xy": [
+        92,
+        -12
+      ],
+      "cad_crest_intervals": 10,
+      "cad_measured_pitch_mm": 0.49999985362196836,
+      "stl_thread_surface_crossings": 19,
+      "stl_max_pitch_error_mm": 0.00019524316084940097
+    },
+    {
+      "xy": [
+        92,
+        12
+      ],
+      "cad_crest_intervals": 10,
+      "cad_measured_pitch_mm": 0.49999985362196836,
+      "stl_thread_surface_crossings": 19,
+      "stl_max_pitch_error_mm": 0.00019524316084940097
+    }
+  ],
+  "carrier_stl_watertight": true
+}

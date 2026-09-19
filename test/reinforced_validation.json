@@ -1,0 +1,152 @@
+{
+  "source": "Shinguard_CoreOnly_Compact_Repaired.FCStd",
+  "units": "mm",
+  "hardware": {
+    "quantity": 4,
+    "size": "M3 x 10 mm",
+    "pitch": 0.5,
+    "head": "ISO 4762 / DIN 912 socket head; 5.5 mm diameter, 3 mm height",
+    "hex_key_mm": 2.5,
+    "thread_radial_print_allowance_mm": 0.12,
+    "thread_hand": "right",
+    "engagement_nominal_mm": 5.5,
+    "counterbore_diameter_mm": 5.9,
+    "cover_clearance_diameter_mm": 3.4
+  },
+  "checks": {
+    "Adafruit_BNO085_STEMMA_QT_v2": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 0.19999999999999216
+      },
+      "impact_shell": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 2.4549539880551445
+      },
+      "screw_hardware_overlap_mm3": 0
+    },
+    "_400mAh_Battery_v2": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 0.299999999999997
+      },
+      "impact_shell": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 1.0980721802437876
+      },
+      "screw_hardware_overlap_mm3": 0
+    },
+    "PCB_Component": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 0.19999999999999832
+      },
+      "impact_shell": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 0.7000000000000028
+      },
+      "screw_hardware_overlap_mm3": 0
+    },
+    "Adafruit_ESP32_Feather_V2_v2": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 0.19999999999999746
+      },
+      "impact_shell": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 1.420299350119568
+      },
+      "screw_hardware_overlap_mm3": 0
+    },
+    "Part__Feature355": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 0.2499999999999908
+      },
+      "impact_shell": {
+        "overlap_mm3": 0.0,
+        "clearance_mm": 0.499999999999989
+      },
+      "screw_hardware_overlap_mm3": 0
+    },
+    "shell_overlap_mm3": 0.0,
+    "upper_screw_clearance_passed": true,
+    "valid_single_solids": {
+      "carrier": true,
+      "impact_shell": true
+    }
+  },
+  "fasteners": [
+    {
+      "xy": [
+        4,
+        -18
+      ],
+      "blind_floor_z": -0.11438514215218154,
+      "screw_tip_z": 0.18561485784781845,
+      "thread_entry_z": 5.685614857847819,
+      "head_bearing_z": 10.185614857847819,
+      "head_top_z": 13.185614857847819,
+      "engagement_mm": 5.5,
+      "full_thread_depth_after_leadin_mm": 5.45,
+      "bottom_tip_gap_mm": 0.3
+    },
+    {
+      "xy": [
+        4,
+        18
+      ],
+      "blind_floor_z": -0.11438514215218154,
+      "screw_tip_z": 0.18561485784781845,
+      "thread_entry_z": 5.685614857847819,
+      "head_bearing_z": 10.185614857847819,
+      "head_top_z": 13.185614857847819,
+      "engagement_mm": 5.5,
+      "full_thread_depth_after_leadin_mm": 5.45,
+      "bottom_tip_gap_mm": 0.3
+    },
+    {
+      "xy": [
+        92,
+        -12
+      ],
+      "blind_floor_z": 0.6167110536104503,
+      "screw_tip_z": 0.9167110536104504,
+      "thread_entry_z": 6.416711053610451,
+      "head_bearing_z": 10.91671105361045,
+      "head_top_z": 13.91671105361045,
+      "engagement_mm": 5.5,
+      "full_thread_depth_after_leadin_mm": 5.45,
+      "bottom_tip_gap_mm": 0.3
+    },
+    {
+      "xy": [
+        92,
+        12
+      ],
+      "blind_floor_z": 0.6167110536104503,
+      "screw_tip_z": 0.9167110536104504,
+      "thread_entry_z": 6.416711053610451,
+      "head_bearing_z": 10.91671105361045,
+      "head_top_z": 13.91671105361045,
+      "engagement_mm": 5.5,
+      "full_thread_depth_after_leadin_mm": 5.45,
+      "bottom_tip_gap_mm": 0.3
+    }
+  ],
+  "dimensions": {
+    "envelope_mm": [
+      96.00000020000004,
+      65.64476572583689,
+      23.860995089429526
+    ],
+    "nominal_impact_skin_mm": 3.6,
+    "previous_impact_skin_mm": 2.4,
+    "depth_increase_mm": 1.2,
+    "nominal_outline_mm": [
+      96,
+      68,
+      50
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+3.6 mm continuous skin valid
+rounded reinforced skin valid
+reinforced cap valid
+helical thread cutter valid
+independently modeled threaded boss valid
+carrier boss 1 valid
+counterbored cap 1 valid
+M3 female thread 1 valid
+Finished thread 1
+carrier boss 2 valid
+counterbored cap 2 valid
+M3 female thread 2 valid
+Finished thread 2
+carrier boss 3 valid
+counterbored cap 3 valid
+M3 female thread 3 valid
+Finished thread 3
+carrier boss 4 valid
+counterbored cap 4 valid
+M3 female thread 4 valid
+Finished thread 4
+final back carrier valid
+final cap valid
+Saved native candidate; checking collisions
+Adafruit_BNO085_STEMMA_QT_v2 carrier gap 0.19999999999999216
+Adafruit_BNO085_STEMMA_QT_v2 impact_shell gap 2.4549539880551445
+_400mAh_Battery_v2 carrier gap 0.299999999999997
+_400mAh_Battery_v2 impact_shell gap 1.0980721802437876
+PCB_Component carrier gap 0.19999999999999832
+PCB_Component impact_shell gap 0.7000000000000028
+Adafruit_ESP32_Feather_V2_v2 carrier gap 0.19999999999999746
+Adafruit_ESP32_Feather_V2_v2 impact_shell gap 1.420299350119568
+Part__Feature355 carrier gap 0.2499999999999908
+Part__Feature355 impact_shell gap 0.499999999999989
+Exported Reinforced_Threaded_Carrier 51386 triangles
+Exported Reinforced_Impact_Shell 40210 triangles
+M3 thread fit coupon valid
+SUCCESS {'envelope_mm': [96.00000020000004, 65.64476572583689, 23.860995089429526], 'nominal_impact_skin_mm': 3.6, 'previous_impact_skin_mm': 2.4, 'depth_increase_mm': 1.2, 'nominal_outline_mm': [96, 68, 50]}
