@@ -1,0 +1,44 @@
+{
+  "final_file": "/Users/harrylu/Downloads/proj1/test/Shinguard_Slim_Cable_Clearance.FCStd",
+  "unchanged_electronic_leaf_shapes": 335,
+  "GUI_save_geometry_unchanged": true,
+  "valid_single_shell_solids": true,
+  "shell_overlap_mm3": 0,
+  "envelope_mm": [
+    96.00000020000019,
+    68.64476218051665,
+    22.279542170385163
+  ],
+  "skin_sections": [
+    {
+      "x": 10,
+      "vertical_center_skin_mm": 3.600000000000003
+    },
+    {
+      "x": 25,
+      "vertical_center_skin_mm": 3.600000000000003
+    },
+    {
+      "x": 35,
+      "vertical_center_skin_mm": 3.6000000000000014
+    },
+    {
+      "x": 43,
+      "vertical_center_skin_mm": 3.6000000000000068
+    },
+    {
+      "x": 50,
+      "vertical_center_skin_mm": 3.600000000000003
+    },
+    {
+      "x": 65,
+      "vertical_center_skin_mm": 3.600000000000005
+    },
+    {
+      "x": 85,
+      "vertical_center_skin_mm": 3.600000000000005
+    }
+  ],
+  "sha256": "080cc52fabc6c21122851ca3be5755a60280058845f54a84465720d2418c406f",
+  "GUI_state_saved_natively": true
+}

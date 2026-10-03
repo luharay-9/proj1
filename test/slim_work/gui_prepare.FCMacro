@@ -1,0 +1,25 @@
+import FreeCAD as App,FreeCADGui as Gui
+from PySide import QtCore
+p='/Users/harrylu/Downloads/proj1/test/'
+d=App.openDocument(p+'Shinguard_Slim_Cable_Clearance_Core.FCStd')
+for o in d.Objects:
+ if hasattr(o,'ViewObject'):
+  if hasattr(o,'Shape') or o.TypeId=='App::Part':o.ViewObject.Visibility=True
+  if o.Name.startswith(('Support','Origin','X_Axis','Y_Axis','Z_Axis','XY_Plane','XZ_Plane','YZ_Plane')):o.ViewObject.Visibility=False
+for o in [d.BackCarrier,d.ImpactShell]:
+ o.ViewObject.Visibility=True
+ o.ViewObject.DisplayMode='Flat Lines'
+ o.ViewObject.ShapeColor=(.67,.73,.78) if o==d.ImpactShell else (.32,.42,.47)
+ o.ViewObject.Transparency=0
+Gui.getMainWindow().showNormal()
+Gui.activeDocument().activeView().viewAxonometric()
+Gui.activeDocument().activeView().fitAll()
+Gui.updateGui()
+def finish():
+ Gui.activeDocument().activeView().saveImage(p+'Slim_FreeCAD_GUI.png',1400,1000,'White')
+ d.recompute()
+ d.saveAs(p+'Shinguard_Slim_Cable_Clearance.FCStd')
+ print('VISIBLE_GUI_SAVE_RENDER_SUCCESS',flush=True)
+ App.closeDocument(d.Name)
+ QtCore.QTimer.singleShot(250,Gui.getMainWindow().close)
+QtCore.QTimer.singleShot(4000,finish)

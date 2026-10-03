@@ -1,0 +1,195 @@
+{
+  "source": "Shinguard_Compact_Reinforced_Threaded_Ready.FCStd",
+  "units": "mm",
+  "board_mounts": [
+    {
+      "board": "BNO085",
+      "local_xy": [
+        10.16,
+        -8.89
+      ],
+      "depth_mm": 2.65,
+      "engagement_mm": 2.35,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45
+    },
+    {
+      "board": "BNO085",
+      "local_xy": [
+        10.16,
+        8.89
+      ],
+      "depth_mm": 2.65,
+      "engagement_mm": 2.35,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45
+    },
+    {
+      "board": "BNO085",
+      "local_xy": [
+        -10.16,
+        -8.89
+      ],
+      "depth_mm": 2.65,
+      "engagement_mm": 2.35,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45
+    },
+    {
+      "board": "BNO085",
+      "local_xy": [
+        -10.16,
+        8.89
+      ],
+      "depth_mm": 2.65,
+      "engagement_mm": 2.35,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45
+    },
+    {
+      "board": "ESP32",
+      "local_xy": [
+        2.54,
+        20.32
+      ],
+      "depth_mm": 2.7299999999999995,
+      "engagement_mm": 2.4299999999999997,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45
+    },
+    {
+      "board": "ESP32",
+      "local_xy": [
+        2.54,
+        2.54
+      ],
+      "depth_mm": 2.7299999999999995,
+      "engagement_mm": 2.4299999999999997,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45
+    },
+    {
+      "board": "ESP32",
+      "local_xy": [
+        48.26,
+        20.32
+      ],
+      "depth_mm": 2.7299999999999995,
+      "engagement_mm": 2.4299999999999997,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45
+    },
+    {
+      "board": "ESP32",
+      "local_xy": [
+        48.26,
+        2.54
+      ],
+      "depth_mm": 2.7299999999999995,
+      "engagement_mm": 2.4299999999999997,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45
+    }
+  ],
+  "shell_mounts": [
+    {
+      "xy": [
+        4,
+        -18
+      ],
+      "blind_floor_z": 0.21173662726889697,
+      "thread_entry_z": 6.011736627268897,
+      "bearing_z": 8.511736627268897,
+      "screw": "M3 x 8 mm",
+      "pitch_mm": 0.5,
+      "tip_gap_mm": 0.3
+    },
+    {
+      "xy": [
+        4,
+        18
+      ],
+      "blind_floor_z": 0.21173662726889697,
+      "thread_entry_z": 6.011736627268897,
+      "bearing_z": 8.511736627268897,
+      "screw": "M3 x 8 mm",
+      "pitch_mm": 0.5,
+      "tip_gap_mm": 0.3
+    },
+    {
+      "xy": [
+        92,
+        -12
+      ],
+      "blind_floor_z": 0.7459488258870182,
+      "thread_entry_z": 6.545948825887018,
+      "bearing_z": 9.045948825887018,
+      "screw": "M3 x 8 mm",
+      "pitch_mm": 0.5,
+      "tip_gap_mm": 0.3
+    },
+    {
+      "xy": [
+        92,
+        12
+      ],
+      "blind_floor_z": 0.7459488258870182,
+      "thread_entry_z": 6.545948825887018,
+      "bearing_z": 9.045948825887018,
+      "screw": "M3 x 8 mm",
+      "pitch_mm": 0.5,
+      "tip_gap_mm": 0.3
+    }
+  ],
+  "checks": {
+    "detailed_clearance_log": "slim_work/build.log",
+    "solid_boolean_and_hardware_checks_passed_before_meshing": true,
+    "Slim_Threaded_Carrier": {
+      "valid_single_solid": true,
+      "watertight_stl": true,
+      "duplicate_vertices_removed": 1
+    },
+    "Slim_Impact_Shell": {
+      "valid_single_solid": true,
+      "watertight_stl": true,
+      "duplicate_vertices_removed": 0
+    },
+    "Adafruit_BNO085_STEMMA_QT_v2": {
+      "impact_overlap_mm3": 0.0
+    },
+    "_400mAh_Battery_v2": {
+      "impact_overlap_mm3": 0.0
+    },
+    "PCB_Component": {
+      "impact_overlap_mm3": 0.0
+    },
+    "Adafruit_ESP32_Feather_V2_v2": {
+      "impact_overlap_mm3": 0.0
+    },
+    "Part__Feature355": {
+      "impact_overlap_mm3": 0.0
+    },
+    "all_board_head_clearances_passed": true
+  },
+  "dimensions": {
+    "new_envelope_mm": [
+      96.00000020000019,
+      68.64476218051665,
+      22.279542170385163
+    ],
+    "old_envelope_mm": [
+      96.0000002,
+      65.6447657258,
+      23.8609950894
+    ],
+    "nominal_outline_mm": [
+      96,
+      71,
+      53
+    ],
+    "wrap_radius_before_mm": 110,
+    "wrap_radius_mm": 150,
+    "impact_skin_mm": 3.6,
+    "back_skin_mm": 1.5
+  }
+}

@@ -1,0 +1,5 @@
+Positioned IMU; roof requirement 8.307
+Positioned Battery; roof requirement 10.426
+Positioned GPS; roof requirement 14.668
+Positioned ESP32; roof requirement 9.866
+ROOF_NEEDS {'Adafruit_BNO085_STEMMA_QT_v2': 8.306992931707583, '_400mAh_Battery_v2': 10.426480559825364, 'PCB_Component': 14.6684971102774, 'Adafruit_ESP32_Feather_V2_v2': 9.865999800191105}

@@ -1,0 +1,3 @@
+Slim_Threaded_Carrier watertight before False after True points 56426 56425
+Slim_Impact_Shell watertight before True after True points 8008 8008
+SUCCESS {'new_envelope_mm': [96.00000020000019, 68.64476218051665, 22.279542170385163], 'old_envelope_mm': [96.0000002, 65.6447657258, 23.8609950894], 'nominal_outline_mm': [96, 71, 53], 'wrap_radius_before_mm': 110, 'wrap_radius_mm': 150, 'impact_skin_mm': 3.6, 'back_skin_mm': 1.5}

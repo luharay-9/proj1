@@ -1,0 +1,28 @@
+IMU raised 1.414 mm for blind board screw depth
+Positioned IMU; roof requirement 9.221
+Positioned Battery; roof requirement 10.426
+Positioned GPS; roof requirement 14.668
+ESP32 raised 1.558 mm for blind board screw depth
+Positioned ESP32; roof requirement 10.924
+Back-mounted frame IMU
+Back-mounted frame Battery
+Back-mounted frame GPS
+Back-mounted frame ESP32
+Finished M2.5 x 4 mounts for BNO085
+Finished M2.5 x 4 mounts for ESP32
+Built slim candidate; checking electronics and hardware
+Adafruit_BNO085_STEMMA_QT_v2 back_carrier gap 0.0
+Adafruit_BNO085_STEMMA_QT_v2 impact_shell gap 2.3329
+_400mAh_Battery_v2 back_carrier gap 0.3
+_400mAh_Battery_v2 impact_shell gap 1.3175
+PCB_Component back_carrier gap 0.2
+PCB_Component impact_shell gap 0.7
+Adafruit_ESP32_Feather_V2_v2 back_carrier gap 0.0
+Adafruit_ESP32_Feather_V2_v2 impact_shell gap 0.8261
+Part__Feature355 back_carrier gap 0.25
+Part__Feature355 impact_shell gap 0.5
+Traceback (most recent call last):
+  File "/Users/harrylu/Downloads/proj1/test/slim_work/build_slim.py", line 252, in <module>
+    assert mesh.isSolid(),stem
+           ^^^^^^^^^^^^^^
+AssertionError: Slim_Threaded_Carrier

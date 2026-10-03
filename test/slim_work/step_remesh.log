@@ -1,0 +1,23 @@
+BOP ERROR BOP check found the following errors:
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Edge: BOPAlgo GeomAbs_C0
+Error in Face: BOPAlgo GeomAbs_C0
+Error in Face: BOPAlgo GeomAbs_C0
+
+STEP reimport True 1 -16.4077619036143
+remesh False 12400
