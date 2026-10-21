@@ -1,0 +1,287 @@
+{
+  "source": "/Users/harrylu/Downloads/proj1/test/Shinguard_Slim_Cable_Clearance.FCStd",
+  "units": "mm",
+  "coordinates": "+Z impact, -Z leg",
+  "parts": {
+    "IMU": {
+      "name": "Adafruit_BNO085_STEMMA_QT_v2",
+      "placement": "Placement [Pos=(20,14.2,1.24523), Yaw-Pitch-Roll=(90,13.3497,-1.63444e-15)]",
+      "source_volume_mm3": 1074.9758632273438,
+      "volume_mm3": 1074.9758632273454,
+      "geometry_preserved": true,
+      "tilt_degrees": -13.349729159938983,
+      "required_roof_height_mm": 10.330230996776223
+    },
+    "Battery": {
+      "name": "_400mAh_Battery_v2",
+      "placement": "Placement [Pos=(36.8,-2.43209,2.34168), Yaw-Pitch-Roll=(-90,10.1141,-1.61538e-15)]",
+      "source_volume_mm3": 4368.869004940778,
+      "volume_mm3": 4368.869004940774,
+      "geometry_preserved": true,
+      "tilt_degrees": 10.11414408830393,
+      "required_roof_height_mm": 11.042214850109673
+    },
+    "GPS": {
+      "name": "PCB_Component",
+      "placement": "Placement [Pos=(8.3,-25.7949,1.70209), Yaw-Pitch-Roll=(0,0,12.5849)]",
+      "source_volume_mm3": 1907.2309015560134,
+      "volume_mm3": 1907.2309015560145,
+      "geometry_preserved": true,
+      "tilt_degrees": 12.58490838001209,
+      "required_roof_height_mm": 15.005626102855459
+    },
+    "ESP32": {
+      "name": "Adafruit_ESP32_Feather_V2_v2",
+      "placement": "Placement [Pos=(83.8527,22.8248,-0.119955), Yaw-Pitch-Roll=(180,1.32348e-15,10.8721)]",
+      "source_volume_mm3": 2297.813396565193,
+      "volume_mm3": 2297.81339656519,
+      "geometry_preserved": true,
+      "tilt_degrees": -10.872136598683714,
+      "required_roof_height_mm": 11.227456888531052
+    }
+  },
+  "checks": {
+    "Adafruit_BNO085_STEMMA_QT_v2": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 2.3914935841127266e-15
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 2.5410756766273943
+      }
+    },
+    "_400mAh_Battery_v2": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.299976833613442
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.9790286888653781
+      }
+    },
+    "PCB_Component": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.19999999999995371
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.6999999999999975
+      }
+    },
+    "Adafruit_ESP32_Feather_V2_v2": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.0
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.8225323569319632
+      }
+    },
+    "Part__Feature355": {
+      "back_carrier": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.24999999999997347
+      },
+      "impact_shell": {
+        "intersection_mm3": 0.0,
+        "clearance_mm": 0.499999999999989
+      }
+    },
+    "shells": {
+      "both_valid_single_solids": true,
+      "shell_overlap_mm3": 0,
+      "board_and_shell_screw_collisions_mm3": 0
+    }
+  },
+  "board_mounts": [
+    {
+      "board": "BNO085",
+      "local_xy": [
+        10.16,
+        -8.89
+      ],
+      "placement": "Placement [Pos=(28.89,23.4736,-3.67905), Yaw-Pitch-Roll=(90,13.3497,-1.63444e-15)]",
+      "depth_mm": 2.65,
+      "engagement_mm": 2.35,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45,
+      "measured_crest_intervals": 5,
+      "cap_head_clearance_mm": 3.7243212380335833
+    },
+    {
+      "board": "BNO085",
+      "local_xy": [
+        10.16,
+        8.89
+      ],
+      "placement": "Placement [Pos=(11.11,23.4736,-3.67905), Yaw-Pitch-Roll=(90,13.3497,-1.63444e-15)]",
+      "depth_mm": 2.65,
+      "engagement_mm": 2.35,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45,
+      "measured_crest_intervals": 5,
+      "cap_head_clearance_mm": 4.396298699262741
+    },
+    {
+      "board": "BNO085",
+      "local_xy": [
+        -10.16,
+        -8.89
+      ],
+      "placement": "Placement [Pos=(28.89,3.70267,1.01272), Yaw-Pitch-Roll=(90,13.3497,-1.63444e-15)]",
+      "depth_mm": 2.65,
+      "engagement_mm": 2.35,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45,
+      "measured_crest_intervals": 5,
+      "cap_head_clearance_mm": 6.812048158364836
+    },
+    {
+      "board": "BNO085",
+      "local_xy": [
+        -10.16,
+        8.89
+      ],
+      "placement": "Placement [Pos=(11.11,3.70267,1.01272), Yaw-Pitch-Roll=(90,13.3497,-1.63444e-15)]",
+      "depth_mm": 2.65,
+      "engagement_mm": 2.35,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45,
+      "measured_crest_intervals": 5,
+      "cap_head_clearance_mm": 6.812048158364838
+    },
+    {
+      "board": "ESP32",
+      "local_xy": [
+        2.54,
+        20.32
+      ],
+      "placement": "Placement [Pos=(81.3127,2.35464,1.03176), Yaw-Pitch-Roll=(180,1.32348e-15,10.8721)]",
+      "depth_mm": 2.7299999999999995,
+      "engagement_mm": 2.4299999999999997,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45,
+      "measured_crest_intervals": 5,
+      "cap_head_clearance_mm": 3.0979919534700633
+    },
+    {
+      "board": "ESP32",
+      "local_xy": [
+        2.54,
+        2.54
+      ],
+      "placement": "Placement [Pos=(81.3127,19.8155,-2.32186), Yaw-Pitch-Roll=(180,1.32348e-15,10.8721)]",
+      "depth_mm": 2.7299999999999995,
+      "engagement_mm": 2.4299999999999997,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45,
+      "measured_crest_intervals": 5,
+      "cap_head_clearance_mm": 2.3926208293902476
+    },
+    {
+      "board": "ESP32",
+      "local_xy": [
+        48.26,
+        20.32
+      ],
+      "placement": "Placement [Pos=(35.5927,2.35464,1.03176), Yaw-Pitch-Roll=(180,1.32348e-15,10.8721)]",
+      "depth_mm": 2.7299999999999995,
+      "engagement_mm": 2.4299999999999997,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45,
+      "measured_crest_intervals": 5,
+      "cap_head_clearance_mm": 6.32843661373867
+    },
+    {
+      "board": "ESP32",
+      "local_xy": [
+        48.26,
+        2.54
+      ],
+      "placement": "Placement [Pos=(35.5927,19.8155,-2.32186), Yaw-Pitch-Roll=(180,1.32348e-15,10.8721)]",
+      "depth_mm": 2.7299999999999995,
+      "engagement_mm": 2.4299999999999997,
+      "tip_gap_mm": 0.3,
+      "pitch_mm": 0.45,
+      "measured_crest_intervals": 5,
+      "cap_head_clearance_mm": 5.431716056958985
+    }
+  ],
+  "shell_mounts": [
+    {
+      "xy": [
+        4,
+        -18
+      ],
+      "blind_floor_z": -1.156515519064834,
+      "thread_entry_z": 4.643484480935166,
+      "bearing_z": 7.143484480935166,
+      "screw": "M3 x 8 mm",
+      "pitch_mm": 0.5,
+      "tip_gap_mm": 0.3
+    },
+    {
+      "xy": [
+        4,
+        18
+      ],
+      "blind_floor_z": -1.156515519064834,
+      "thread_entry_z": 4.643484480935166,
+      "bearing_z": 7.143484480935166,
+      "screw": "M3 x 8 mm",
+      "pitch_mm": 0.5,
+      "tip_gap_mm": 0.3
+    },
+    {
+      "xy": [
+        92,
+        -12
+      ],
+      "blind_floor_z": 0.2093055279792595,
+      "thread_entry_z": 6.00930552797926,
+      "bearing_z": 8.50930552797926,
+      "screw": "M3 x 8 mm",
+      "pitch_mm": 0.5,
+      "tip_gap_mm": 0.3
+    },
+    {
+      "xy": [
+        92,
+        12
+      ],
+      "blind_floor_z": 0.2093055279792595,
+      "thread_entry_z": 6.00930552797926,
+      "bearing_z": 8.50930552797926,
+      "screw": "M3 x 8 mm",
+      "pitch_mm": 0.5,
+      "tip_gap_mm": 0.3
+    }
+  ],
+  "dimensions": {
+    "old_envelope_mm": [
+      96.00000020000019,
+      68.64476218051665,
+      22.279542170385163
+    ],
+    "new_envelope_mm": [
+      96.00000020000017,
+      68.64476218357474,
+      29.436444755416986
+    ],
+    "nominal_outline_mm": [
+      96,
+      71,
+      53
+    ],
+    "wrap_radius_before_mm": 150,
+    "wrap_radius_mm": 60.0,
+    "impact_skin_mm": 3.6,
+    "back_skin_mm": 1.5,
+    "roof_high_mm": 15.05,
+    "roof_low_mm": 11.25
+  }
+}

@@ -32,9 +32,12 @@ class SessionRecordingService {
   String _startingPosition = '';
   int _teamSize = 0;
   String _formation = '';
+  int _plannedMinutes = 60;
   int _sprints = 0;
   final BnoSessionAccumulator _bno = BnoSessionAccumulator();
   PlayerPosition? _initialPosition;
+  final List<PlayerPosition> _route = [];
+  double _topSpeed = 0;
   final List<Duration> _sprintEvents = [];
   bool _isFinishing = false;
 
@@ -62,6 +65,7 @@ class SessionRecordingService {
     String startingPosition = '',
     int teamSize = 0,
     String formation = '',
+    int plannedMinutes = 60,
   }) async {
     if (_state.status == SessionRecordingStatus.recording ||
         _state.status == SessionRecordingStatus.starting ||
@@ -91,12 +95,15 @@ class SessionRecordingService {
     try {
       _bno.reset();
       _initialPosition = null;
+      _route.clear();
+      _topSpeed = 0;
       await _ble.startSession();
       _startedAt = DateTime.now();
       _position = position;
       _startingPosition = startingPosition;
       _teamSize = teamSize;
       _formation = formation;
+      _plannedMinutes = plannedMinutes.clamp(5, 180);
       _sprints = 0;
       _sprintEvents.clear();
       _timer?.cancel();
@@ -138,6 +145,16 @@ class SessionRecordingService {
     }
 
     _initialPosition ??= PlayerPosition.fromTelemetry(telemetry);
+    final peak = telemetry['ts'];
+    if (peak is num && peak.isFinite && peak >= 0 && peak <= 60) {
+      if (peak > _topSpeed) _topSpeed = peak.toDouble();
+    }
+    final point = PlayerPosition.fromTelemetry(telemetry);
+    if (point != null &&
+        (_route.isEmpty ||
+            point.sensorTimeSeconds > _route.last.sensorTimeSeconds)) {
+      _route.add(point);
+    }
     if (_state.status != SessionRecordingStatus.recording) return;
 
     final count = sprintCountFromTelemetry(telemetry, _sprints);
@@ -193,11 +210,14 @@ class SessionRecordingService {
         startingPosition: _startingPosition,
         teamSize: _teamSize,
         formation: _formation,
+        plannedMinutes: _plannedMinutes,
         sprints: _sprints,
         sprintEvents: List<Duration>.from(_sprintEvents),
         bnoSampleCount: _bno.sampleCount,
         peakAccelerationG: _bno.peakAccelerationG,
         initialPosition: _initialPosition,
+        topSpeed: _topSpeed,
+        route: List<PlayerPosition>.from(_route),
       );
       _startedAt = null;
       try {

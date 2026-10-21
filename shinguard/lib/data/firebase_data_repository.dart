@@ -60,6 +60,26 @@ class FirebaseDataRepository {
     });
   }
 
+  Stream<List<PlayerPosition>> watchSessionRoute(String sessionId) {
+    return _userDoc
+        .collection('sessions')
+        .doc(sessionId)
+        .collection('route')
+        .orderBy('order')
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .expand(
+                (doc) => (doc.data()['points'] as List).map(
+                  (point) => PlayerPosition.fromMap(
+                    Map<String, dynamic>.from(point as Map),
+                  ),
+                ),
+              )
+              .toList(),
+        );
+  }
+
   Stream<List<MuscleReport>> watchMuscleReports(String view) {
     return _orderedUserCollection('muscleReports').snapshots().map((snapshot) {
       return snapshot.docs
@@ -99,11 +119,14 @@ class FirebaseDataRepository {
     String startingPosition = '',
     int teamSize = 0,
     String formation = '',
+    int plannedMinutes = 60,
     required int sprints,
     required List<Duration> sprintEvents,
     int bnoSampleCount = 0,
     double peakAccelerationG = 0,
     PlayerPosition? initialPosition,
+    double topSpeed = 0,
+    List<PlayerPosition> route = const [],
   }) async {
     final sessionId = _userDoc.collection('sessions').doc().id;
     final order = -startedAt.millisecondsSinceEpoch;
@@ -136,7 +159,7 @@ class FirebaseDataRepository {
         {
           'time': _durationLabel(sprintEvents[index]),
           'title': 'Sprint detected',
-          'detail': 'Acceleration crossed the configured BNO threshold.',
+          'detail': 'GPS speed exceeded 20 km/h for consecutive fixes.',
           'value': 'Sprint ${index + 1}',
           'icon': 'directions_run',
           'color': 'green',
@@ -144,7 +167,7 @@ class FirebaseDataRepository {
       {
         'time': _durationLabel(duration),
         'title': 'Session completed',
-        'detail': '$sprints acceleration spikes recorded.',
+        'detail': '$sprints sprints recorded.',
         'value': '$minutes min',
         'icon': 'health_and_safety',
         'color': 'green',
@@ -152,6 +175,24 @@ class FirebaseDataRepository {
     ];
 
     final batch = _firestore.batch();
+    // Route chunks stay below Firestore's per-document size limit.
+    for (var offset = 0; offset < route.length; offset += 300) {
+      final end = (offset + 300).clamp(0, route.length);
+      batch.set(
+        _userDoc
+            .collection('sessions')
+            .doc(sessionId)
+            .collection('route')
+            .doc('${offset ~/ 300}'),
+        {
+          'order': offset,
+          'points': route
+              .sublist(offset, end)
+              .map((point) => point.toMap())
+              .toList(),
+        },
+      );
+    }
     batch.set(_userDoc.collection('matches').doc(sessionId), {
       'order': order,
       'sessionId': sessionId,
@@ -163,10 +204,11 @@ class FirebaseDataRepository {
       'startingPosition': startingPosition,
       'teamSize': teamSize,
       'formation': formation,
+      'plannedMinutes': plannedMinutes,
       'result': 'COMPLETED',
       'score': '',
       'distance': '0.0 km',
-      'speed': '0.0 km/h',
+      'speed': '${topSpeed.toStringAsFixed(1)} km/h',
       'sprints': sprints,
       'scoreValue': 0,
       'color': 'green',
@@ -195,10 +237,12 @@ class FirebaseDataRepository {
       'startingPosition': startingPosition,
       'teamSize': teamSize,
       'formation': formation,
+      'plannedMinutes': plannedMinutes,
       'durationLabel': '$minutes min',
       'durationSeconds': duration.inSeconds,
       'result': 'COMPLETED',
-      'topSpeed': 0,
+      'topSpeed': topSpeed,
+      'gpsPointCount': route.length,
       'sprints': sprints,
       'kicks': 0,
       'typeIcon': 'soccer',

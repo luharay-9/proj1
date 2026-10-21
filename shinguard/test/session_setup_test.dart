@@ -24,6 +24,8 @@ void main() {
   testWidgets('session setup confirms team, formation, and position', (
     tester,
   ) async {
+    await tester.binding.setSurfaceSize(const Size(375, 812));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
     SessionSetupSelection? confirmedSelection;
     await tester.pumpWidget(
       MaterialApp(
@@ -35,6 +37,11 @@ void main() {
       ),
     );
 
+    final slider = find.byKey(const ValueKey('planned-minutes'));
+    expect(find.text('60 min'), findsOneWidget);
+    await tester.drag(slider, const Offset(800, 0));
+    await tester.pumpAndSettle();
+    expect(find.text('180 min'), findsOneWidget);
     await tester.tap(find.text('5v5'));
     await tester.pump();
     await tester.tap(find.text('Continue'));
@@ -53,5 +60,6 @@ void main() {
     expect(confirmedSelection?.teamSize, 5);
     expect(confirmedSelection?.formation, '1-2-1');
     expect(confirmedSelection?.spot.label, 'Goalkeeper');
+    expect(confirmedSelection?.plannedMinutes, 180);
   });
 }

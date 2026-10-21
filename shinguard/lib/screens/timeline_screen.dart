@@ -6,6 +6,7 @@ import '../models/measurement_system.dart';
 import '../models/training_session.dart';
 import '../services/performance_scoring.dart';
 import '../shared/shared_widgets.dart';
+import '../shared/session_heatmap.dart';
 import '../theme/app_colors.dart';
 
 class SessionTimeline extends StatelessWidget {
@@ -184,6 +185,10 @@ class _SessionTimelineScreenState extends State<SessionTimelineScreen> {
               },
             ),
             const SizedBox(height: 18),
+            if (session.sessionId.isNotEmpty) ...[
+              SessionHeatmap(sessionId: session.sessionId),
+              const SizedBox(height: 18),
+            ],
             Text(
               'Recorded Events',
               style: Theme.of(
@@ -263,6 +268,13 @@ class TimelineHero extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
+          if (session.plannedMinutes != null) ...[
+            const SizedBox(height: 6),
+            Text(
+              'Planned duration: ${session.plannedMinutes} min',
+              style: const TextStyle(color: AppColors.softText),
+            ),
+          ],
           const SizedBox(height: 18),
           Row(
             children: [

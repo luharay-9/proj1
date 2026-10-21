@@ -5,6 +5,7 @@ class PlayerPosition {
     required this.sensorTimeSeconds,
     required this.satellites,
     this.altitudeMeters,
+    this.speedKmh,
   });
 
   final double latitude;
@@ -12,6 +13,7 @@ class PlayerPosition {
   final double? altitudeMeters;
   final double sensorTimeSeconds;
   final int satellites;
+  final double? speedKmh;
 
   Map<String, dynamic> toMap() => {
     'latitude': latitude,
@@ -19,6 +21,7 @@ class PlayerPosition {
     if (altitudeMeters != null) 'altitudeMeters': altitudeMeters,
     'sensorTimeSeconds': sensorTimeSeconds,
     'satellites': satellites,
+    if (speedKmh != null) 'speedKmh': speedKmh,
   };
 
   static PlayerPosition? fromTelemetry(Map<String, dynamic> telemetry) {
@@ -29,7 +32,12 @@ class PlayerPosition {
     if (coordinates.length < 2) return null;
     final latitude = _nullableDecimal(coordinates[0]);
     final longitude = _nullableDecimal(coordinates[1]);
-    if (latitude == null || longitude == null) return null;
+    if (latitude == null ||
+        longitude == null ||
+        !latitude.isFinite ||
+        !longitude.isFinite) {
+      return null;
+    }
     if (latitude < -90 || latitude > 90) return null;
     if (longitude < -180 || longitude > 180) return null;
 
@@ -41,8 +49,18 @@ class PlayerPosition {
           : null,
       sensorTimeSeconds: _nullableDecimal(telemetry['t']) ?? 0,
       satellites: _integer(telemetry['sat']).clamp(0, 99),
+      speedKmh: _nullableDecimal(telemetry['v']),
     );
   }
+
+  factory PlayerPosition.fromMap(Map<String, dynamic> map) => PlayerPosition(
+    latitude: (map['latitude'] as num).toDouble(),
+    longitude: (map['longitude'] as num).toDouble(),
+    sensorTimeSeconds: (map['sensorTimeSeconds'] as num).toDouble(),
+    satellites: _integer(map['satellites']),
+    altitudeMeters: _nullableDecimal(map['altitudeMeters']),
+    speedKmh: _nullableDecimal(map['speedKmh']),
+  );
 }
 
 double? _nullableDecimal(Object? value) {

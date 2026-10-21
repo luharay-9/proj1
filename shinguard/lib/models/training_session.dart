@@ -15,6 +15,8 @@ class TrainingSession {
     required this.kicks,
     required this.typeIcon,
     required this.events,
+    this.sessionId = '',
+    this.plannedMinutes,
   });
 
   final String shortName;
@@ -28,9 +30,15 @@ class TrainingSession {
   final int kicks;
   final IconData typeIcon;
   final List<TimelineEvent> events;
+  final String sessionId;
+  final int? plannedMinutes;
 
   factory TrainingSession.fromMap(Map<String, dynamic> map) {
     return TrainingSession(
+      sessionId: stringFromMap(map, 'sessionId', ''),
+      plannedMinutes: map['plannedMinutes'] is num
+          ? (map['plannedMinutes'] as num).toInt()
+          : null,
       shortName: stringFromMap(map, 'shortName', 'Session'),
       title: stringFromMap(map, 'title', 'Training Session'),
       date: stringFromMap(map, 'date', ''),

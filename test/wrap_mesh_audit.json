@@ -1,0 +1,18 @@
+[
+  {
+    "file": "Wrap_Threaded_Carrier.stl",
+    "watertight": true,
+    "facets": 114774,
+    "CAD_volume_mm3": 13089.422481776139,
+    "STL_volume_mm3": 13089.7333984375,
+    "relative_volume_error": 2.3753275730395128e-05
+  },
+  {
+    "file": "Wrap_Impact_Shell.stl",
+    "watertight": true,
+    "facets": 155910,
+    "CAD_volume_mm3": 26577.731173799126,
+    "STL_volume_mm3": 26554.216796875,
+    "relative_volume_error": 0.0008847398135814837
+  }
+]

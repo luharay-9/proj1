@@ -1,0 +1,6 @@
+PASS clearance Adafruit_BNO085_STEMMA_QT_v2
+PASS clearance _400mAh_Battery_v2
+PASS clearance PCB_Component
+PASS clearance Adafruit_ESP32_Feather_V2_v2
+PASS clearance Part__Feature355
+PASS final clearances and all three STL meshes

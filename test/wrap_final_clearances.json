@@ -1,0 +1,56 @@
+{
+  "final_saved_file_clearances": {
+    "Adafruit_BNO085_STEMMA_QT_v2": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 8.881784197001252e-16
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 2.5410756766273943
+      }
+    },
+    "_400mAh_Battery_v2": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 0.29997683361345584
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 0.9790286888653728
+      }
+    },
+    "PCB_Component": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 0.1999999999999384
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 0.6999999999999975
+      }
+    },
+    "Adafruit_ESP32_Feather_V2_v2": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 0.0
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 0.8225323569319669
+      }
+    },
+    "Part__Feature355": {
+      "carrier": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 0.2499999999999664
+      },
+      "cover": {
+        "overlap_mm3": 0.0,
+        "gap_mm": 0.499999999999989
+      }
+    }
+  },
+  "hardware_collision_checks_passed": true,
+  "all_three_stls_watertight": true
+}

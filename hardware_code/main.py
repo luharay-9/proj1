@@ -46,8 +46,8 @@ SAMPLE_INTERVAL = 0.05
 REPORT_INTERVAL_US = 50000
 MAX_TELEMETRY_BYTES = 180
 GPS_UPDATE_INTERVAL_MS = 1000
-SPIKE_G_THRESHOLD = 3.1
-SPRINT_COOLDOWN = 0.75
+SPRINT_START_KMH = 20.0
+SPRINT_END_KMH = 17.0
 KICK_JERK_THRESHOLD = 42.0
 KICK_GYRO_THRESHOLD = 5.5
 
@@ -99,8 +99,6 @@ print("Scan response bytes:", len(bytes(scan_response)), bytes(scan_response))
 last_accel = (0.0, 0.0, 0.0)
 last_time = time.monotonic()
 last_kick_time = 0.0
-last_sprint_time = 0.0
-was_above_spike_threshold = False
 session_active = False
 sprint_count = 0
 last_command = "IDLE"
@@ -109,6 +107,12 @@ frame_index = 0
 pending_imu_sample = None
 initial_gps_position = None
 gps_position_pending = False
+last_gps_fix = None
+last_gps_time = None
+sprint_active = False
+sprint_candidate_count = 0
+sprint_candidate_peak = 0.0
+top_sprint_speed = 0.0
 
 
 def magnitude(values):
@@ -164,32 +168,72 @@ def update_gps():
 
 
 def capture_initial_gps_position():
-    global initial_gps_position, gps_position_pending
+    global initial_gps_position, gps_position_pending, last_gps_fix
+    global sprint_active, sprint_candidate_count, sprint_candidate_peak
+    global sprint_count, top_sprint_speed
+    global last_gps_time
 
-    if not session_active or initial_gps_position is not None or gps is None:
+    if not session_active or gps is None:
         return
     try:
         if not gps.has_fix:
+            sprint_active = False
+            sprint_candidate_count = 0
+            sprint_candidate_peak = 0.0
             return
+        fix = tuple(gps.timestamp_utc) if gps.timestamp_utc else None
+        if fix is None or fix == last_gps_fix:
+            return
+        last_gps_fix = fix
+        now = time.monotonic()
+        if last_gps_time is None or now - last_gps_time > 3:
+            sprint_active = False
+            sprint_candidate_count = 0
+            sprint_candidate_peak = 0.0
+        last_gps_time = now
+        speed = gps.speed_knots
+        speed_kmh = speed * 1.852 if speed is not None else None
+        if speed_kmh is not None and 0 <= speed_kmh <= 60:
+            if sprint_active and speed_kmh < SPRINT_END_KMH:
+                sprint_active = False
+                sprint_candidate_count = 0
+                sprint_candidate_peak = 0.0
+            if not sprint_active:
+                if speed_kmh >= SPRINT_START_KMH:
+                    sprint_candidate_count += 1
+                    sprint_candidate_peak = max(sprint_candidate_peak, speed_kmh)
+                    if sprint_candidate_count >= 2:
+                        sprint_active = True
+                        sprint_count += 1
+                        top_sprint_speed = max(top_sprint_speed, sprint_candidate_peak)
+                else:
+                    sprint_candidate_count = 0
+                    sprint_candidate_peak = 0.0
+            if sprint_active:
+                top_sprint_speed = max(top_sprint_speed, speed_kmh)
+        else:
+            speed_kmh = None
+            sprint_active = False
+            sprint_candidate_count = 0
+            sprint_candidate_peak = 0.0
         altitude = gps.altitude_m
         initial_gps_position = {
-            "t": round(time.monotonic(), 2),
+            "t": round(now, 2),
             "p": (
                 round(gps.latitude, 6),
                 round(gps.longitude, 6),
                 round(altitude, 1) if altitude is not None else None,
             ),
             "sat": gps.satellites or 0,
+            "v": round(speed_kmh, 2) if speed_kmh is not None else None,
         }
         gps_position_pending = True
-        print("Initial GPS position captured:", initial_gps_position)
     except Exception as error:
         print("PA1010D fix read failed:", repr(error))
 
 
 def build_sample():
     global last_accel, last_time, last_kick_time
-    global last_sprint_time, was_above_spike_threshold, sprint_count
     global sample_sequence
 
     now = time.monotonic()
@@ -206,17 +250,7 @@ def build_sample():
         )
     )
 
-    above_spike_threshold = accel_g >= SPIKE_G_THRESHOLD
-    sprint_event = (
-        session_active
-        and above_spike_threshold
-        and not was_above_spike_threshold
-        and now - last_sprint_time >= SPRINT_COOLDOWN
-    )
-    if sprint_event:
-        sprint_count += 1
-        last_sprint_time = now
-        print("Sprint spike:", sprint_count, "accel_g:", round(accel_g, 3))
+    sprint_event = False
 
     kick = (
         session_active
@@ -229,7 +263,6 @@ def build_sample():
 
     last_accel = accel
     last_time = now
-    was_above_spike_threshold = above_spike_threshold
     sample_sequence += 1
 
     return {
@@ -262,6 +295,7 @@ def build_payload(sample):
             "sp": sample["sp"],
             "sc": sample["sc"],
             "ok": sample["ok"],
+            "ts": round(top_sprint_speed, 2),
         }
     else:
         payload = {
@@ -274,6 +308,7 @@ def build_payload(sample):
             "sp": sample["sp"],
             "sc": sample["sc"],
             "k": sample["k"],
+            "ts": round(top_sprint_speed, 2),
         }
 
     frame_index = 1 - frame_index
@@ -294,6 +329,9 @@ def build_initial_position_payload():
         "t": initial_gps_position["t"],
         "p": initial_gps_position["p"],
         "sat": initial_gps_position["sat"],
+        "v": initial_gps_position["v"],
+        "sc": sprint_count,
+        "ts": round(top_sprint_speed, 2),
     }
     encoded = json.dumps(payload, separators=(",", ":")).encode("utf-8")
     if len(encoded) > MAX_TELEMETRY_BYTES:
@@ -305,10 +343,12 @@ def build_initial_position_payload():
 
 def handle_session_command():
     global last_command, session_active, sprint_count
-    global last_sprint_time, was_above_spike_threshold
     global sample_sequence, frame_index, pending_imu_sample
     global last_time, last_accel
     global initial_gps_position, gps_position_pending
+    global last_gps_fix, sprint_active, sprint_candidate_count
+    global sprint_candidate_peak, top_sprint_speed
+    global last_gps_time
 
     command = bytes(service.control).decode("utf-8").strip().upper()
     if command == last_command:
@@ -318,8 +358,6 @@ def handle_session_command():
     if command == "START":
         session_active = True
         sprint_count = 0
-        last_sprint_time = 0.0
-        was_above_spike_threshold = False
         sample_sequence = 0
         frame_index = 0
         pending_imu_sample = None
@@ -327,6 +365,12 @@ def handle_session_command():
         last_accel = (0.0, 0.0, 0.0)
         initial_gps_position = None
         gps_position_pending = False
+        last_gps_fix = None
+        last_gps_time = None
+        sprint_active = False
+        sprint_candidate_count = 0
+        sprint_candidate_peak = 0.0
+        top_sprint_speed = 0.0
         capture_initial_gps_position()
         print("Session started")
     elif command in ("STOP", "IDLE"):

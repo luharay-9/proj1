@@ -1,0 +1,9 @@
+0.01 0.15 16476 False
+0.03 0.2 8511 False
+0.005 0.05 80143 False
+0.05 0.3 5479 False
+Traceback (most recent call last):
+  File "/Users/harrylu/Downloads/proj1/test/wrap_work/export_cover.py", line 16, in <module>
+    else:raise RuntimeError('No watertight cover export')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: No watertight cover export

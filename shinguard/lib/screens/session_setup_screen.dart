@@ -77,11 +77,13 @@ class SessionSetupSelection {
     required this.teamSize,
     required this.formation,
     required this.spot,
+    this.plannedMinutes = 60,
   });
 
   final int teamSize;
   final String formation;
   final FormationSpot spot;
+  final int plannedMinutes;
 }
 
 List<SessionFormation> sessionFormationsFor(int teamSize) {
@@ -124,6 +126,7 @@ class _SessionSetupScreenState extends State<SessionSetupScreen> {
   int? _teamSize;
   SessionFormation? _formation;
   FormationSpot? _spot;
+  int _plannedMinutes = 60;
   bool _isStarting = false;
   String? _errorMessage;
 
@@ -161,6 +164,44 @@ class _SessionSetupScreenState extends State<SessionSetupScreen> {
                 ),
               ),
             ),
+            if (_step == 0)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.timer_outlined,
+                          size: 20,
+                          color: AppColors.pulse,
+                        ),
+                        const SizedBox(width: 8),
+                        const Expanded(child: Text('Planned session duration')),
+                        Text(
+                          '$_plannedMinutes min',
+                          style: const TextStyle(
+                            color: AppColors.pulse,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Slider(
+                      key: const ValueKey('planned-minutes'),
+                      value: _plannedMinutes.toDouble(),
+                      min: 5,
+                      max: 180,
+                      divisions: 35,
+                      label: '$_plannedMinutes min',
+                      semanticFormatterCallback: (value) =>
+                          '${value.round()} minutes',
+                      onChanged: (value) =>
+                          setState(() => _plannedMinutes = value.round()),
+                    ),
+                  ],
+                ),
+              ),
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 220),
@@ -305,6 +346,7 @@ class _SessionSetupScreenState extends State<SessionSetupScreen> {
       teamSize: _teamSize!,
       formation: _formation!.name,
       spot: _spot!,
+      plannedMinutes: _plannedMinutes,
     );
     setState(() {
       _isStarting = true;
@@ -322,6 +364,7 @@ class _SessionSetupScreenState extends State<SessionSetupScreen> {
           startingPosition: selection.spot.label,
           teamSize: selection.teamSize,
           formation: selection.formation,
+          plannedMinutes: selection.plannedMinutes,
         );
         if (recorder.currentState.status != SessionRecordingStatus.recording) {
           throw StateError(recorder.currentState.message);

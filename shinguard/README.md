@@ -38,9 +38,20 @@ samples, guidance on mobile development, and a full API reference.
    firmware update so the OS refreshes the BLE characteristic cache.
 
 When the app sends `START`, firmware resets the session counters, begins BNO085
-acceleration telemetry, and snapshots the first valid PA1010D fix. The app only
-enters its recording state after it receives a healthy BNO sample. The initial
-GPS fix, BNO sample count, and peak acceleration are saved with the session.
+acceleration telemetry, and records fresh PA1010D fixes at 1 Hz. The app only
+enters its recording state after it receives a healthy BNO sample. Each session
+saves its GPS route in 300-point Firestore chunks, plus its initial fix, BNO sample
+count, peak acceleration, and fastest sprint speed in km/h. A sprint starts after
+two consecutive fixes at or above 20 km/h and ends below 17 km/h; gaps over three
+seconds reset detection. These thresholds need validation with outdoor recordings.
+Without a GPS fix or a qualifying sprint, top sprint speed remains zero.
+
+The Timeline heatmap uses a north-up local GPS route and 5-meter cells. Each entry
+into a cell counts as one visit; staying in the cell adds samples, not visits.
+Colors range from green (one visit) through yellow to red (the most repeated area
+in that session). Unvisited cells have no heat color. Tap a cell for its counts;
+the Route switch shows or hides the recorded path. This is a geographic route,
+not a calibrated soccer-field overlay.
 
 - First Connection:
     1. User logs in and (only AFTER verification) they see an onboarding set of screens which has the following:
