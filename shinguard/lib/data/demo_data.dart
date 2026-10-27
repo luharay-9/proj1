@@ -4,7 +4,13 @@ const demoDocumentIds = [
   'debug_demo_match_1',
   'debug_demo_match_2',
   'debug_demo_match_3',
+  demoTrainingSessionId,
 ];
+
+const demoTrainingSessionId = 'debug_demo_soccer_training';
+const demoRouteDocumentId = 'debug_demo_route';
+const demoTrainingStartXMeters = -8.0;
+const demoTrainingStartYMeters = 82.0;
 
 const demoMuscleReportIds = [
   'debug_demo_front_quadriceps',
@@ -80,15 +86,15 @@ Map<String, dynamic> demoRootFields(Set<DemoDataSection> sections) {
     if (sections.contains(DemoDataSection.statistics)) ...{
       'performance': {
         'eyebrow': 'Season overview',
-        'distanceRun': '24.6',
+        'distanceRun': '29.8',
         'distanceUnit': 'km',
         'distanceDelta': '+12%',
-        'trendPoints': <double>[5.8, 7.1, 6.6, 8.3, 7.8, 9.2, 8.7],
-        'sprintTotal': 86,
+        'trendPoints': <double>[5.8, 7.1, 6.6, 8.3, 7.8, 5.2, 8.7],
+        'sprintTotal': 132,
         'sprintZones': <Map<String, dynamic>>[
-          {'color': 'green', 'label': 'High intensity', 'value': 31},
-          {'color': 'cyan', 'label': 'Moderate', 'value': 37},
-          {'color': 'gold', 'label': 'Explosive', 'value': 18},
+          {'color': 'green', 'label': 'High intensity', 'value': 51},
+          {'color': 'cyan', 'label': 'Moderate', 'value': 52},
+          {'color': 'gold', 'label': 'Explosive', 'value': 29},
         ],
       },
     },
@@ -116,6 +122,7 @@ List<Map<String, dynamic>> demoMatchDocuments(DateTime now) {
       speed: '28.4 km/h',
       sprints: 31,
       kicks: 48,
+      shots: 9,
       goals: 1,
       assists: 1,
       tackles: 3,
@@ -134,6 +141,7 @@ List<Map<String, dynamic>> demoMatchDocuments(DateTime now) {
       speed: '27.1 km/h',
       sprints: 27,
       kicks: 41,
+      shots: 8,
       goals: 1,
       assists: 0,
       tackles: 2,
@@ -152,11 +160,31 @@ List<Map<String, dynamic>> demoMatchDocuments(DateTime now) {
       speed: '26.8 km/h',
       sprints: 28,
       kicks: 44,
+      shots: 7,
       goals: 0,
       assists: 2,
       tackles: 4,
       passAccuracy: 88.0,
       color: 'cyan',
+    ),
+    (
+      id: demoTrainingSessionId,
+      daysAgo: 2,
+      title: 'Soccer Demo Training',
+      minutes: 64,
+      position: 'Striker',
+      result: 'TRAINING',
+      score: 'DRILL',
+      distance: '5.2 km',
+      speed: '30.2 km/h',
+      sprints: 46,
+      kicks: 78,
+      shots: 24,
+      goals: 0,
+      assists: 0,
+      tackles: 1,
+      passAccuracy: 84.0,
+      color: 'green',
     ),
   ];
 
@@ -182,6 +210,7 @@ List<Map<String, dynamic>> demoMatchDocuments(DateTime now) {
       'scoreValue': 0,
       'color': match.color,
       'kicks': match.kicks,
+      'shots': match.shots,
       'goals': match.goals,
       'assists': match.assists,
       'tackles': match.tackles,
@@ -202,8 +231,10 @@ List<Map<String, dynamic>> demoSessionDocuments(DateTime now) {
     final durationMinutes = match['minutes'] as int;
     final sprints = match['sprints'] as int;
     final kicks = match['kicks'] as int;
+    final shots = match['shots'] as int;
     final id = match['id'] as String;
     final date = match['date'] as String;
+    final isShootingDrill = id == demoTrainingSessionId;
     return {
       'id': id,
       'order': match['order'],
@@ -224,6 +255,7 @@ List<Map<String, dynamic>> demoSessionDocuments(DateTime now) {
       ),
       'sprints': sprints,
       'kicks': kicks,
+      'shots': shots,
       'typeIcon': 'soccer',
       'events': <Map<String, dynamic>>[
         {
@@ -234,11 +266,22 @@ List<Map<String, dynamic>> demoSessionDocuments(DateTime now) {
           'icon': 'schedule',
           'color': 'cyan',
         },
+        if (isShootingDrill)
+          {
+            'time': '12:30',
+            'title': 'Shooting drill',
+            'detail': 'Finishing repetitions concentrated in the bottom half.',
+            'value': '$shots shots',
+            'icon': 'soccer',
+            'color': 'cyan',
+          },
         {
-          'time': '18:42',
+          'time': isShootingDrill ? '28:10' : '18:42',
           'title': 'Sprint cluster',
-          'detail': 'Four high-intensity acceleration events detected.',
-          'value': '4 sprints',
+          'detail': isShootingDrill
+              ? 'Repeated explosive runs into shooting positions.'
+              : 'Four high-intensity acceleration events detected.',
+          'value': isShootingDrill ? '8 sprints' : '4 sprints',
           'icon': 'directions_run',
           'color': 'green',
         },
@@ -253,7 +296,9 @@ List<Map<String, dynamic>> demoSessionDocuments(DateTime now) {
         {
           'time': '$durationMinutes:00',
           'title': 'Session completed',
-          'detail': '$sprints sprints and $kicks touches recorded.',
+          'detail': isShootingDrill
+              ? '$sprints sprints and $shots shots recorded.'
+              : '$sprints sprints and $kicks touches recorded.',
           'value': '$durationMinutes min',
           'icon': 'health_and_safety',
           'color': 'green',
@@ -263,6 +308,110 @@ List<Map<String, dynamic>> demoSessionDocuments(DateTime now) {
       'debugDemo': true,
     };
   }).toList();
+}
+
+List<Map<String, dynamic>> demoSoccerTrainingRoutePoints() {
+  const originLatitude = 37.3349;
+  const originLongitude = -122.0090;
+  const metersPerLatitudeDegree = 111320.0;
+  const metersPerLongitudeDegree = 88450.0;
+  final points = <Map<String, dynamic>>[];
+  var seconds = 0.0;
+
+  void addPoint(double xMeters, double yMeters, double speedKmh) {
+    points.add({
+      'latitude': originLatitude - yMeters / metersPerLatitudeDegree,
+      'longitude': originLongitude + xMeters / metersPerLongitudeDegree,
+      'sensorTimeSeconds': seconds,
+      'satellites': 10,
+      'speedKmh': speedKmh,
+    });
+    seconds += 1;
+  }
+
+  void pauseBetweenRepetitions() => seconds += 4;
+
+  // The drill begins about 25 yards from the attacking goal line.
+  addPoint(demoTrainingStartXMeters, demoTrainingStartYMeters, 5);
+  pauseBetweenRepetitions();
+
+  // Short check-ins move back toward the 30-yard line before turning toward
+  // goal. Their uneven lateral movement avoids an artificial mirrored route.
+  const checkInRuns = [
+    [(-10.0, 82.0), (-13.0, 79.0), (-9.0, 77.5), (-5.0, 81.0)],
+    [(-18.0, 83.0), (-20.0, 79.0), (-16.0, 77.0), (-12.0, 82.0)],
+    [(-2.0, 82.0), (2.0, 78.0), (5.0, 77.5), (3.0, 81.0)],
+    [(9.0, 83.0), (13.0, 79.0), (10.0, 77.0), (6.0, 82.0)],
+    [(-6.0, 81.0), (-3.0, 77.5), (1.0, 79.0), (4.0, 83.0)],
+  ];
+  for (var repetition = 0; repetition < 2; repetition++) {
+    for (final run in checkInRuns) {
+      for (var step = 0; step < run.length; step++) {
+        addPoint(run[step].$1, run[step].$2, 12 + step * 2);
+      }
+      pauseBetweenRepetitions();
+    }
+  }
+
+  // Shooting entries fan out from the 25-yard line, with irregular cuts into
+  // the penalty box and a dense set of finishing positions around goal.
+  const finishingRuns = [
+    [(-18.0, 82.0), (-16.0, 87.0), (-12.0, 92.0), (-8.0, 97.0), (-6.0, 101.0)],
+    [(-12.0, 83.0), (-9.0, 86.0), (-5.0, 91.0), (-2.0, 98.0), (-1.0, 101.0)],
+    [(-6.0, 81.0), (-8.0, 87.0), (-4.0, 92.0), (-1.0, 96.0), (1.0, 101.0)],
+    [(0.0, 83.0), (-3.0, 86.0), (0.0, 91.0), (2.0, 98.0), (3.0, 101.0)],
+    [(7.0, 82.0), (4.0, 88.0), (6.0, 92.0), (5.0, 97.0), (4.0, 101.0)],
+    [(14.0, 81.0), (11.0, 86.0), (9.0, 91.0), (7.0, 96.0), (6.0, 101.0)],
+    [(-15.0, 81.0), (-12.0, 86.0), (-10.0, 93.0), (-5.0, 97.0), (-3.0, 101.0)],
+    [(-9.0, 83.0), (-5.0, 88.0), (-7.0, 92.0), (-3.0, 96.0), (-2.0, 101.0)],
+    [(-2.0, 82.0), (2.0, 87.0), (1.0, 91.0), (4.0, 98.0), (5.0, 101.0)],
+    [(-19.0, 81.0), (-16.0, 86.0), (-13.0, 93.0), (-10.0, 97.0), (-7.0, 101.0)],
+    [(-12.0, 83.0), (-15.0, 88.0), (-11.0, 92.0), (-8.0, 96.0), (-6.0, 101.0)],
+    [(17.0, 82.0), (14.0, 87.0), (11.0, 91.0), (8.0, 98.0), (5.0, 101.0)],
+  ];
+  for (var shot = 0; shot < 24; shot++) {
+    final run = finishingRuns[shot % finishingRuns.length];
+    for (var step = 0; step < run.length; step++) {
+      final speed = switch (step) {
+        0 => 19.0,
+        1 => 23.0,
+        2 => 28.0 + (shot % 4),
+        3 => 13.0,
+        _ => 5.0,
+      };
+      addPoint(run[step].$1, run[step].$2, speed);
+    }
+    pauseBetweenRepetitions();
+  }
+
+  // Wider repetitions continue down each touchline and finish at either
+  // attacking corner, spreading the low-density cloud beyond the box.
+  const wideRuns = [
+    [
+      (-17.0, 82.0),
+      (-23.0, 87.0),
+      (-28.0, 94.0),
+      (-31.0, 99.0),
+      (-32.0, 103.0),
+    ],
+    [(-10.0, 83.0), (-20.0, 88.0), (-27.0, 95.0), (-30.0, 101.0)],
+    [(-20.0, 81.0), (-26.0, 86.0), (-30.0, 93.0), (-31.0, 102.0)],
+    [
+      (-14.0, 82.0),
+      (-22.0, 87.0),
+      (-28.0, 94.0),
+      (-31.0, 100.0),
+      (-32.0, 103.0),
+    ],
+    [(18.0, 83.0), (24.0, 88.0), (29.0, 96.0), (31.0, 102.0)],
+  ];
+  for (final run in wideRuns) {
+    for (var step = 0; step < run.length; step++) {
+      addPoint(run[step].$1, run[step].$2, 18 + step * 2);
+    }
+    pauseBetweenRepetitions();
+  }
+  return points;
 }
 
 List<Map<String, dynamic>> demoMuscleReportDocuments() {

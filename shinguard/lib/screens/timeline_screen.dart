@@ -8,6 +8,7 @@ import '../services/performance_scoring.dart';
 import '../shared/shared_widgets.dart';
 import '../shared/session_heatmap.dart';
 import '../theme/app_colors.dart';
+import 'edit_session_details_sheet.dart';
 
 class SessionTimeline extends StatelessWidget {
   const SessionTimeline({required this.session, super.key});
@@ -131,10 +132,26 @@ class _SessionTimelineScreenState extends State<SessionTimelineScreen> {
 
         return AppScrollView(
           children: [
-            const TopBar(
+            TopBar(
               eyebrow: 'Selected session',
               title: 'Timeline',
-              action: StatusPill(label: 'SYNCED', icon: Icons.sensors_rounded),
+              action: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const StatusPill(
+                    label: 'SYNCED',
+                    icon: Icons.sensors_rounded,
+                  ),
+                  if (session.sessionId.isNotEmpty) ...[
+                    const SizedBox(width: 4),
+                    IconButton(
+                      tooltip: 'Edit session details',
+                      onPressed: () => _editSession(session),
+                      icon: const Icon(Icons.edit_rounded),
+                    ),
+                  ],
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             SizedBox(
@@ -200,6 +217,24 @@ class _SessionTimelineScreenState extends State<SessionTimelineScreen> {
           ],
         );
       },
+    );
+  }
+
+  Future<void> _editSession(TrainingSession session) async {
+    await showModalBottomSheet<SessionMetadataUpdate>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.panel,
+      showDragHandle: true,
+      builder: (context) => EditSessionDetailsSheet(
+        initialTitle: session.title,
+        initialPosition: session.position,
+        onSave: (title, position) => _repository.updateSessionMetadata(
+          sessionId: session.sessionId,
+          title: title,
+          position: position,
+        ),
+      ),
     );
   }
 }
@@ -301,8 +336,8 @@ class TimelineHero extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: MiniSessionStat(
-                  value: '${session.kicks}',
-                  label: 'Kicks',
+                  value: '${session.shots}',
+                  label: 'Shots',
                   unit: '',
                   icon: Icons.sports_soccer_rounded,
                 ),

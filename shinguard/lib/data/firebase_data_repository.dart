@@ -47,7 +47,10 @@ class FirebaseDataRepository {
   Stream<List<TrainingSession>> watchSessions() {
     return _orderedUserCollection('sessions').snapshots().map((snapshot) {
       return snapshot.docs
-          .map((doc) => TrainingSession.fromMap(doc.data()))
+          .map(
+            (doc) =>
+                TrainingSession.fromMap({...doc.data(), 'sessionId': doc.id}),
+          )
           .toList();
     });
   }
@@ -55,9 +58,47 @@ class FirebaseDataRepository {
   Stream<List<MatchSummary>> watchMatches() {
     return _orderedUserCollection('matches').snapshots().map((snapshot) {
       return snapshot.docs
-          .map((doc) => MatchSummary.fromMap(doc.data()))
+          .map(
+            (doc) => MatchSummary.fromMap({...doc.data(), 'sessionId': doc.id}),
+          )
           .toList();
     });
+  }
+
+  Future<void> updateSessionMetadata({
+    required String sessionId,
+    required String title,
+    required String position,
+  }) async {
+    final normalizedId = sessionId.trim();
+    final normalizedTitle = title.trim();
+    final normalizedPosition = position.trim();
+    if (normalizedId.isEmpty) {
+      throw ArgumentError('This session cannot be edited.');
+    }
+    if (normalizedTitle.isEmpty || normalizedTitle.length > 80) {
+      throw ArgumentError('Session names must be between 1 and 80 characters.');
+    }
+    if (normalizedPosition.length > 60) {
+      throw ArgumentError('Positions must be 60 characters or fewer.');
+    }
+
+    final matchRef = _userDoc.collection('matches').doc(normalizedId);
+    final sessionRef = _userDoc.collection('sessions').doc(normalizedId);
+    final snapshots = await Future.wait([matchRef.get(), sessionRef.get()]);
+    if (!snapshots.any((snapshot) => snapshot.exists)) {
+      throw StateError('The selected session no longer exists.');
+    }
+
+    final update = <String, dynamic>{
+      'title': normalizedTitle,
+      'position': normalizedPosition,
+      'metadataUpdatedAt': FieldValue.serverTimestamp(),
+    };
+    final batch = _firestore.batch();
+    if (snapshots[0].exists) batch.update(matchRef, update);
+    if (snapshots[1].exists) batch.update(sessionRef, update);
+    await batch.commit();
   }
 
   Stream<List<PlayerPosition>> watchSessionRoute(String sessionId) {
@@ -213,6 +254,7 @@ class FirebaseDataRepository {
       'scoreValue': 0,
       'color': 'green',
       'kicks': 0,
+      'shots': 0,
       'goals': 0,
       'assists': 0,
       'tackles': 0,
@@ -245,6 +287,7 @@ class FirebaseDataRepository {
       'gpsPointCount': route.length,
       'sprints': sprints,
       'kicks': 0,
+      'shots': 0,
       'typeIcon': 'soccer',
       'events': events,
       'startedAt': Timestamp.fromDate(startedAt),
@@ -693,7 +736,9 @@ class FirebaseDataRepository {
     batch.set(_userDoc, userUpdate, SetOptions(merge: true));
     for (final id in demoDocumentIds) {
       batch.delete(_userDoc.collection('matches').doc(id));
-      batch.delete(_userDoc.collection('sessions').doc(id));
+      final sessionRef = _userDoc.collection('sessions').doc(id);
+      batch.delete(sessionRef.collection('route').doc(demoRouteDocumentId));
+      batch.delete(sessionRef);
     }
     for (final id in demoMuscleReportIds) {
       batch.delete(_userDoc.collection('muscleReports').doc(id));
@@ -734,6 +779,18 @@ class FirebaseDataRepository {
       if (!match.exists || !session.exists) {
         throw StateError('Firebase did not retain demo session history.');
       }
+      final trainingRoute = await _userDoc
+          .collection('sessions')
+          .doc(demoTrainingSessionId)
+          .collection('route')
+          .doc(demoRouteDocumentId)
+          .get(const GetOptions(source: Source.server));
+      final routePoints = trainingRoute.data()?['points'];
+      if (!trainingRoute.exists ||
+          routePoints is! List ||
+          routePoints.isEmpty) {
+        throw StateError('Firebase did not retain the demo training heatmap.');
+      }
     }
 
     if (sections.contains(DemoDataSection.care)) {
@@ -762,6 +819,7 @@ class FirebaseDataRepository {
     for (final id in demoDocumentIds) {
       final matchRef = _userDoc.collection('matches').doc(id);
       final sessionRef = _userDoc.collection('sessions').doc(id);
+      final routeRef = sessionRef.collection('route').doc(demoRouteDocumentId);
       if (statisticsEnabled) {
         batch.set(
           matchRef,
@@ -771,8 +829,17 @@ class FirebaseDataRepository {
           sessionRef,
           Map<String, dynamic>.from(sessions[id]!)..remove('id'),
         );
+        if (id == demoTrainingSessionId) {
+          batch.set(routeRef, {
+            'order': 0,
+            'points': demoSoccerTrainingRoutePoints(),
+          });
+        } else {
+          batch.delete(routeRef);
+        }
       } else {
         batch.delete(matchRef);
+        batch.delete(routeRef);
         batch.delete(sessionRef);
       }
     }

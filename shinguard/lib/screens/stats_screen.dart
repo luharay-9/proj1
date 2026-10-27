@@ -9,6 +9,7 @@ import '../models/measurement_system.dart';
 import '../services/performance_scoring.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
+import 'edit_session_details_sheet.dart';
 
 class PerformanceScreen extends StatefulWidget {
   const PerformanceScreen({super.key});
@@ -489,7 +490,7 @@ class _SingleLineHistoryValue extends StatelessWidget {
   }
 }
 
-class MatchOverviewScreen extends StatelessWidget {
+class MatchOverviewScreen extends StatefulWidget {
   const MatchOverviewScreen({
     required this.match,
     required this.selectedPosition,
@@ -502,36 +503,68 @@ class MatchOverviewScreen extends StatelessWidget {
   final MeasurementSystem measurementSystem;
 
   @override
+  State<MatchOverviewScreen> createState() => _MatchOverviewScreenState();
+}
+
+class _MatchOverviewScreenState extends State<MatchOverviewScreen> {
+  final FirebaseDataRepository _repository = FirebaseDataRepository();
+  late MatchSummary _match;
+
+  @override
+  void initState() {
+    super.initState();
+    _match = widget.match;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final score = PerformanceScoring.score(match, selectedPosition);
+    final score = PerformanceScoring.score(_match, widget.selectedPosition);
     final details = <(String, String, IconData)>[
       (
-        MeasurementFormatter.distance(match.distance, measurementSystem),
+        MeasurementFormatter.distance(
+          _match.distance,
+          widget.measurementSystem,
+        ),
         'Distance',
         Icons.route_rounded,
       ),
       (
-        MeasurementFormatter.speed(match.speed, measurementSystem),
+        MeasurementFormatter.speed(_match.speed, widget.measurementSystem),
         'Top Speed',
         Icons.speed_rounded,
       ),
-      ('${match.sprints}', 'Sprints', Icons.directions_run_rounded),
-      ('${match.kicks}', 'Kicks', Icons.sports_soccer_rounded),
-      ('${match.goals}', 'Goals', Icons.sports_score_rounded),
-      ('${match.assists}', 'Assists', Icons.assistant_rounded),
-      ('${match.tackles}', 'Tackles', Icons.shield_rounded),
-      ('${match.passAccuracy.round()}%', 'Pass Accuracy', Icons.adjust_rounded),
+      ('${_match.sprints}', 'Sprints', Icons.directions_run_rounded),
+      ('${_match.shots}', 'Shots', Icons.sports_soccer_rounded),
+      ('${_match.kicks}', 'Touches', Icons.touch_app_rounded),
+      ('${_match.goals}', 'Goals', Icons.sports_score_rounded),
+      ('${_match.assists}', 'Assists', Icons.assistant_rounded),
+      ('${_match.tackles}', 'Tackles', Icons.shield_rounded),
+      (
+        '${_match.passAccuracy.round()}%',
+        'Pass Accuracy',
+        Icons.adjust_rounded,
+      ),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Match Overview')),
+      appBar: AppBar(
+        title: const Text('Match Overview'),
+        actions: [
+          if (_match.sessionId.isNotEmpty)
+            IconButton(
+              tooltip: 'Edit session details',
+              onPressed: _editDetails,
+              icon: const Icon(Icons.edit_rounded),
+            ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(22, 14, 22, 32),
         children: [
           HistoryCard(
-            match: match,
-            selectedPosition: selectedPosition,
-            measurementSystem: measurementSystem,
+            match: _match,
+            selectedPosition: widget.selectedPosition,
+            measurementSystem: widget.measurementSystem,
           ),
           Row(
             children: [
@@ -545,7 +578,7 @@ class MatchOverviewScreen extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: _MatchOverviewSummary(
-                  value: '${match.minutes}',
+                  value: '${_match.minutes}',
                   label: 'MINUTES PLAYED',
                   color: AppColors.pulse,
                 ),
@@ -610,6 +643,32 @@ class MatchOverviewScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _editDetails() async {
+    final update = await showModalBottomSheet<SessionMetadataUpdate>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.panel,
+      showDragHandle: true,
+      builder: (context) => EditSessionDetailsSheet(
+        initialTitle: _match.title,
+        initialPosition: _match.position,
+        onSave: (title, position) => _repository.updateSessionMetadata(
+          sessionId: _match.sessionId,
+          title: title,
+          position: position,
+        ),
+      ),
+    );
+    if (update != null && mounted) {
+      setState(() {
+        _match = _match.copyWith(
+          title: update.title,
+          position: update.position,
+        );
+      });
+    }
   }
 }
 

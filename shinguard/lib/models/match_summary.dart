@@ -4,6 +4,7 @@ import '../data/firestore_mapping.dart';
 
 class MatchSummary {
   const MatchSummary({
+    this.sessionId = '',
     required this.title,
     required this.date,
     required this.minutes,
@@ -16,6 +17,7 @@ class MatchSummary {
     required this.scoreValue,
     required this.color,
     this.kicks = 0,
+    this.shots = 0,
     this.goals = 0,
     this.assists = 0,
     this.tackles = 0,
@@ -25,6 +27,7 @@ class MatchSummary {
     this.goalsConceded = 0,
   });
 
+  final String sessionId;
   final String title;
   final String date;
   final int minutes;
@@ -37,6 +40,7 @@ class MatchSummary {
   final int scoreValue;
   final Color color;
   final int kicks;
+  final int shots;
   final int goals;
   final int assists;
   final int tackles;
@@ -47,6 +51,7 @@ class MatchSummary {
 
   factory MatchSummary.fromMap(Map<String, dynamic> map) {
     return MatchSummary(
+      sessionId: stringFromMap(map, 'sessionId', ''),
       title: stringFromMap(map, 'title', 'Match'),
       date: stringFromMap(map, 'date', ''),
       minutes: intFromMap(map, 'minutes', 0),
@@ -59,6 +64,7 @@ class MatchSummary {
       scoreValue: intFromMap(map, 'scoreValue', 0),
       color: colorFromValue(map['color']),
       kicks: intFromMap(map, 'kicks', 0),
+      shots: intFromMap(map, 'shots', 0),
       goals: intFromMap(map, 'goals', 0),
       assists: intFromMap(map, 'assists', 0),
       tackles: intFromMap(map, 'tackles', 0),
@@ -66,6 +72,32 @@ class MatchSummary {
       clearances: intFromMap(map, 'clearances', 0),
       saves: intFromMap(map, 'saves', 0),
       goalsConceded: intFromMap(map, 'goalsConceded', 0),
+    );
+  }
+
+  MatchSummary copyWith({String? title, String? position}) {
+    return MatchSummary(
+      sessionId: sessionId,
+      title: title ?? this.title,
+      date: date,
+      minutes: minutes,
+      position: position ?? this.position,
+      result: result,
+      score: score,
+      distance: distance,
+      speed: speed,
+      sprints: sprints,
+      scoreValue: scoreValue,
+      color: color,
+      kicks: kicks,
+      shots: shots,
+      goals: goals,
+      assists: assists,
+      tackles: tackles,
+      passAccuracy: passAccuracy,
+      clearances: clearances,
+      saves: saves,
+      goalsConceded: goalsConceded,
     );
   }
 }

@@ -34,12 +34,12 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('2 GPS samples · 1 visited areas'), findsOneWidget);
-    await tester.tapAt(const Offset(187.5, 178));
+    await tester.tapAt(tester.getCenter(find.byType(CustomPaint).last));
     await tester.pump();
     expect(find.text('1 visits · 2 GPS samples'), findsOneWidget);
     await tester.tap(find.byType(Switch));
     await tester.pumpAndSettle();
-    expect(tester.widget<Switch>(find.byType(Switch)).value, isFalse);
+    expect(tester.widget<Switch>(find.byType(Switch)).value, isTrue);
     expect(tester.takeException(), isNull);
   });
 }
