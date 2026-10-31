@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 class PlayerPosition {
   const PlayerPosition({
     required this.latitude,
@@ -53,14 +55,81 @@ class PlayerPosition {
     );
   }
 
-  factory PlayerPosition.fromMap(Map<String, dynamic> map) => PlayerPosition(
-    latitude: (map['latitude'] as num).toDouble(),
-    longitude: (map['longitude'] as num).toDouble(),
-    sensorTimeSeconds: (map['sensorTimeSeconds'] as num).toDouble(),
-    satellites: _integer(map['satellites']),
-    altitudeMeters: _nullableDecimal(map['altitudeMeters']),
-    speedKmh: _nullableDecimal(map['speedKmh']),
-  );
+  factory PlayerPosition.fromMap(Map<String, dynamic> map) {
+    final position = tryFromMap(map);
+    if (position == null) {
+      throw const FormatException('Invalid player position data.');
+    }
+    return position;
+  }
+
+  static PlayerPosition? tryFromMap(Object? value) {
+    if (value is! Map) return null;
+    final map = Map<String, dynamic>.from(value);
+    final latitude = _nullableDecimal(map['latitude']);
+    final longitude = _nullableDecimal(map['longitude']);
+    final sensorTimeSeconds = _nullableDecimal(map['sensorTimeSeconds']);
+    final altitudeMeters = _nullableDecimal(map['altitudeMeters']);
+    final speedKmh = _nullableDecimal(map['speedKmh']);
+    if (latitude == null ||
+        longitude == null ||
+        sensorTimeSeconds == null ||
+        !latitude.isFinite ||
+        !longitude.isFinite ||
+        !sensorTimeSeconds.isFinite ||
+        latitude < -90 ||
+        latitude > 90 ||
+        longitude < -180 ||
+        longitude > 180 ||
+        (altitudeMeters != null && !altitudeMeters.isFinite) ||
+        (speedKmh != null && (!speedKmh.isFinite || speedKmh < 0))) {
+      return null;
+    }
+    return PlayerPosition(
+      latitude: latitude,
+      longitude: longitude,
+      sensorTimeSeconds: sensorTimeSeconds,
+      satellites: _integer(map['satellites']).clamp(0, 99),
+      altitudeMeters: altitudeMeters,
+      speedKmh: speedKmh,
+    );
+  }
+}
+
+double routeDistanceKilometers(Iterable<PlayerPosition> positions) {
+  final points = positions.toList(growable: false);
+  if (points.length < 2) return 0;
+  var distanceKilometers = 0.0;
+  for (var index = 1; index < points.length; index++) {
+    final previous = points[index - 1];
+    final current = points[index];
+    final elapsedSeconds =
+        current.sensorTimeSeconds - previous.sensorTimeSeconds;
+    if (elapsedSeconds <= 0) continue;
+    final segmentKilometers = _distanceKilometers(previous, current);
+    final impliedSpeedKmh = segmentKilometers * 3600 / elapsedSeconds;
+    if (impliedSpeedKmh <= 50) {
+      distanceKilometers += segmentKilometers;
+    }
+  }
+  return distanceKilometers;
+}
+
+double _distanceKilometers(PlayerPosition start, PlayerPosition end) {
+  const earthRadiusKilometers = 6371.0;
+  final startLatitude = start.latitude * math.pi / 180;
+  final endLatitude = end.latitude * math.pi / 180;
+  final latitudeDelta = endLatitude - startLatitude;
+  final longitudeDelta = (end.longitude - start.longitude) * math.pi / 180;
+  final haversine =
+      math.sin(latitudeDelta / 2) * math.sin(latitudeDelta / 2) +
+      math.cos(startLatitude) *
+          math.cos(endLatitude) *
+          math.sin(longitudeDelta / 2) *
+          math.sin(longitudeDelta / 2);
+  final angularDistance =
+      2 * math.atan2(math.sqrt(haversine), math.sqrt(1 - haversine));
+  return earthRadiusKilometers * angularDistance;
 }
 
 double? _nullableDecimal(Object? value) {

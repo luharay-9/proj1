@@ -12,6 +12,7 @@ import '../shared/legal_links.dart';
 import '../shared/shared_widgets.dart';
 import '../theme/app_colors.dart';
 import 'avatar_picker_screen.dart';
+import 'change_password_screen.dart';
 import 'contacts_screen.dart';
 import 'demo_mode_screen.dart';
 import 'insights_screen.dart';
@@ -243,6 +244,16 @@ class SettingsScreen extends StatelessWidget {
             ),
           ],
           const SectionHeader(title: 'Account'),
+          SettingsTile(
+            icon: Icons.password_rounded,
+            title: 'Change Password',
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const ChangePasswordScreen(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
           AccountActions(repository: repository),
         ],
       ),
@@ -676,6 +687,7 @@ class ManageDeviceSheet extends StatefulWidget {
 class _ManageDeviceSheetState extends State<ManageDeviceSheet> {
   final _ble = ShinGuardBleService.instance;
   bool _isWorking = false;
+  String? _errorMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -719,6 +731,16 @@ class _ManageDeviceSheetState extends State<ManageDeviceSheet> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
+                if (_errorMessage != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    _errorMessage!,
+                    style: const TextStyle(
+                      color: AppColors.red,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 18),
                 FilledButton(
                   onPressed: connectionBusy || _isWorking
@@ -750,19 +772,30 @@ class _ManageDeviceSheetState extends State<ManageDeviceSheet> {
   }
 
   Future<void> _connect() async {
-    setState(() => _isWorking = true);
-    if (_ble.isConnected) {
-      await _ble.disconnect(message: 'Reconnecting...');
-    }
-    final connection = await _ble.connectToFirstAvailable();
-    if (connection != null) {
-      await widget.repository.saveDeviceConnection(
-        remoteId: connection.remoteId,
-        name: connection.name,
-      );
-    }
-    if (mounted) {
-      setState(() => _isWorking = false);
+    setState(() {
+      _isWorking = true;
+      _errorMessage = null;
+    });
+    try {
+      if (_ble.isConnected) {
+        await _ble.disconnect(message: 'Reconnecting...');
+      }
+      final connection = await _ble.connectToFirstAvailable();
+      if (connection != null) {
+        await widget.repository.saveDeviceConnection(
+          remoteId: connection.remoteId,
+          name: connection.name,
+        );
+        if (mounted) Navigator.of(context).pop();
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = 'Unable to save the device connection.';
+        });
+      }
+    } finally {
+      if (mounted) setState(() => _isWorking = false);
     }
   }
 
@@ -772,11 +805,22 @@ class _ManageDeviceSheetState extends State<ManageDeviceSheet> {
   }
 
   Future<void> _remove() async {
-    setState(() => _isWorking = true);
-    await _ble.disconnect();
-    await widget.repository.removeDevice();
-    if (mounted) {
-      Navigator.of(context).pop();
+    setState(() {
+      _isWorking = true;
+      _errorMessage = null;
+    });
+    try {
+      await _ble.disconnect();
+      await widget.repository.removeDevice();
+      if (mounted) Navigator.of(context).pop();
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = 'Unable to remove the saved device.';
+        });
+      }
+    } finally {
+      if (mounted) setState(() => _isWorking = false);
     }
   }
 }
@@ -791,7 +835,7 @@ class AccountActions extends StatefulWidget {
 }
 
 class _AccountActionsState extends State<AccountActions> {
-  static const _signOutCleanupTimeout = Duration(seconds: 3);
+  static const _signOutCleanupTimeout = Duration(milliseconds: 750);
 
   bool _isDeleting = false;
   bool _isSigningOut = false;
@@ -817,6 +861,7 @@ class _AccountActionsState extends State<AccountActions> {
   }
 
   Future<void> _signOut() async {
+    final rootNavigator = Navigator.of(context, rootNavigator: true);
     setState(() => _isSigningOut = true);
     try {
       await Future.wait([
@@ -829,11 +874,8 @@ class _AccountActionsState extends State<AccountActions> {
         _runSignOutCleanup(widget.repository.markDeviceDisconnected()),
       ]);
       await FirebaseAuth.instance.signOut();
-      if (mounted) {
-        Navigator.of(
-          context,
-          rootNavigator: true,
-        ).popUntil((route) => route.isFirst);
+      if (rootNavigator.mounted) {
+        rootNavigator.popUntil((route) => route.isFirst);
       }
     } on FirebaseAuthException catch (error) {
       if (mounted) {

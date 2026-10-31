@@ -126,14 +126,17 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       final refreshedUser = FirebaseAuth.instance.currentUser;
       if (refreshedUser?.emailVerified ?? false) {
         await refreshedUser?.getIdToken(true);
+        if (!mounted) return;
         widget.onVerified();
       } else {
+        if (!mounted) return;
         setState(() {
           _message = 'That email is not verified yet.';
           _isError = true;
         });
       }
     } on FirebaseAuthException catch (error) {
+      if (!mounted) return;
       setState(() {
         _message = error.message ?? 'Unable to check verification right now.';
         _isError = true;
@@ -154,11 +157,13 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
     try {
       await widget.user.sendEmailVerification();
+      if (!mounted) return;
       setState(() {
         _message = 'Verification email sent.';
         _isError = false;
       });
     } on FirebaseAuthException catch (error) {
+      if (!mounted) return;
       setState(() {
         _message = error.message ?? 'Unable to send verification email.';
         _isError = true;

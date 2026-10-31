@@ -244,11 +244,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         Navigator.of(context).pop();
       }
     } on FirebaseAuthException catch (error) {
-      setState(() => _errorMessage = _messageForAuthError(error));
+      if (mounted) {
+        setState(() => _errorMessage = _messageForAuthError(error));
+      }
     } catch (_) {
-      setState(() {
-        _errorMessage = 'Account created, but profile setup failed.';
-      });
+      if (mounted) {
+        setState(() {
+          _errorMessage = 'Account created, but profile setup failed.';
+        });
+      }
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);

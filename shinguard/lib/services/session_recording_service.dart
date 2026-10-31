@@ -150,6 +150,14 @@ class SessionRecordingService {
       if (peak > _topSpeed) _topSpeed = peak.toDouble();
     }
     final point = PlayerPosition.fromTelemetry(telemetry);
+    final gpsSpeed = point?.speedKmh;
+    if (gpsSpeed != null &&
+        gpsSpeed.isFinite &&
+        gpsSpeed >= 0 &&
+        gpsSpeed <= 60 &&
+        gpsSpeed > _topSpeed) {
+      _topSpeed = gpsSpeed;
+    }
     if (point != null &&
         (_route.isEmpty ||
             point.sensorTimeSeconds > _route.last.sensorTimeSeconds)) {

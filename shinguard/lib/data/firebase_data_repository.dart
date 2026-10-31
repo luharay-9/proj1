@@ -108,17 +108,15 @@ class FirebaseDataRepository {
         .collection('route')
         .orderBy('order')
         .snapshots()
-        .map(
-          (snapshot) => snapshot.docs
-              .expand(
-                (doc) => (doc.data()['points'] as List).map(
-                  (point) => PlayerPosition.fromMap(
-                    Map<String, dynamic>.from(point as Map),
-                  ),
-                ),
-              )
-              .toList(),
-        );
+        .map((snapshot) {
+          return snapshot.docs.expand((doc) {
+            final points = doc.data()['points'];
+            if (points is! Iterable) return const <PlayerPosition>[];
+            return points
+                .map(PlayerPosition.tryFromMap)
+                .whereType<PlayerPosition>();
+          }).toList();
+        });
   }
 
   Stream<List<MuscleReport>> watchMuscleReports(String view) {
@@ -177,6 +175,7 @@ class FirebaseDataRepository {
     final displayPosition = startingPosition.isEmpty
         ? position
         : startingPosition;
+    final distanceKilometers = routeDistanceKilometers(route);
     final events = <Map<String, dynamic>>[
       {
         'time': '0:00',
@@ -248,7 +247,7 @@ class FirebaseDataRepository {
       'plannedMinutes': plannedMinutes,
       'result': 'COMPLETED',
       'score': '',
-      'distance': '0.0 km',
+      'distance': '${distanceKilometers.toStringAsFixed(2)} km',
       'speed': '${topSpeed.toStringAsFixed(1)} km/h',
       'sprints': sprints,
       'scoreValue': 0,

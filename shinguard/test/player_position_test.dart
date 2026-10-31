@@ -40,4 +40,49 @@ void main() {
       isNull,
     );
   });
+
+  test('safely rejects malformed stored route points', () {
+    expect(PlayerPosition.tryFromMap(null), isNull);
+    expect(PlayerPosition.tryFromMap({'latitude': 'invalid'}), isNull);
+    expect(
+      PlayerPosition.tryFromMap({
+        'latitude': 37.4,
+        'longitude': -122.1,
+        'sensorTimeSeconds': 1,
+        'speedKmh': -1,
+      }),
+      isNull,
+    );
+  });
+
+  test('calculates route distance and ignores impossible GPS jumps', () {
+    const route = [
+      PlayerPosition(
+        latitude: 0,
+        longitude: 0,
+        sensorTimeSeconds: 0,
+        satellites: 8,
+      ),
+      PlayerPosition(
+        latitude: 0,
+        longitude: 0.0009,
+        sensorTimeSeconds: 10,
+        satellites: 8,
+      ),
+      PlayerPosition(
+        latitude: 0,
+        longitude: 0.0018,
+        sensorTimeSeconds: 20,
+        satellites: 8,
+      ),
+      PlayerPosition(
+        latitude: 1,
+        longitude: 1,
+        sensorTimeSeconds: 21,
+        satellites: 8,
+      ),
+    ];
+
+    expect(routeDistanceKilometers(route), closeTo(.2, .01));
+  });
 }
