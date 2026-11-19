@@ -33,12 +33,7 @@ class SessionRecordingService {
   int _teamSize = 0;
   String _formation = '';
   int _plannedMinutes = 60;
-  int _sprints = 0;
-  final BnoSessionAccumulator _bno = BnoSessionAccumulator();
-  PlayerPosition? _initialPosition;
-  final List<PlayerPosition> _route = [];
-  double _topSpeed = 0;
-  final List<Duration> _sprintEvents = [];
+  final _telemetry = SessionTelemetryAccumulator();
   bool _isFinishing = false;
 
   SessionRecordingState _state = const SessionRecordingState(
@@ -93,10 +88,7 @@ class SessionRecordingService {
       ),
     );
     try {
-      _bno.reset();
-      _initialPosition = null;
-      _route.clear();
-      _topSpeed = 0;
+      _telemetry.reset();
       await _ble.startSession();
       _startedAt = DateTime.now();
       _position = position;
@@ -104,17 +96,15 @@ class SessionRecordingService {
       _teamSize = teamSize;
       _formation = formation;
       _plannedMinutes = plannedMinutes.clamp(5, 180);
-      _sprints = 0;
-      _sprintEvents.clear();
       _timer?.cancel();
       _timer = Timer.periodic(const Duration(seconds: 1), (_) => _tick());
       _emit(
         SessionRecordingState(
           status: SessionRecordingStatus.recording,
           elapsed: Duration.zero,
-          sprints: 0,
+          sprints: _telemetry.sprints,
           message: 'BNO motion recording is active.',
-          bnoSamples: _bno.sampleCount,
+          bnoSamples: _telemetry.sampleCount,
         ),
       );
     } catch (error) {
@@ -144,36 +134,11 @@ class SessionRecordingService {
       return;
     }
 
-    _initialPosition ??= PlayerPosition.fromTelemetry(telemetry);
-    final peak = telemetry['ts'];
-    if (peak is num && peak.isFinite && peak >= 0 && peak <= 60) {
-      if (peak > _topSpeed) _topSpeed = peak.toDouble();
-    }
-    final point = PlayerPosition.fromTelemetry(telemetry);
-    final gpsSpeed = point?.speedKmh;
-    if (gpsSpeed != null &&
-        gpsSpeed.isFinite &&
-        gpsSpeed >= 0 &&
-        gpsSpeed <= 60 &&
-        gpsSpeed > _topSpeed) {
-      _topSpeed = gpsSpeed;
-    }
-    if (point != null &&
-        (_route.isEmpty ||
-            point.sensorTimeSeconds > _route.last.sensorTimeSeconds)) {
-      _route.add(point);
-    }
-    if (_state.status != SessionRecordingStatus.recording) return;
-
-    final count = sprintCountFromTelemetry(telemetry, _sprints);
-    if (count > _sprints) {
-      final elapsed = _elapsed;
-      for (var index = _sprints; index < count; index++) {
-        _sprintEvents.add(elapsed);
-      }
-      _sprints = count;
+    final previousSprints = _telemetry.sprints;
+    _telemetry.addTelemetry(telemetry, _elapsed);
+    if (_state.status == SessionRecordingStatus.recording &&
+        _telemetry.sprints > previousSprints) {
       _emitRecording();
-      return;
     }
   }
 
@@ -182,7 +147,7 @@ class SessionRecordingService {
         _state.status != SessionRecordingStatus.recording) {
       return;
     }
-    _bno.add(sample);
+    _telemetry.addImuSample(sample);
   }
 
   void _handleConnectionState(ShinGuardBleState state) {
@@ -202,14 +167,20 @@ class SessionRecordingService {
       SessionRecordingState(
         status: SessionRecordingStatus.saving,
         elapsed: duration,
-        sprints: _sprints,
+        sprints: _telemetry.sprints,
         message: 'Saving session statistics...',
-        bnoSamples: _bno.sampleCount,
+        bnoSamples: _telemetry.sampleCount,
       ),
     );
 
     try {
-      if (sendStopCommand) await _ble.stopSession();
+      if (sendStopCommand && _ble.isConnected) {
+        try {
+          await _ble.stopSession();
+        } catch (_) {
+          if (_ble.isConnected) rethrow;
+        }
+      }
       if (startedAt == null) throw StateError('Session start time is missing.');
       final sessionId = await _repository.saveRecordedSession(
         startedAt: startedAt,
@@ -219,19 +190,23 @@ class SessionRecordingService {
         teamSize: _teamSize,
         formation: _formation,
         plannedMinutes: _plannedMinutes,
-        sprints: _sprints,
-        sprintEvents: List<Duration>.from(_sprintEvents),
-        bnoSampleCount: _bno.sampleCount,
-        peakAccelerationG: _bno.peakAccelerationG,
-        initialPosition: _initialPosition,
-        topSpeed: _topSpeed,
-        route: List<PlayerPosition>.from(_route),
+        sprints: _telemetry.sprints,
+        sprintEvents: _telemetry.sprintEvents,
+        kicks: _telemetry.kicks,
+        estimatedShots: _telemetry.estimatedShots,
+        bnoSampleCount: _telemetry.sampleCount,
+        peakAccelerationG: _telemetry.peakAccelerationG,
+        initialPosition: _telemetry.route.isEmpty
+            ? null
+            : _telemetry.route.first,
+        topSpeed: _telemetry.topSpeed,
+        route: _telemetry.route,
       );
       _startedAt = null;
       try {
         await NotificationService.instance.showSessionReady(
           sessionId: sessionId,
-          sprints: _sprints,
+          sprints: _telemetry.sprints,
         );
       } catch (_) {
         // The saved statistics remain valid if notification delivery fails.
@@ -240,13 +215,13 @@ class SessionRecordingService {
         SessionRecordingState(
           status: SessionRecordingStatus.idle,
           elapsed: duration,
-          sprints: _sprints,
-          message: 'Session saved with $_sprints sprints.',
-          bnoSamples: _bno.sampleCount,
+          sprints: _telemetry.sprints,
+          message: 'Session saved with ${_telemetry.sprints} sprints.',
+          bnoSamples: _telemetry.sampleCount,
         ),
       );
     } catch (error) {
-      _emitError(error, elapsed: duration, sprints: _sprints);
+      _emitError(error, elapsed: duration, sprints: _telemetry.sprints);
     } finally {
       _isFinishing = false;
     }
@@ -266,9 +241,9 @@ class SessionRecordingService {
       SessionRecordingState(
         status: SessionRecordingStatus.recording,
         elapsed: _elapsed,
-        sprints: _sprints,
+        sprints: _telemetry.sprints,
         message: 'BNO motion recording is active.',
-        bnoSamples: _bno.sampleCount,
+        bnoSamples: _telemetry.sampleCount,
       ),
     );
   }
@@ -302,9 +277,7 @@ int sprintCountFromTelemetry(Map<String, dynamic> telemetry, int currentCount) {
   final countValue =
       telemetry['sc'] ?? telemetry['sprint_count'] ?? telemetry['sprints'];
   if (countValue != null) {
-    final hardwareCount = countValue is num
-        ? countValue.toInt()
-        : int.tryParse('$countValue') ?? currentCount;
+    final hardwareCount = _telemetryCount(countValue) ?? currentCount;
     return hardwareCount > currentCount ? hardwareCount : currentCount;
   }
   final eventValue = telemetry['sp'] ?? telemetry['sprint'];
@@ -313,6 +286,13 @@ int sprintCountFromTelemetry(Map<String, dynamic> telemetry, int currentCount) {
       (eventValue is num && eventValue != 0) ||
       eventValue == '1';
   return sprintEvent ? currentCount + 1 : currentCount;
+}
+
+int? _telemetryCount(Object? value) {
+  final count = value is num && value.isFinite && value == value.truncate()
+      ? value.toInt()
+      : int.tryParse('$value');
+  return count != null && count >= 0 ? count : null;
 }
 
 enum SessionRecordingStatus { idle, starting, recording, saving, error }
@@ -338,11 +318,17 @@ class SessionRecordingState {
       status == SessionRecordingStatus.saving;
 }
 
-class BnoSessionAccumulator {
+class SessionTelemetryAccumulator {
   int sampleCount = 0;
   double peakAccelerationG = 0;
+  double topSpeed = 0;
+  int sprints = 0;
+  int kicks = 0;
+  int? estimatedShots;
+  final route = <PlayerPosition>[];
+  final sprintEvents = <int, Duration>{};
 
-  void add(ImuSample sample) {
+  void addImuSample(ImuSample sample) {
     if (!sample.sensorHealthy) return;
     sampleCount++;
     if (sample.accelerationG > peakAccelerationG) {
@@ -350,8 +336,43 @@ class BnoSessionAccumulator {
     }
   }
 
+  void addTelemetry(Map<String, dynamic> telemetry, Duration elapsed) {
+    _observeSpeed(telemetry['ts']);
+    final point = PlayerPosition.fromTelemetry(telemetry);
+    if (point != null &&
+        (route.isEmpty ||
+            point.sensorTimeSeconds > route.last.sensorTimeSeconds)) {
+      route.add(point);
+      _observeSpeed(point.speedKmh);
+    }
+
+    final count = sprintCountFromTelemetry(telemetry, sprints);
+    if (count > sprints) {
+      sprints = count;
+      sprintEvents[count] = elapsed;
+    }
+    final kickCount = _telemetryCount(telemetry['kc']);
+    if (kickCount != null && kickCount > kicks) kicks = kickCount;
+    final shotCount = _telemetryCount(telemetry['sh']);
+    if (shotCount != null && shotCount >= (estimatedShots ?? 0)) {
+      estimatedShots = shotCount;
+    }
+  }
+
+  void _observeSpeed(Object? speed) {
+    if (speed is num && speed.isFinite && speed > topSpeed && speed <= 60) {
+      topSpeed = speed.toDouble();
+    }
+  }
+
   void reset() {
     sampleCount = 0;
     peakAccelerationG = 0;
+    topSpeed = 0;
+    sprints = 0;
+    kicks = 0;
+    estimatedShots = null;
+    route.clear();
+    sprintEvents.clear();
   }
 }

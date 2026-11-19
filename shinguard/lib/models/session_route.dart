@@ -17,10 +17,10 @@ class SessionRoute {
     (int, int)? previous;
     double? previousTime;
     for (final point in route) {
+      final longitudeDelta =
+          (point.longitude - origin.longitude + 180) % 360 - 180;
       final x =
-          (point.longitude - origin.longitude) *
-          111320 *
-          math.cos(origin.latitude * math.pi / 180);
+          longitudeDelta * 111320 * math.cos(origin.latitude * math.pi / 180);
       final y = -(point.latitude - origin.latitude) * 111320;
       points.add(Offset(x, y));
       times.add(point.sensorTimeSeconds);
@@ -29,8 +29,9 @@ class SessionRoute {
       cell.samples++;
       if (previous != key ||
           previousTime == null ||
-          point.sensorTimeSeconds - previousTime > 3) {
+          point.sensorTimeSeconds - previousTime > maxSampleGapSeconds) {
         cell.visits++;
+        _maxVisits = math.max(_maxVisits, cell.visits);
       }
       previous = key;
       previousTime = point.sensorTimeSeconds;
@@ -46,21 +47,21 @@ class SessionRoute {
   }
 
   static const cellMeters = 5.0;
+  static const maxSampleGapSeconds = 3;
+  static const lowActivity = Color(0xff70d883);
+  static const mediumActivity = Color(0xffffcb45);
+  static const highActivity = Color(0xffef5350);
   final List<Offset> points = [];
   final List<double> times = [];
   final Map<(int, int), RouteCell> cells = {};
   Rect bounds = const Rect.fromLTWH(0, 0, 15, 15);
-  int get maxVisits => cells.isEmpty
-      ? 0
-      : cells.values.map((cell) => cell.visits).reduce(math.max);
+  int _maxVisits = 0;
+  int get maxVisits => _maxVisits;
 
   Color colorFor(RouteCell cell) {
     final level = maxVisits <= 1 ? 0.0 : (cell.visits - 1) / (maxVisits - 1);
-    const green = Color(0xff70d883);
-    const yellow = Color(0xffffcb45);
-    const red = Color(0xffef5350);
     return level <= .5
-        ? Color.lerp(green, yellow, level * 2)!
-        : Color.lerp(yellow, red, (level - .5) * 2)!;
+        ? Color.lerp(lowActivity, mediumActivity, level * 2)!
+        : Color.lerp(mediumActivity, highActivity, (level - .5) * 2)!;
   }
 }

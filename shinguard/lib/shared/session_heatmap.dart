@@ -19,7 +19,7 @@ class SessionHeatmap extends StatefulWidget {
 class _SessionHeatmapState extends State<SessionHeatmap> {
   late Stream<List<PlayerPosition>> _route;
   bool _showRoute = false;
-  RouteCell? _selected;
+  (int, int)? _selectedCell;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _SessionHeatmapState extends State<SessionHeatmap> {
       _route =
           widget.routeStream ??
           FirebaseDataRepository().watchSessionRoute(widget.sessionId);
-      _selected = null;
+      _selectedCell = null;
     }
   }
 
@@ -82,6 +82,8 @@ class _SessionHeatmapState extends State<SessionHeatmap> {
                 ),
               );
             }
+            final showPitch = widget.sessionId == demoTrainingSessionId;
+            final selected = data.cells[_selectedCell];
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -94,8 +96,7 @@ class _SessionHeatmapState extends State<SessionHeatmap> {
                         constraints.maxWidth,
                         constraints.maxHeight,
                       );
-                      final displayBounds =
-                          widget.sessionId == demoTrainingSessionId
+                      final displayBounds = showPitch
                           ? const Rect.fromLTWH(
                               -34 - demoTrainingStartXMeters,
                               -demoTrainingStartYMeters,
@@ -105,25 +106,25 @@ class _SessionHeatmapState extends State<SessionHeatmap> {
                           : data.bounds;
                       return GestureDetector(
                         onTapUp: (event) {
-                          final transform = _PitchTransform(
+                          final transform = _RouteTransform(
                             displayBounds,
                             size,
+                            showPitch: showPitch,
                           );
                           final point = transform.inverse(event.localPosition);
-                          setState(
-                            () => _selected =
-                                data.cells[(
-                                  (point.dx / SessionRoute.cellMeters).floor(),
-                                  (point.dy / SessionRoute.cellMeters).floor(),
-                                )],
+                          final cell = (
+                            (point.dx / SessionRoute.cellMeters).floor(),
+                            (point.dy / SessionRoute.cellMeters).floor(),
                           );
+                          setState(() => _selectedCell = cell);
                         },
                         child: CustomPaint(
                           painter: _HeatmapPainter(
                             data,
                             _showRoute,
-                            _selected,
+                            selected,
                             displayBounds,
+                            showPitch: showPitch,
                           ),
                         ),
                       );
@@ -132,9 +133,9 @@ class _SessionHeatmapState extends State<SessionHeatmap> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  _selected == null
+                  selected == null
                       ? '${data.points.length} GPS samples · ${data.cells.length} visited areas'
-                      : '${_selected!.visits} visits · ${_selected!.samples} GPS samples',
+                      : '${selected.visits} visits · ${selected.samples} GPS samples',
                   style: const TextStyle(color: AppColors.muted),
                 ),
                 const SizedBox(height: 10),
@@ -142,16 +143,24 @@ class _SessionHeatmapState extends State<SessionHeatmap> {
                   height: 9,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(999),
-                    gradient: const LinearGradient(
-                      stops: [0, .20, .40, .62, .86],
-                      colors: [
-                        Color(0xff27d85f),
-                        Color(0xff8ee63f),
-                        Color(0xffffe343),
-                        Color(0xffff9f32),
-                        Color(0xffff3b30),
-                      ],
-                    ),
+                    gradient: showPitch
+                        ? const LinearGradient(
+                            stops: [0, .20, .40, .62, .86],
+                            colors: [
+                              Color(0xff27d85f),
+                              Color(0xff8ee63f),
+                              Color(0xffffe343),
+                              Color(0xffff9f32),
+                              Color(0xffff3b30),
+                            ],
+                          )
+                        : const LinearGradient(
+                            colors: [
+                              SessionRoute.lowActivity,
+                              SessionRoute.mediumActivity,
+                              SessionRoute.highActivity,
+                            ],
+                          ),
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -188,8 +197,8 @@ class _SessionHeatmapState extends State<SessionHeatmap> {
   }
 }
 
-class _PitchTransform {
-  _PitchTransform(this.bounds, Size size) {
+class _RouteTransform {
+  _RouteTransform(Rect bounds, Size size, {required bool showPitch}) {
     const pitchAspectRatio = 68 / 105;
     final available = Rect.fromLTWH(
       10,
@@ -197,31 +206,29 @@ class _PitchTransform {
       math.max(1, size.width - 20),
       math.max(1, size.height - 20),
     );
-    late final double pitchWidth;
-    late final double pitchHeight;
-    if (available.width / available.height > pitchAspectRatio) {
-      pitchHeight = available.height;
-      pitchWidth = pitchHeight * pitchAspectRatio;
+    if (showPitch) {
+      final height = math.min(
+        available.height,
+        available.width / pitchAspectRatio,
+      );
+      viewport = Rect.fromCenter(
+        center: available.center,
+        width: height * pitchAspectRatio,
+        height: height,
+      );
     } else {
-      pitchWidth = available.width;
-      pitchHeight = pitchWidth / pitchAspectRatio;
+      viewport = available;
     }
-    pitch = Rect.fromCenter(
-      center: available.center,
-      width: pitchWidth,
-      height: pitchHeight,
-    );
     scale = math.min(
-      (pitch.width - 24) / bounds.width,
-      (pitch.height - 24) / bounds.height,
+      math.max(1, viewport.width - 24) / bounds.width,
+      math.max(1, viewport.height - 24) / bounds.height,
     );
     offset = Offset(
-      pitch.center.dx - bounds.center.dx * scale,
-      pitch.center.dy - bounds.center.dy * scale,
+      viewport.center.dx - bounds.center.dx * scale,
+      viewport.center.dy - bounds.center.dy * scale,
     );
   }
-  final Rect bounds;
-  late final Rect pitch;
+  late final Rect viewport;
   late final double scale;
   late final Offset offset;
   Offset project(Offset point) => point * scale + offset;
@@ -229,28 +236,59 @@ class _PitchTransform {
 }
 
 class _HeatmapPainter extends CustomPainter {
-  _HeatmapPainter(this.data, this.showRoute, this.selected, this.displayBounds);
+  _HeatmapPainter(
+    this.data,
+    this.showRoute,
+    this.selected,
+    this.displayBounds, {
+    required this.showPitch,
+  });
   final SessionRoute data;
   final bool showRoute;
   final RouteCell? selected;
   final Rect displayBounds;
+  final bool showPitch;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final transform = _PitchTransform(displayBounds, size);
+    final transform = _RouteTransform(
+      displayBounds,
+      size,
+      showPitch: showPitch,
+    );
+    final viewport = transform.viewport;
     canvas.drawRect(Offset.zero & size, Paint()..color = AppColors.deepInk);
-    _drawPitch(canvas, transform.pitch, lineOpacity: .42);
+    if (showPitch) _drawPitch(canvas, viewport, lineOpacity: .42);
 
     canvas.save();
     canvas.clipRRect(
-      RRect.fromRectAndRadius(transform.pitch, const Radius.circular(8)),
+      RRect.fromRectAndRadius(viewport, const Radius.circular(8)),
     );
-    _drawDensityCloud(canvas, transform);
+    if (showPitch) {
+      _drawDensityCloud(canvas, transform);
+    } else {
+      final cellSize = transform.scale * SessionRoute.cellMeters;
+      final paint = Paint();
+      for (final cell in data.cells.values) {
+        final corner = transform.project(
+          Offset(
+            cell.x * SessionRoute.cellMeters,
+            cell.y * SessionRoute.cellMeters,
+          ),
+        );
+        canvas.drawRect(
+          Rect.fromLTWH(corner.dx, corner.dy, cellSize, cellSize),
+          paint..color = data.colorFor(cell),
+        );
+      }
+    }
     if (showRoute) {
       final path = Path();
       for (var i = 0; i < data.points.length; i++) {
         final point = transform.project(data.points[i]);
-        if (i == 0 || data.times[i] - data.times[i - 1] > 3) {
+        if (i == 0 ||
+            data.times[i] - data.times[i - 1] >
+                SessionRoute.maxSampleGapSeconds) {
           path.moveTo(point.dx, point.dy);
         } else {
           path.lineTo(point.dx, point.dy);
@@ -275,7 +313,9 @@ class _HeatmapPainter extends CustomPainter {
       );
     }
     canvas.restore();
-    _drawPitch(canvas, transform.pitch, background: false, lineOpacity: .58);
+    if (showPitch) {
+      _drawPitch(canvas, viewport, background: false, lineOpacity: .58);
+    }
 
     final selectedCell = selected;
     if (selectedCell != null) {
@@ -296,8 +336,8 @@ class _HeatmapPainter extends CustomPainter {
     }
   }
 
-  void _drawDensityCloud(Canvas canvas, _PitchTransform transform) {
-    final pitch = transform.pitch;
+  void _drawDensityCloud(Canvas canvas, _RouteTransform transform) {
+    final pitch = transform.viewport;
     final columns = (pitch.width / 5).round().clamp(42, 72);
     final rows = (pitch.height / 5).round().clamp(64, 112);
     final sources = data.cells.values.map((cell) {

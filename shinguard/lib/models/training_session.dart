@@ -14,6 +14,7 @@ class TrainingSession {
     required this.sprints,
     required this.kicks,
     this.shots = 0,
+    this.shotsEstimated = false,
     required this.typeIcon,
     required this.events,
     this.sessionId = '',
@@ -30,6 +31,7 @@ class TrainingSession {
   final int sprints;
   final int kicks;
   final int shots;
+  final bool shotsEstimated;
   final IconData typeIcon;
   final List<TimelineEvent> events;
   final String sessionId;
@@ -51,6 +53,7 @@ class TrainingSession {
       sprints: intFromMap(map, 'sprints', 0),
       kicks: intFromMap(map, 'kicks', 0),
       shots: intFromMap(map, 'shots', 0),
+      shotsEstimated: map['shotsEstimated'] == true,
       typeIcon: iconFromKey(
         map['typeIcon'],
         fallback: Icons.sports_soccer_rounded,

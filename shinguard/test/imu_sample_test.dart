@@ -114,4 +114,27 @@ void main() {
       isNull,
     );
   });
+
+  test('current firmware pairs matching sequences only and consumes once', () {
+    final accumulator = ImuFrameAccumulator();
+    final motion = {
+      'f': 0,
+      'n': 10,
+      'sh': 0,
+      'a': [1, 2, 3],
+      'ok': 1,
+    };
+    final orientation = {'f': 1, 'n': 10, 'sh': 0, 'g': 1.2};
+
+    accumulator.add(motion);
+    expect(accumulator.add({...orientation, 'n': 11}), isNull);
+    expect(accumulator.add(orientation), isNull);
+    accumulator.add(motion);
+    accumulator.add({
+      'f': 2,
+      'p': [1, 2],
+    });
+    expect(accumulator.add(orientation)!.sequence, 10);
+    expect(accumulator.add(orientation), isNull);
+  });
 }

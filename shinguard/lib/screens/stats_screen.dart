@@ -534,8 +534,16 @@ class _MatchOverviewScreenState extends State<MatchOverviewScreen> {
         Icons.speed_rounded,
       ),
       ('${_match.sprints}', 'Sprints', Icons.directions_run_rounded),
-      ('${_match.shots}', 'Shots', Icons.sports_soccer_rounded),
-      ('${_match.kicks}', 'Touches', Icons.touch_app_rounded),
+      (
+        '${_match.shots}',
+        _match.shotsEstimated ? 'Estimated shots' : 'Shots',
+        Icons.sports_soccer_rounded,
+      ),
+      (
+        '${_match.kicks}',
+        _match.shotsEstimated ? 'Estimated kicks' : 'Touches',
+        Icons.touch_app_rounded,
+      ),
       ('${_match.goals}', 'Goals', Icons.sports_score_rounded),
       ('${_match.assists}', 'Assists', Icons.assistant_rounded),
       ('${_match.tackles}', 'Tackles', Icons.shield_rounded),

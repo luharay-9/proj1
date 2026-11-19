@@ -74,33 +74,38 @@ class ImuSample {
 
 class ImuFrameAccumulator {
   Map<String, dynamic>? _motionFrame;
-  Map<String, dynamic>? _orientationFrame;
 
   ImuSample? add(Map<String, dynamic> frame) {
     final frameType = _integer(frame['f']);
     if (frameType == 0) {
       _motionFrame = Map<String, dynamic>.from(frame);
       return null;
-    } else if (frameType == 1) {
-      _orientationFrame = Map<String, dynamic>.from(frame);
-    } else {
-      return null;
     }
+    if (frameType != 1) return null;
 
     final motion = _motionFrame;
-    final orientation = _orientationFrame;
-    if (motion == null || orientation == null) return null;
+    _motionFrame = null;
+    if (motion == null) return null;
+    // Current firmware sends both halves with the same sequence number.
+    // Older firmware labeled consecutive halves with consecutive numbers.
+    final motionSequence = _integer(motion['n']);
+    final sequence = _integer(frame['n']);
+    final pairedFirmware = motion.containsKey('sh') || frame.containsKey('sh');
+    if (sequence != motionSequence &&
+        (pairedFirmware || sequence != motionSequence + 1)) {
+      return null;
+    }
     final acceleration = ImuVector3.fromValue(motion['a']);
 
     return ImuSample(
-      sequence: _integer(frame['n']).clamp(0, 1 << 31),
+      sequence: sequence.clamp(0, 1 << 31),
       sensorTimeSeconds: _decimal(frame['t']),
       acceleration: acceleration,
       linearAcceleration: ImuVector3.fromValue(motion['l']),
       angularVelocity: ImuVector3.fromValue(motion['w']),
-      magneticField: ImuVector3.fromValue(orientation['m']),
-      orientation: ImuQuaternion.fromValue(orientation['q']),
-      accelerationG: _decimal(orientation['g']),
+      magneticField: ImuVector3.fromValue(frame['m']),
+      orientation: ImuQuaternion.fromValue(frame['q']),
+      accelerationG: _decimal(frame['g']),
       sprintCount: _integer(frame['sc']).clamp(0, 1 << 31),
       sprintEvent: _flag(frame['sp']),
       kickEvent: _flag(frame['k']),
@@ -113,7 +118,6 @@ class ImuFrameAccumulator {
 
   void reset() {
     _motionFrame = null;
-    _orientationFrame = null;
   }
 }
 

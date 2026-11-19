@@ -337,7 +337,7 @@ class TimelineHero extends StatelessWidget {
               Expanded(
                 child: MiniSessionStat(
                   value: '${session.shots}',
-                  label: 'Shots',
+                  label: session.shotsEstimated ? 'Est. Shots' : 'Shots',
                   unit: '',
                   icon: Icons.sports_soccer_rounded,
                 ),

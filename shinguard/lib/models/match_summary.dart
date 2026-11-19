@@ -18,6 +18,7 @@ class MatchSummary {
     required this.color,
     this.kicks = 0,
     this.shots = 0,
+    this.shotsEstimated = false,
     this.goals = 0,
     this.assists = 0,
     this.tackles = 0,
@@ -41,6 +42,7 @@ class MatchSummary {
   final Color color;
   final int kicks;
   final int shots;
+  final bool shotsEstimated;
   final int goals;
   final int assists;
   final int tackles;
@@ -65,6 +67,7 @@ class MatchSummary {
       color: colorFromValue(map['color']),
       kicks: intFromMap(map, 'kicks', 0),
       shots: intFromMap(map, 'shots', 0),
+      shotsEstimated: map['shotsEstimated'] == true,
       goals: intFromMap(map, 'goals', 0),
       assists: intFromMap(map, 'assists', 0),
       tackles: intFromMap(map, 'tackles', 0),
@@ -91,6 +94,7 @@ class MatchSummary {
       color: color,
       kicks: kicks,
       shots: shots,
+      shotsEstimated: shotsEstimated,
       goals: goals,
       assists: assists,
       tackles: tackles,

@@ -34,8 +34,12 @@ class PlayerPosition {
     if (coordinates.length < 2) return null;
     final latitude = _nullableDecimal(coordinates[0]);
     final longitude = _nullableDecimal(coordinates[1]);
+    final time = _nullableDecimal(telemetry['t']);
     if (latitude == null ||
         longitude == null ||
+        time == null ||
+        !time.isFinite ||
+        time < 0 ||
         !latitude.isFinite ||
         !longitude.isFinite) {
       return null;
@@ -46,12 +50,10 @@ class PlayerPosition {
     return PlayerPosition(
       latitude: latitude,
       longitude: longitude,
-      altitudeMeters: coordinates.length > 2
-          ? _nullableDecimal(coordinates[2])
-          : null,
-      sensorTimeSeconds: _nullableDecimal(telemetry['t']) ?? 0,
+      altitudeMeters: coordinates.length > 2 ? _finite(coordinates[2]) : null,
+      sensorTimeSeconds: time,
       satellites: _integer(telemetry['sat']).clamp(0, 99),
-      speedKmh: _nullableDecimal(telemetry['v']),
+      speedKmh: _groundSpeed(telemetry['v']),
     );
   }
 
@@ -94,6 +96,16 @@ class PlayerPosition {
       speedKmh: speedKmh,
     );
   }
+}
+
+double? _finite(Object? value) {
+  final number = _nullableDecimal(value);
+  return number != null && number.isFinite ? number : null;
+}
+
+double? _groundSpeed(Object? value) {
+  final speed = _finite(value);
+  return speed != null && speed >= 0 && speed <= 60 ? speed : null;
 }
 
 double routeDistanceKilometers(Iterable<PlayerPosition> positions) {
@@ -139,6 +151,6 @@ double? _nullableDecimal(Object? value) {
 }
 
 int _integer(Object? value) {
-  if (value is num) return value.toInt();
+  if (value is num && value.isFinite) return value.toInt();
   return int.tryParse('$value') ?? 0;
 }

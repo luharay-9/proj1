@@ -29,28 +29,30 @@ print("BLE name:", ble.name)
 print("Advertisement bytes:", len(bytes(advertisement)), bytes(advertisement))
 print("Scan response bytes:", len(bytes(scan_response)), bytes(scan_response))
 
-try:
-    ble.start_advertising(
-        advertisement,
-        scan_response=bytes(scan_response),
-    )
-except Exception as error:
-    print("start_advertising failed:", repr(error))
-    raise
 
-print("Advertising:", ble.advertising)
-print("Scan for ShinGuard-DIAG in nRF Connect.")
-
-while True:
-    if ble.connected:
-        print("Connected. Peer count:", len(ble.connections))
-        while ble.connected:
-            time.sleep(0.25)
-        print("Disconnected; restarting advertising.")
+def advertise():
+    try:
         ble.start_advertising(
             advertisement,
             scan_response=bytes(scan_response),
         )
-        print("Advertising:", ble.advertising)
+    except Exception as error:
+        print("start_advertising failed:", repr(error))
+        raise
+    print("Advertising:", ble.advertising)
 
-    time.sleep(1)
+
+advertise()
+print("Scan for ShinGuard-DIAG in nRF Connect.")
+
+was_connected = False
+while True:
+    connected = ble.connected
+    if connected and not was_connected:
+        print("Connected. Peer count:", len(ble.connections))
+    elif not connected and was_connected:
+        print("Disconnected.")
+    if not connected and not ble.advertising:
+        advertise()
+    was_connected = connected
+    time.sleep(0.25)
